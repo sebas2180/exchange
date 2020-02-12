@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="alert alert-success" role="alert" *ngIf= "!desconectado">
+    <div class="row">
+        <div class="col-md-12 text-center">
+          <br>
+          <button class="btn btn-danger" (click)="cerrarVentanaDialogo()" >X</button>
+          <hr>
+          <h4 class="alert-heading">Hasta proonto!</h4>
+          <p>Te has desconectado correctamente.</p>
+        </div>
+        
+    </div>
+  </div>
+</div>

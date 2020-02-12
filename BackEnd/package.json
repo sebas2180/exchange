@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "server para app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon src/index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebas2180/exchange.git"
+  },
+  "author": "Sebastian Batalla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebas2180/exchange/issues"
+  },
+  "homepage": "https://github.com/sebas2180/exchange#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "http": "0.0.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^2.1.0",
+    "nodemon": "^2.0.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "session-memory-store": "^1.0.0"
+  }
+}

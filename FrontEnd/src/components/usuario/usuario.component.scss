@@ -1,0 +1,25 @@
+div.row {
+    margin: 4%;
+}
+button{
+    padding-block: 4%;
+}
+button {
+    font-size: 120%;
+}
+.col{
+    margin:4%;
+}
+@media screen and (max-width: 766px) {
+ button {
+     margin-top: 5px;
+     margin-bottom: 5px;
+ }
+
+
+}
+@media (min-width: 767px){  
+}
+
+@media(min-width:768px) and (max-width:1250px) {
+}
