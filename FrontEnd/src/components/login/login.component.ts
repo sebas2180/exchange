@@ -4,8 +4,7 @@ import { UsuarioService } from '../../app/services/usuarioService.service';
 
 import { UsuarioModule } from '../../app/models/usuario/usuario.module';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
-import {  DialogoDesconectadoComponent } from '../dialogo-desconectado/dialogo-desconectado.component';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,11 +24,13 @@ export class LoginComponent implements OnInit {
     this.usuario = {
       usuario : '',
       password: '',
-      pais :''
+      pais :'',
+      
     }
   }
 
   entrar(){
+    console.log('ok');
     this.service.login(this.usuario).subscribe(
       res => { 
         if(res['status'] == ( 702 || 703) ) {

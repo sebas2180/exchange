@@ -1,10 +1,8 @@
-import { DepositosComponent } from '../components/depositos/depositos.component';
+import { DepositosComponent } from './../components/depositos/depositos.component';
 import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { LoginComponent } from '../components/login/login.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule,Router } from '@angular/router';
-import { AuthserviceService } from './services/authservice.service';
-
 
 const routes: Routes = [
   {
@@ -19,6 +17,9 @@ const routes: Routes = [
 {
   path: 'panel-usuario',
   component: UsuarioComponent,
+},{
+  path: 'MisTransacciones',
+  component: DepositosComponent,
 }
 ];
 

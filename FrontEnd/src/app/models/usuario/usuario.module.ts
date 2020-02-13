@@ -1,5 +1,7 @@
+  
 import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DepositoModule } from '../deposito/deposito.module';
 
 
 
@@ -17,12 +19,6 @@ export class UsuarioModule {
   pais: string;
   tasa?: number;
   saldo?: number;
+  // depositos?: DepositoModule[];
 
-  // constructor( usuario:string, password:string, pais:string, tasa?, saldo?) {
-  //   this.usuario = usuario;
-  //   this.password = password;
-  //   this.pais = pais;
-  //   this.tasa = 0 || this.tasa;
-  //   this.saldo = 0 || this.saldo;
-  // }
 }

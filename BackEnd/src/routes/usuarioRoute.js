@@ -23,6 +23,8 @@ const conn = mysql.dbConnection();
              status:702,
              success:'usuario no existente'
           }
+          res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+              
           return res.send(JSON.stringify(devolver)); }
           }else{
             req.logIn(user, function(err) {
@@ -34,7 +36,7 @@ const conn = mysql.dbConnection();
                 user: user
               }
               res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-              return res.send(JSON.stringify(devolver));
+              return res.send((devolver));
             });
           }
          

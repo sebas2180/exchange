@@ -1,0 +1,10 @@
+
+use exchange;
+CREATE TABLE depositos (
+  id INT NOT NULL AUTO_INCREMENT,
+  'fecha' DATETIME NULL,
+  'monto' FLOAT NOT NULL,
+  'pais' VARCHAR(45) NOT NULL,
+  'status' VARCHAR(45) NOT NULL,
+  'create_at' VARCHAR(45) NULL DEFAULT 'DEFAULT CURRENT_TIMESTAMP'
+  );

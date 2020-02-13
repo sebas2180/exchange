@@ -52,6 +52,7 @@ app.all('*', function(req, res, next) {
 });
 ////
 const usuarioRoute= require('./src/routes/usuarioRoute')(app,passport);
+const depositoRoute= require('./src/routes/depositoRoutes')(app,passport);
 server.listen(3000,()=>{
     console.log('server conectado en el puerto: '+server.address().port);
 });

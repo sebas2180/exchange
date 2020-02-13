@@ -12,7 +12,7 @@ export class NavigatorComponent implements OnInit {
   constructor(public service: UsuarioService, public auth: AuthserviceService) {
 
     console.log('this.service.logeado     :'+this.service.logeado);
-   ///this.auth.clearLocalStorage();
+   //this.auth.clearLocalStorage();
   }
 
   ngOnInit( ) {

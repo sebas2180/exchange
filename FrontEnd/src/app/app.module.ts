@@ -1,3 +1,5 @@
+import { DepositosComponent } from './../components/depositos/depositos.component';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
@@ -9,18 +11,18 @@ import { LoginComponent } from '../components/login/login.component';
 import { AppComponent } from './app.component';
 import { NavigatorComponent } from '../components/navigator/navigator.component';
 import { UsuarioComponent } from '../components/usuario/usuario.component';
-import { HistorialComponent } from '../components/historial/historial.component';
+
 import { SiteFooterComponent } from '../components/site-footer/site-footer.component';
 import { DialogoDesconectadoComponent } from '../components/dialogo-desconectado/dialogo-desconectado.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DepositoService } from './services/deposito/deposito.service';
 
-import { DepositosComponent } from '../components/depositos/depositos.component';
 @NgModule({
   declarations: [
     LoginComponent,
     AppComponent,
     NavigatorComponent,
     UsuarioComponent,
-    HistorialComponent,
     SiteFooterComponent,
     DialogoDesconectadoComponent,
     DepositosComponent
@@ -30,9 +32,10 @@ import { DepositosComponent } from '../components/depositos/depositos.component'
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule
   ],
-  providers: [UsuarioService],
+  providers: [UsuarioService, DepositoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
