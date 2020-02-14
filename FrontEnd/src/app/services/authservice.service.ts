@@ -1,3 +1,4 @@
+import { UsuarioModule } from './../models/usuario/usuario.module';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,7 +12,7 @@ export class AuthserviceService {
     this.getLocal();
   }
   public getLocal(){
-   
+    return localStorage.getItem('userInfo');
   }
   public isAuthenticatede() : Boolean {
     let userData = localStorage.getItem('userInfo');

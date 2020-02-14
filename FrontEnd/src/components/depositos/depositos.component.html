@@ -1,3 +1,46 @@
-<ul>
-<li *ngFor="let u of depositos">{{u.monto}}</li>
-</ul>
+
+
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+   <!-- id Column -->
+   <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- pais Column -->
+  <ng-container matColumnDef="pais">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> PAIS </th>
+    <td mat-cell *matCellDef="let element"> {{element.pais}} </td>
+  </ng-container>
+
+  <!-- fecha Column -->
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
+    <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+  </ng-container>
+
+  <!-- monto Column -->
+  <ng-container matColumnDef="monto">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> MONTO </th>
+    <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
+  </ng-container>
+
+  <!-- status Column -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+
+
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

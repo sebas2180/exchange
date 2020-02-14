@@ -1,7 +1,7 @@
 import { UsuarioService } from './../../app/services/usuarioService.service';
 import { UsuarioModule } from '../../app/models/usuario/usuario.module';
 import { Component, OnInit } from '@angular/core';
-
+import { MatSortModule } from '@angular/material/sort';
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',

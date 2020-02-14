@@ -18,15 +18,13 @@ export class DepositoService  {
 
   }
   CanActivate(){
+    console.log('CAN ACTIVATE ');
     if(this.authService.isAuthenticatede()){
       console.log('canActivate:  '+ this.authService.isAuthenticatede());
       return true;
     }
     this.route.navigate(['login']);
     return false;
-  }
-  a(){
-    return 12;
   }
 
   getAllDepositosForUser(id: number): Observable<DepositoModule>{
