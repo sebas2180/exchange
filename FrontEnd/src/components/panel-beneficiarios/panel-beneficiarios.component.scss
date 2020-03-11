@@ -1,0 +1,54 @@
+.container-fluid{
+    position: fixed;
+    bottom: 0;
+    height: 15%;
+    margin: 0%;
+    height:auto !important;
+    max-height: 80%;
+    overflow:auto;
+}
+#alertaEliminado{
+    position: fixed;
+    z-index: 350px;
+    top:25%;
+    width: 50%;
+    left: 35%;
+}
+@media(max-width:768px) and (min-height:375px)  {
+    .list {
+        display: inline-block;
+        position: fixed;
+        width: 100%;
+        height: 75%;
+        margin-top: 0%;
+        padding-top: 0%;
+        top:16%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+        border: 1px solid #e8f8ff;
+    
+    }
+}
+@media(min-width:768px) and (min-height:375px) {
+    .list {
+        display: inline-block;
+        position: fixed;
+        width: 100%;
+        height: 65%;
+        margin-top: 0%;
+        padding-top: 0%;
+        top:16%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+        border: 1px solid #e8f8ff;
+    
+    }
+}
+
+button{
+
+    height: 50px;
+
+}

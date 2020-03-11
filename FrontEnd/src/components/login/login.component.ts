@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
       usuario : '',
       password: '',
       pais :'',
+      id: 0
       
     }
   }

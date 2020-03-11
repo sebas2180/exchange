@@ -1,55 +1,76 @@
 
 <br>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12" id="box">
-            <h3 class="text-center">{{this.usuario.usuario}}</h3>
-        </div>
-        <div class="col-md-12 card" id="box">
-            <h4 class="card-body text-center" ><p>Saldo:      </p>{{this.usuario.saldo}} </h4>
-        </div>
-        <br>
-    </div>
-    <div class="row">
-        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-            <div class="card">
-                <div class="card-body text-center ">
-                    <label   class=" text-center" >Tasa</label>
-                    <h4 class="text-center">{{this.usuario.tasa}}</h4>  
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-            <div class="card">
-                <div class="card-body text-center ">
-                    <label   class=" text-center" >Pais</label>
-                    <h4 class="text-center">{{this.usuario.pais}}</h4>  
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="div1">
+    <p>Bienvenido   {{this.usuario.usuario}}!</p>
+    <div class="edit">
+        <i class="material-icons">settings_system_daydream</i>
+      </div>
+      
 </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 ">
-            <div class="card ">
-                <div class="card-body ">
-                    <div class="row"> 
-                        <div class="col-md-4" id="box">
-                            <button class="btn btn-success btn-block" routerLink="/MisTransacciones" style="height: 150%;">MIS TRANSFERENCIAS</button>
-                        </div>
-                        <div class="col-md-4" id="box">
-                            <button class="btn btn-success btn-block" style="height: 150%;">BENEFICIARIOS</button>
-                        </div>
-                        <div class="col-md-4" id="box">
-                            <button class="btn btn-success btn-block" style="height: 150%;">MIS TRANSFERENCIAS</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-        </div>
-        
-    </div>
+<div class="container" id="div2">
+    <mat-grid-list cols="2" rowHeight="160px" >
+        <mat-grid-tile class="grid-test-1"> 
+        <mat-card style="width: 105%;">
+            <mat-card-header>
+                <mat-card-title>
+                    <label   class=" text-center"  > Depositos</label>
+                </mat-card-title>
+            </mat-card-header>
+           <mat-card-content>
+            <h4 class="text-center">
+                <ul>
+                    <li> Totales: {{this.cantidad_depositos}}</li>
+                    <li>Ultimo mes: 0</li>
+                </ul>
+            </h4>  
+            </mat-card-content>
+        </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1"> 
+            <mat-card style="width: 105%;">
+                <label   class=" text-center" >Tasa</label>
+                <h4 class="text-center"> aca vaa </h4>  
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1"> 
+            <mat-card style="width: 105%;">
+                <label   class=" text-center" >Pais</label>
+                <h4 class="text-center">{{this.usuario.pais}}</h4>  
+                </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1" > 
+            <mat-card style="width: 105%;">
+                <mat-card-header>
+                    <mat-card-title>
+                        <label   class=" text-center" >Saldo </label>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                   <mat-label>
+                    <h4 class="text-center">{{this.usuario.saldo}}
+                        <span matPrefix>$&nbsp;</span>
+                    </h4> 
+                   </mat-label> 
+                </mat-card-content>
+                </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<div class="container-fluid" id="div3">
+    <mat-grid-list cols="3" rowHeight="100px">
+        <mat-grid-tile class="grid-test-1"> 
+            <button 
+            class="btn btn-success btn-block " 
+            routerLink="/MisTransacciones">Transacciones</button>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1"> 
+            <button class="btn btn-success btn-block "
+                    routerLink="/PanelBeneficiarios">Mis beneficiarios</button>
+        </mat-grid-tile>
+        <mat-grid-tile class="grid-test-1"> 
+            <button class="btn btn-success btn-block ">Enviar</button>
+            
+        </mat-grid-tile>
+    </mat-grid-list>
 </div>

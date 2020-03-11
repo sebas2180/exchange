@@ -1,0 +1,32 @@
+
+#alerta{
+    position: fixed;
+    z-index: 400px;
+    top: 20%;
+    left: 25%;
+    width: 50%;
+}
+@media(max-width:768px)  {
+    h6{
+       
+        font-size: 0.8em;
+    }
+    p{
+        font-weight: bold;
+        font-size: 0.7em;
+    }
+    mat-grid-tile {
+        padding-top: 15% !important;
+    }
+    
+}
+@media(min-width:768px)  {
+    h6{
+        font-size: 1.4em;
+    }
+    p{
+        font-weight: bold;
+        font-size: 1.4em;
+    }
+    
+}

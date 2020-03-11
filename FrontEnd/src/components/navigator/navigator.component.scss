@@ -1,6 +1,21 @@
 .navbar {
+    position: fixed;
+    z-index: 90;
+    //overflow: hidden;
+    top: 0;
+    width: 100%;
+    height: 15%;
+    max-width: 150%;
     background: #0052D4;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #6FB1FC, #4364F7, #0052D4);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #6FB1FC, #4364F7, #0052D4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
+    margin-bottom: 0%;
 }
+#navbarSupportedContent {
+    float: left;
+    margin-left: 10px;
+    background: #0052D4;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #6FB1FC, #4364F7, #0052D4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6FB1FC, #4364F7, #0052D4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  }

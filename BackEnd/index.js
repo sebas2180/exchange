@@ -51,8 +51,12 @@ app.all('*', function(req, res, next) {
     next();
 });
 ////
+const dashBoardRoutes= require('./src/routes/dashBoardRoutes')(app,passport);
 const usuarioRoute= require('./src/routes/usuarioRoute')(app,passport);
 const depositoRoute= require('./src/routes/depositoRoutes')(app,passport);
+const bancoRoute = require('./src/routes/bancoRoutes')(app,passport);
+const tasaRoute = require('./src/routes/tasaRoutes')(app,passport);
+const beneficiarioRoute = require('./src/routes/beneficiarioRoutes')(app,passport);
 server.listen(3000,()=>{
     console.log('server conectado en el puerto: '+server.address().port);
 });

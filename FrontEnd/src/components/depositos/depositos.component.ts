@@ -9,10 +9,7 @@ import {  MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+
 }
 @Component({
   selector: 'app-depositos',
@@ -26,7 +23,7 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   depositos: DepositoModule[];
   deposito: DepositoModule ;
   aux : string ;
-  displayedColumns: string[] = ['id','pais','fecha','monto','status'];
+  displayedColumns: string[] = ['id','pais','fecha','monto','status','action'];
   
   // displayedColumns: string[] = ['id', 'monto', 'pais', 'status','fecha'];
   // //displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -56,6 +53,9 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  edit(dep: DepositoModule) {
+
   }
 
 }

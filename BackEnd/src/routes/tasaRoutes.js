@@ -1,0 +1,64 @@
+
+
+const TasaModule = require('../models/tasaModel');
+
+
+
+function tasaRoutes(app,passport){
+    app.get('/getTasas',(req,res,next)=>{
+        TasaModule.getTasas()
+        .then(
+            resp=>{
+                if(resp.length){
+                const sendInfo={
+                    status: 711,
+                    msj: 'Perfecto!, se han encontrado las tasas actuales',
+                    tasas: resp
+                }
+                console.log(sendInfo);
+                res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+                 return res.end(JSON.stringify(sendInfo));
+            }else{
+                console.log('null');
+          const sendInfo={
+              status: 712,
+              msj: 'Ops!.No se encontraron las tasas actuales',
+              tasa: ''
+            }
+            console.log(sendInfo);
+            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+            return res.end(JSON.stringify(sendInfo));
+            }
+            })
+    }),
+    app.get('/getTasa',(req,res,next)=>{
+        console.log('gettasa');
+        TasaModule.getTasa(req.query.pais)
+        .then(
+            resp=>{
+               // console.log(resp);
+                if(resp.length){
+                const sendInfo={
+                    status: 711,
+                    msj: 'Perfecto!, se han encontrado las tasas actuales',
+                    tasa: resp[0]
+                }
+                console.log(sendInfo);
+                res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+                
+                return res.end(JSON.stringify(sendInfo));
+            }else{
+                console.log('null');
+          const sendInfo={
+              status: 712,
+              msj: 'Ops!.No se encontraron las tasas actuales',
+              tasa: ''
+            }
+            console.log(sendInfo);
+            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+            return res.end(JSON.stringify(sendInfo));
+            }
+            })
+    });
+}
+module.exports=tasaRoutes;

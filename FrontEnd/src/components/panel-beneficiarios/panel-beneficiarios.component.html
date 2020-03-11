@@ -1,0 +1,28 @@
+<div class="container-fluid" >
+  <mat-grid-list cols="2" rowHeight="90px">
+    <mat-grid-tile [colspan]="1" [rowspan]="1" >
+       <button class="btn btn-success btn-block" >Nuevo destinatario</button>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" >
+      <button class="btn btn-success btn-block" routerLink="/transferencias">Nuevo Transferencia</button>
+   </mat-grid-tile>
+
+  </mat-grid-list>
+</div>
+<div class="list">
+  <app-beneficiario *ngFor='let beneficiario of this.BeneficiariosAutho.beneficiarios' [beneficiario]= "beneficiario"></app-beneficiario>
+</div>
+  <div class="container" id="alertaEliminado" *ngIf="this.panelService.mostrarAlertaEliminado" >
+    <div class="card">
+      <div class="card-body">
+        <h1>Eliminado exitoso!</h1>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-success btn-block" (click)="this.panelService.cerrarAlerta()">OK</button>
+      </div>
+    </div>
+  </div>
+
+
+    

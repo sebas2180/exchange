@@ -13,12 +13,16 @@ import { DepositoModule } from '../deposito/deposito.module';
   ]
 })
 export class UsuarioModule { 
-
+  id?: number;
   usuario: string;
   password: string;
   pais: string;
-  tasa?: number;
   saldo?: number;
-  // depositos?: DepositoModule[];
+  email?:string;
+  telefono?:string;
+
+  deserialize?(input: any): this {
+    return Object.assign(this, input);
+  }
 
 }

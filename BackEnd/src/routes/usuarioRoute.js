@@ -12,6 +12,41 @@ const conn = mysql.dbConnection();
     app.get('/panelUser',isAuthenticated, (req, res, next) => {
         res.render('profile');
       });
+    app.get('/getUsuario',isAuthenticated, (req, res, next) => {
+     resp =usuarioModel.getUsuario(req.query.id)
+     .then(
+       resp=>{
+        if(!resp.length){
+          console.log('null');
+          const sendInfo={
+              status: 709,
+              msj: 'Ops!.No se encontraron el usuario',
+              beneficiario: ''
+            }
+       
+            
+            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+            return res.end(JSON.stringify(sendInfo));
+
+      }else{
+        const sendInfo={
+          status: 710,
+          msj: 'Perfecto!, se han encontrado usuario',
+          usuario: resp
+        }
+
+        
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        return res.end(JSON.stringify(sendInfo));
+       }
+      }
+     )
+     
+
+
+      
+      });
+
 
     app.post('/login', function(req, res, next) {
         passport.authenticate('local', function(err, user, info) {
@@ -52,12 +87,14 @@ const conn = mysql.dbConnection();
             status: 999,
             url:'Desconexion correcta'
           }
-          console.log(sendInfo.url);
+    
+          
             res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
            return res.end(JSON.stringify(sendInfo.url));
       });
       });
 
+      
     app.post('/ea',(req,res)=>{
         console.log('hodddla');
     });

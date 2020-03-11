@@ -1,3 +1,5 @@
+import { AuthserviceService } from './../../app/services/authservice.service';
+import { DepositoService } from 'src/app/services/deposito/deposito.service';
 import { UsuarioService } from './../../app/services/usuarioService.service';
 import { UsuarioModule } from '../../app/models/usuario/usuario.module';
 import { Component, OnInit } from '@angular/core';
@@ -9,8 +11,9 @@ import { MatSortModule } from '@angular/material/sort';
 })
 export class UsuarioComponent implements OnInit {
 
+  cantidad_depositos : number;
   usuario: UsuarioModule;
-  constructor(private service: UsuarioService) { 
+  constructor(private authService: AuthserviceService, private depService : DepositoService,private service: UsuarioService) { 
   }
 
   ngOnInit() {
@@ -20,8 +23,22 @@ export class UsuarioComponent implements OnInit {
       password:'****',
       saldo:12000,
       pais:'Argentina',
-      tasa:0
-    }
+      id:0    }
+    this.cantidad_depositos=0;
+    const data = JSON.parse(this.authService.getLocal());
+    this.depService.getEstadisticasDelUsuario(data['id']).subscribe(
+      res => {
+        const a =JSON.parse(res['body']);
+       
+          this.cantidad_depositos= (a[0].cantidad);
+
+        
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  
   }
 
 }

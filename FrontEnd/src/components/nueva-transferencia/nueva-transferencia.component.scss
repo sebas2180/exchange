@@ -1,0 +1,99 @@
+
+.info{
+  background-color: slategrey;
+  color: rgb(241, 239, 239);
+  position: relative;
+  width: 100%;
+ 
+}
+#lbl_info{
+  left: -10%;
+  width: 100%;
+  animation: cambiar 15s infinite;
+}
+
+
+@keyframes cambiar{
+  @for $i from 0 through 100{  
+     #{$i * 1%}{left: #{($i * 1%)-35} ; } 
+  }
+}
+
+
+label{
+  position: relative;
+  margin-left: 30%;
+}
+.my-form{
+  min-width: 250px;
+  max-width: 600px;
+  width: 100%;
+}
+mat-card-header{
+  background-color: rgb(190, 190, 228);
+
+
+}
+.full-width {
+  width: 100%;
+}
+input{
+  font-weight: 2em;
+}
+button{
+  width: 100%;
+}
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+mat-form-field,button{
+font-weight: 3em;
+align-items:  center;
+margin-bottom: 5%;
+
+}
+
+@media(min-width:768px) {
+  .info{
+    margin-top: 3%;
+    bottom:37%;
+  }
+#lbl_info{
+    margin-top: 1%;
+    font-size: 1.5em;
+    
+  }
+  h2{
+    position: relative;
+    margin-left: 2%;
+    width: 100%;
+    display: flex;
+    left: 100%;
+   
+  }
+}
+@media(max-width:768px)  {
+    
+h2{
+  position: relative;
+  margin-left: 2%;
+  width: 100%;
+  display: flex;
+  left:40%;
+ 
+}
+.info{
+  position: fixed;
+  margin-top: 3%;
+  top:15%;
+}
+mat-card{
+  position: fixed;
+  top:21%;
+}
+
+}

@@ -1,3 +1,16 @@
-table{
+mat-form-field{
+    position: fixed;
+    top:15%;
     width:  100%;
 }
+table {
+    font-size: 14px;
+    width: 100%;
+    position: fixed;
+    top:20%
+  }
+  @media  (max-width: 766px) {
+    td {
+      font-size: 0.8em;
+    }
+  }

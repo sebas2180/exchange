@@ -1,10 +1,12 @@
+
 import { Observable } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 import { AuthserviceService } from './../authservice.service';
 import { HttpClient, HttpParams,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DepositoModule } from 'src/app/models/deposito/deposito.module';
-import {map, catchError} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+
 
 
 
@@ -12,6 +14,9 @@ import {map, catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DepositoService  {
+
+  
+
 
   constructor(private http: HttpClient,private authService: AuthserviceService, private route : Router) { 
 
@@ -27,10 +32,18 @@ export class DepositoService  {
     return false;
   }
 
+getEstadisticasDelUsuario(id: number){
+const params = new HttpParams()
+  .set('id_user',id.toString());
+    return this.http.get<string>(`http://localhost:3000/EstadisticasDelUsuario/`,
+    {params: params,observe: 'response'});
+  }
   getAllDepositosForUser(id: number): Observable<DepositoModule>{
       console.log('service consola');
+      const params = new HttpParams()
+      .set('id', id.toString());
         return this.http.get<DepositoModule[]>(`http://localhost:3000/allDepositsForUser/`,{
-          params: {id: '1' },observe: 'response'}).pipe(
+          params: params ,observe: 'response'}).pipe(
             map((data => new DepositoModule().deserialize(data))
             )
           )

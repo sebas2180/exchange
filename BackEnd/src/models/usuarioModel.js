@@ -13,5 +13,25 @@ module.exports = {
         return res1;
         });
 
+    },
+    getUsuario : function(id) { 
+        const linea = 'SELECT * FROM USUARIOS WHERE id='+id;
+        console.log(linea);
+        return new Promise((resolve,reject) =>{
+            conn.query(linea,(err,res1) => {
+                if(err) {
+                    console.log(err);
+                }
+                
+                if(!res1.length){
+                    resolve([]);
+                }else{
+                    // console.log(res1);
+                    resolve(res1);
+                }
+                resolve(res1);
+            });
+        });
+
     }
 }
