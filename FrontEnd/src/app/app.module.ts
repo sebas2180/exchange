@@ -54,7 +54,7 @@ import { BeneficiarioComponent } from '../components/beneficiario/beneficiario.c
     NuevoBeneficiarioComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
