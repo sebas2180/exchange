@@ -43,7 +43,7 @@ function beneficiarioRoute(app,passport) {
         .then(
             resp=>{
                       console.log(resp);
-                      res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+                      //res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
                       return res.end(JSON.stringify(resp));
             }
         )

@@ -27,47 +27,35 @@ module.exports = {
     },
     addBeneficiario : function(beneficiario) {
     
-    
-       const linea = 'INSERT INTO beneficiario(nombre,apellido,tipo_documento,nro_documento,'+
-                                        'tipo_cuenta,nro_cuenta,id_banco,id_usuario)'+
-                                            ' VALUES(\''+beneficiario.nombre+'\','+
-                                                '\''+beneficiario.apellido+'\','+
-                                                '\''+beneficiario.tipo_documento+'\','+
-                                                    beneficiario.nro_documento+
-                                                ',\''+beneficiario.tipo_cuenta+'\','+
-                                                    beneficiario.nro_cuenta+
-                                                ',\''+beneficiario.id_banco+'\','+
-                                                    beneficiario.id_usuario+
-                    ')';
+    const linea = `INSERT INTO beneficiario SET ?`;
+    console.log(beneficiario.nombre);
         return new Promise((resolve,reject) =>{
-            const lin = 'select count(*) as suma from beneficiario where nombre = ? and apellido = ? and nro_cuenta=?'
-            'and tipo_cuenta=? and tipo_documento=? and nro_documento =? and id_usuario =?'
-            'and id_banco =?';
-              console.log(lin);
-             conn.query(lin,[beneficiario.nombre,beneficiario.apellido,beneficiario.nro_cuenta,
-                    beneficiario.tipo_cuenta,beneficiario.tipo_documento,
-                    beneficiario.nro_documento,beneficiario.id_usuario,beneficiario.id_banco]
-                    ,function (err,rows){
-            
-        if(rows[0].suma>0){
-            conn.close();
+           console.log(beneficiario);
+            const lin = `select count(*) as suma from beneficiario where nombre = \'`+beneficiario.nombre+
+            `\' and apellido = \'`+beneficiario.apellido+`\' and nro_cuenta=`+beneficiario.nro_cuenta+
+            ` and tipo_cuenta=\'`+beneficiario.tipo_cuenta+`\' and tipo_documento=\'`+beneficiario.tipo_cuenta+
+            `\' and nro_documento =`+beneficiario.nro_cuenta+` and id_usuario =`+beneficiario.id_usuario+
+            ` and banco =\'`+beneficiario.banco+`\'`;
 
+             conn.query(lin,[beneficiario],function (err,rows){        
+            console.log(lin);
+        if(rows[0].suma>0){
             resolve({status:702,msj:'Ops, ya tienes un beneficiario cargado identico a este.'});
-        }  
-    });
-            const resp= conn.query(linea,(err,results,fields)=>{
-                conn.close();
+        } else{
+            conn.query(linea,[beneficiario],(err,results,fields)=>{  
+                if (err) throw err;
                 if(err) {
-                    conn.close();
-                    resolve({status:701,msj:'Error al guardar usuario, reintente mas tarde.'});
-                }
+                     resolve({status:701,msj:'Error al guardar usuario, reintente mas tarde.'});
+                 }
                 if(results != null){
                     if(results.affectedRows > 0){
-                        conn.close();
+                     
                         resolve({status:700,msj:'guardado correcto',insertId:results.insertId});
-                    }
+                  }
                 }
-            })      
+            })  
+        }
+    });   
           
         });
        

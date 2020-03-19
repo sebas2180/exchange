@@ -1,11 +1,13 @@
-
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="EJEMPLO: ARGENTINA">
-</mat-form-field>
+<div class="aux" *ngIf="!this.esCliente"></div>
+<div class="tab">
+<div *ngIf="this.isFiltrado && !this.esCliente" class="divFiltro">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="EJEMPLO: ARGENTINA">
+  </mat-form-field>
+</div>
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
    <!-- id Column -->
    <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
@@ -20,8 +22,8 @@
 
   <!-- fecha Column -->
   <ng-container matColumnDef="fecha">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
-    <td mat-cell *matCellDef="let element"> {{element.fecha | date:'MM/dd/yyyy'}} </td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA(dd-mm-yy) </th>
+    <td mat-cell *matCellDef="let element"> {{element.fecha | date:'dd/MM/yy'}} </td>
   </ng-container>
 
   <!-- monto Column -->
@@ -30,14 +32,20 @@
     <td mat-cell *matCellDef="let element"> {{element.monto}} </td>
   </ng-container>
 
+   <!-- status Column -->
+   <ng-container matColumnDef="id_destinatario" *ngIf="!this.esCliente">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> BENEFICIARIO </th>
+    <td mat-cell *matCellDef="let element"> {{element.id_destinatario}} </td>
+  </ng-container>
+
   <!-- status Column -->
-  <ng-container matColumnDef="status">
+  <ng-container matColumnDef="status" *ngIf="!this.esCliente">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </th>
     <td mat-cell *matCellDef="let element"> {{element.status}} </td>
   </ng-container>
 
   <!-- Action Column -->
-    <ng-container matColumnDef="action">
+    <ng-container matColumnDef="action" *ngIf="!this.esCliente">
       <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let element" class="action-link"> 
         <a (click)= "edit(element)" href="/eee" *ngIf="element.status=='COMPLETADA'"><img src="https://img.icons8.com/material/24/000000/ophthalmology.png"></a>  
@@ -45,7 +53,12 @@
     </ng-container>
 
 
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons></mat-paginator>
+<button type="button" class="btn btn-success btn-circle btn-sm" id="filtro" 
+        *ngIf="!this.isFiltrado && !this.esCliente"(click)="filtrado()">Filter</button> 
+<button type="button" class="btn btn-danger btn-circle btn-sm" id="filtro" 
+        *ngIf="this.isFiltrado && !this.esCliente"(click)="cerrarFiltro()">Cerrar</button> 
+</div>

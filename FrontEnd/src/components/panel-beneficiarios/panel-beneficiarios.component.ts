@@ -3,15 +3,32 @@ import { AuthserviceService } from './../../app/services/authservice.service';
 import { BeneficiarioService } from './../../app/services/beneficiario/beneficiario.service';
 import { Component, OnInit ,ViewChild, Input} from '@angular/core';
 import { BeneficiarioModule } from 'src/app/models/beneficiario/beneficiario.module';
+import { trigger, style, state, transition, animate } from '@angular/animations';
 
 
 @Component({
   selector: 'app-panel-beneficiarios',
   templateUrl: './panel-beneficiarios.component.html',
-  styleUrls: ['./panel-beneficiarios.component.scss']
+  styleUrls: ['./panel-beneficiarios.component.scss'],
+  animations:[
+    trigger('enterState',[
+      state('void',style({
+        transform:'translateX(-50%)',
+        opacity:0
+      })),
+      transition(':enter',[
+        animate('0.5s',style({
+          transform:'translateX(0)',
+        opacity:1
+        }))
+      ])
+    ])]
 })
 export class PanelBeneficiariosComponent implements OnInit {
 
+  cliente:number;
+  beneficiario:number;
+  isVisible:boolean=false;
   beneficiarios: BeneficiarioModule[];
   beneficiariosAux: BeneficiarioModule[];
   constructor(public BeneficiariosAutho : BeneficiarioService,
@@ -32,5 +49,13 @@ export class PanelBeneficiariosComponent implements OnInit {
     )
 
   }
-
+  confVisible(isVisible){
+   this.isVisible=isVisible;
+  }
+  confCliente(cliente:number){
+    this.cliente=cliente;
+   }
+   confBeneficiario(beneficiario:number){
+    this.beneficiario=beneficiario;
+   }
 }

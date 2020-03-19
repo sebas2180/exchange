@@ -2,7 +2,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { DepositoModule } from './../../app/models/deposito/deposito.module';
 import { DepositoService } from 'src/app/services/deposito/deposito.service';
-import { Component, OnInit,ViewChild, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { AuthserviceService } from 'src/app/services/authservice.service';
 import {  MatTableDataSource } from '@angular/material/table';
@@ -17,38 +17,54 @@ export interface PeriodicElement {
   styleUrls: ['./depositos.component.scss']
 })
 export class DepositosComponent implements OnInit,AfterViewInit {
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort,{ static: true }) sort: MatSort;
-  
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @Input() esCliente:boolean =false;
+  @Input() nroBeneficiario:number =-1;
+  isFiltrado: boolean=false;
   depositos: DepositoModule[];
   deposito: DepositoModule ;
   aux : string ;
-  displayedColumns: string[] = ['id','pais','fecha','monto','status','action'];
-  
-  // displayedColumns: string[] = ['id', 'monto', 'pais', 'status','fecha'];
-  // //displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource =  new MatTableDataSource();
+  displayedColumns: string[] = ['id','id_destinatario','pais','fecha','monto','status','action'];
+  dataSource;
   constructor(private TransaccionService: DepositoService,private authService : AuthserviceService) { }
 
 
   ngAfterViewInit(): void {
+
   }
   ngOnInit(): void {
     
+    if(this.esCliente){
+      this.displayedColumns = ['id','pais','fecha','monto'];
+    }
     this.TransaccionService.CanActivate();
     const data = JSON.parse(this.authService.getLocal());
-    this.TransaccionService.getAllDepositosForUser(data['id']).subscribe(
-      res => {
+    if(this.nroBeneficiario>0){
+      this.TransaccionService.getAllDepositosForBeneficiario(data['id'],this.nroBeneficiario).subscribe(
+        res => {
               this.deposito = res;
-             this.depositos = res['body'];
-              this.dataSource = new MatTableDataSource(this.depositos);
-              // this.dataSource=new MatTableDataSource(this.ELEMENT_DATA);
+              this.depositos = res['body'];
+              this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
+             // console.log(this.depositos);
+              this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
-             },
-              err => {alert('ERROR:     '+JSON.stringify(err)); }
-    );
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+               },
+                err => {alert('ERROR:     '+JSON.stringify(err)); }
+      );
+
+    }else{
+      this.TransaccionService.getAllDepositosForUser(data['id']).subscribe(
+        res => {
+              this.deposito = res;
+              this.depositos = res['body'];
+              this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+               },
+                err => {alert('ERROR:     '+JSON.stringify(err)); }
+      );
+    }
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -57,5 +73,12 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   edit(dep: DepositoModule) {
 
   }
+  filtrado(){
+    this.isFiltrado=true;
 
+  }
+  cerrarFiltro(){
+    this.isFiltrado=false;
+    this.dataSource.filter = '';
+  }
 }

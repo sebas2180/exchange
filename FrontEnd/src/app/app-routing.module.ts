@@ -6,6 +6,8 @@ import { Routes, RouterModule,Router } from '@angular/router';
 import { PanelBeneficiariosComponent } from 'src/components/panel-beneficiarios/panel-beneficiarios.component';
 import { PruebaComponent } from 'src/components/prueba/prueba.component';
 import { NuevaTransferenciaComponent } from 'src/components/nueva-transferencia/nueva-transferencia.component';
+import { NuevoBeneficiarioComponent } from 'src/components/nuevo-beneficiario/nuevo-beneficiario.component';
+import { PanelAdministradorComponent } from 'src/components/panel-administrador/panel-administrador.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,13 @@ const routes: Routes = [
 },{
   path: 'transferencias',
   component: NuevaTransferenciaComponent,
+},{
+  path: 'nuevo-beneficiario',
+  component: NuevoBeneficiarioComponent,
+},
+{
+  path: 'panelAdministrador',
+  component: PanelAdministradorComponent,
 }
 ];
 

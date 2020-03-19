@@ -37,12 +37,27 @@ export class LoginComponent implements OnInit {
         if(res['status'] == ( 702 || 703) ) {
           console.log(res['success']);
         }
-        this.authService.setUserInfo( res['user'] );
-        if(this.service.canActivate()){
-          this.service.logeado = true;
-          console.log('estado logeado:     '+this.service.logeado);
-          this.route.navigate(['/panel-usuario']);
+        const aux = res['user'];
+        console.log(aux.rol);
+        switch(aux.rol){
+          case 'cliente':
+                    this.authService.setUserInfo( res['user'] );
+                    if(this.service.canActivate()){
+                       this.service.logeado = true;
+                       console.log('estado logeado:     '+this.service.logeado);
+                      this.route.navigate(['/panel-usuario']);
+                    };
+          case 'administrador':
+                this.authService.setUserInfo( res['user'] );
+                if(this.service.canActivate()){
+                  this.service.logeado = true;
+                  this.route.navigate(['/panelAdministrador']);
+                };
         }
+        if(aux.rol == 'cliente'){
+
+        }
+      
       },
       err => {
         console.log(err);

@@ -1,4 +1,10 @@
-
+.divForm{
+  position: absolute;
+  top: 24%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .info{
   background-color: slategrey;
   color: rgb(241, 239, 239);
@@ -31,8 +37,6 @@ label{
 }
 mat-card-header{
   background-color: rgb(190, 190, 228);
-
-
 }
 .full-width {
   width: 100%;
@@ -42,6 +46,7 @@ input{
 }
 button{
   width: 100%;
+  margin-top: 3%;
 }
 .parent {
   display: flex;
@@ -59,8 +64,9 @@ margin-bottom: 5%;
 
 @media(min-width:768px) {
   .info{
-    margin-top: 3%;
-    bottom:37%;
+    position: absolute;
+    top:15%
+    
   }
 #lbl_info{
     margin-top: 1%;
@@ -75,6 +81,8 @@ margin-bottom: 5%;
     left: 100%;
    
   }
+
+  
 }
 @media(max-width:768px)  {
     
@@ -92,8 +100,18 @@ h2{
   top:15%;
 }
 mat-card{
-  position: fixed;
-  top:21%;
+  position: absolute;
+  top:24%;
 }
 
+}
+
+
+
+msj-ok-deposit{
+  position: absolute;
+  top: 24%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

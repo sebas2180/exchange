@@ -1,3 +1,4 @@
+
 import { BeneficiarioModule } from './../../models/beneficiario/beneficiario.module';
 import { Injectable } from '@angular/core';
 import { AuthserviceService } from './../authservice.service';
@@ -25,6 +26,10 @@ export class BeneficiarioService {
     return false;
   }
 
+  addBeneficiario(form: FormData){
+    console.log(form);
+    return this.http.put(`http://localhost:3000/addBeneficiario/`,form);
+  }
   getBeneficiarios(id: number): Observable<BeneficiarioModule>{
     const params = new HttpParams()
       .set('id_usuario',id.toString());

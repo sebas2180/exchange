@@ -14,7 +14,7 @@ export class TasaModule {
   id:number;
   nombre:string;
   create_at?: Date=new Date();
-  tasa_actual: boolean;
+  tasa_actual: number;
 
   deserialize?(input: any): this {
     return Object.assign(this, input);

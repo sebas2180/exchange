@@ -1,6 +1,6 @@
 
 <br>
-<div class="div1">
+<div class="div1" @enterStateRight>
     <p>Bienvenido   {{this.usuario.usuario}}!</p>
     <div class="edit">
         <i class="material-icons">settings_system_daydream</i>
@@ -8,7 +8,7 @@
       
 </div>
 
-<div class="container" id="div2">
+<div class="container" id="div2" @enterState>
     <mat-grid-list cols="2" rowHeight="160px" >
         <mat-grid-tile class="grid-test-1"> 
         <mat-card style="width: 105%;">
@@ -43,7 +43,7 @@
             <mat-card style="width: 105%;">
                 <mat-card-header>
                     <mat-card-title>
-                        <label   class=" text-center" >Saldo </label>
+                        <label   class="text-center" >Saldo </label>
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -57,20 +57,20 @@
         </mat-grid-tile>
     </mat-grid-list>
 </div>
-<div class="container-fluid" id="div3">
-    <mat-grid-list cols="3" rowHeight="100px">
-        <mat-grid-tile class="grid-test-1"> 
+<div class="container-fluid" id="div3" @enterStateBotton>
+    <div class="row">
+        <div class="col-md-4 col-xs-4 col-lg-4 col-sd-4">
             <button 
-            class="btn btn-success btn-block " 
+            class="btn btn-primary btn-block" 
             routerLink="/MisTransacciones">Transacciones</button>
-        </mat-grid-tile>
-        <mat-grid-tile class="grid-test-1"> 
-            <button class="btn btn-success btn-block "
+        </div>
+        <div class="col-md-4 col-xs-4 col-lg-4 col-sd-4">
+            <button class="btn btn-primary  btn-block "
                     routerLink="/PanelBeneficiarios">Mis beneficiarios</button>
-        </mat-grid-tile>
-        <mat-grid-tile class="grid-test-1"> 
-            <button class="btn btn-success btn-block ">Enviar</button>
-            
-        </mat-grid-tile>
-    </mat-grid-list>
+        </div>
+        <div class="col-md-4 col-xs-4 col-lg-4 col-sd-4">
+            <button class="btn btn-primary btn-block">Enviar</button>
+        </div>
+    </div>
+   
 </div>

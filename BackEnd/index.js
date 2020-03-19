@@ -6,6 +6,8 @@ const flash = require('connect-flash');
 const path = require('path');
 const body_parser = require('body-parser');
 const morgan = require('morgan');
+const fileUpload = require('express-fileupload');
+const multer  = require('multer');
 
 const dbConnection = require('./database/mysql');
 const conn  = dbConnection.dbConnection();
@@ -15,7 +17,7 @@ app.use(body_parser.urlencoded({extended:true}));
 app.use(body_parser.json());
 app.set('port',process.env.port||9000);
 app.use(express.static(path.join(__dirname,'public')));
-
+app.use(fileUpload());
 
 ////passport
 require('./passport/auth.js')(app,passport);
@@ -50,6 +52,8 @@ app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     next();
 });
+
+
 ////
 const dashBoardRoutes= require('./src/routes/dashBoardRoutes')(app,passport);
 const usuarioRoute= require('./src/routes/usuarioRoute')(app,passport);
@@ -57,6 +61,6 @@ const depositoRoute= require('./src/routes/depositoRoutes')(app,passport);
 const bancoRoute = require('./src/routes/bancoRoutes')(app,passport);
 const tasaRoute = require('./src/routes/tasaRoutes')(app,passport);
 const beneficiarioRoute = require('./src/routes/beneficiarioRoutes')(app,passport);
-server.listen(8080,()=>{//cambiar a 30000 en desarollo
+server.listen(3000,()=>{//cambiar a 30000 en desarollo
     console.log('server conectado en el puerto: '+server.address().port);
 });

@@ -34,30 +34,10 @@
                 </mat-grid-tile>
 
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
-                <h6><i class="material-icons">settings_overscan</i></h6>
+               <a (click)="ver_depositos(beneficiario.id_usuario)"> <h6><i class="material-icons">settings_overscan</i></h6></a>
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-card-content>
        
     </mat-card>
-</div>
-<div>
-    <div class="card" id="alerta"  *ngIf="this.panelBeneficiarioService.mostrarAlerta">
-        <div class="card-header">
-            <h3> Eliminacion de {{titular}}</h3>
-        </div>
-        <div class="card-body">
-            <h1>Estas seguro de borrar este beneficiario?</h1>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-md-6 col-xs-6">
-                    <button class="btn btn-success btn-block" (click)="confirmarAlerta()">SI</button>
-                </div>
-                <div class="col-md-6 col-xs-6">
-                    <button class="btn btn-danger btn-block" (click)="cerrarAlerta()">NO</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

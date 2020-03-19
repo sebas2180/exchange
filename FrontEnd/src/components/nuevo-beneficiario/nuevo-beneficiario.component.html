@@ -1,1 +1,98 @@
-<p>nuevo-beneficiario works!</p>
+
+<div class="container-fluid" id="div1">
+    
+<div class="row">
+    <div class="col" id="nombre">
+        <form [formGroup]="this.form" >
+            <div class="card" @enterState>
+                <div class="card-header" id="cont">
+                    <div class="card-title">
+                        <h1>Nuevo beneficiario</h1>            
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="panel-1"  *ngIf="this.panelActual==1" @enterState>
+                        <mat-form-field class="nombre">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput type="text"formControlName="nombre" pattern="[a-zA-Z ]*">
+                            <mat-error *ngIf="this.form.controls.nombre?.invalid">Falta el nombre</mat-error>
+                        </mat-form-field>
+                        
+                        <mat-form-field class="apellido">
+                         <mat-label >Apellido</mat-label>
+                         <input matInput type="text" formControlName="apellido" pattern="[a-zA-Z ]*">
+                     </mat-form-field>
+                    </div>
+
+                    <div class="panel-2" *ngIf="this.panelActual==2"  @enterState>
+                        <mat-form-field class="tipo_documento">
+                            <mat-label>Tipo de documento</mat-label>
+                            <input matInput type="text" formControlName="tipo_documento">
+                        </mat-form-field>
+                    
+                        <mat-form-field class="nro_documento">
+                            <mat-label>Numero de documento</mat-label>
+                            <input matInput type="number" formControlName="nro_documento" minlength="8" maxlength="8">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="panel-3" *ngIf="this.panelActual==3"  @enterState>
+                        <mat-form-field>
+                            <mat-label >Banco:</mat-label>
+                            <mat-select formControlName="banco"> 
+                                <mat-option *ngFor="let banco of this.bancos"  [value]="banco" 
+                                (onSelectionChange)="changeBanco(banco.banco)">{{banco.banco}}</mat-option>
+                               
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    
+
+                    <div class="panel-4" *ngIf="this.panelActual==4"  @enterState>
+                        <mat-form-field class="tipo_cuenta">
+                            <mat-label>Tipo de cuenta</mat-label>
+                            <input matInput type="text" formControlName="tipo_cuenta">
+                        </mat-form-field>
+                    
+                        <mat-form-field class="nro_cuenta">
+                            <mat-label>Numero de cuenta</mat-label>
+                            <input matInput type="text" formControlName="nro_cuenta">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="panel-5" *ngIf="this.panelActual==5"  @enterState>
+                        aqui van datos
+                    </div>
+                </div>
+                <div class="box1"  *ngIf="this.panelActual<4">
+                    <h1><i class="material-icons"  
+                        *ngIf="this.panelActual>1" (click)="this.beforePanel()"> 
+                        navigate_before </i></h1>
+                       
+                </div>
+                <div class="box2"  *ngIf="this.panelActual<4" >
+                   
+                        <h3>{{this.panelActual}}/4</h3>
+                        
+                </div>
+                <div class="box3"  *ngIf="this.panelActual<5">
+                        <h1 ><i class="material-icons"  (click)="this.nextPanel()"
+                            *ngIf="this.panelActual<=5"> 
+                        navigate_next </i></h1>
+                </div>
+                <div class="card-footer">
+                    <div class="row" *ngIf="this.panelActual==5">
+                        <button class="btn btn-primary btn-block"
+                        (click)="this.guardar()">GUARDAR</button>
+                    </div>
+                    <div class="row" >
+                        <button class="btn btn-danger btn-block"
+                        (click)="this.volver()">VOLVER MENU</button>
+                    </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+</div>

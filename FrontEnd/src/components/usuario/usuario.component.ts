@@ -4,10 +4,50 @@ import { UsuarioService } from './../../app/services/usuarioService.service';
 import { UsuarioModule } from '../../app/models/usuario/usuario.module';
 import { Component, OnInit } from '@angular/core';
 import { MatSortModule } from '@angular/material/sort';
+import { trigger, style, state, transition, animate } from '@angular/animations';
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.scss']
+  styleUrls: ['./usuario.component.scss'],
+  animations:[
+    trigger('enterState',[
+      state('void',style({
+        transform:'translateX(-100%)',
+        opacity:0
+      })),
+      transition(':enter',[
+        animate('0.5s',style({
+          transform:'translateX(0)',
+        opacity:1
+        }))
+      ])
+    ]),
+    trigger('enterStateRight',[
+      state('void',style({
+        transform:'translateX(200%)',
+        opacity:0
+      })),
+      transition(':enter',[
+        animate('0.5s',style({
+          transform:'translateX(0)',
+        opacity:1
+        }))
+      ])
+    ]),
+    trigger('enterStateBotton',[
+      state('void',style({
+        transform:'translateY(200%)',
+        opacity:0
+      })),
+      transition(':enter',[
+        animate('0.5s',style({
+          transform:'translateY(0)',
+        opacity:1
+        }))
+      ])
+    ])
+   
+  ]
 })
 export class UsuarioComponent implements OnInit {
 

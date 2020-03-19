@@ -1,4 +1,3 @@
-
 import { Observable } from 'rxjs';
 import { CanActivate, Router } from '@angular/router';
 import { AuthserviceService } from './../authservice.service';
@@ -15,9 +14,8 @@ import {map} from 'rxjs/operators';
 })
 export class DepositoService  {
 
+  isViewTable:boolean=false;
   
-
-
   constructor(private http: HttpClient,private authService: AuthserviceService, private route : Router) { 
 
 
@@ -39,6 +37,7 @@ const params = new HttpParams()
     {params: params,observe: 'response'});
   }
   getAllDepositosForUser(id: number): Observable<DepositoModule>{
+    console.log('getAllDepositosForUser');
       console.log('service consola');
       const params = new HttpParams()
       .set('id', id.toString());
@@ -48,11 +47,20 @@ const params = new HttpParams()
             )
           )
   }
+  getAllDepositosForBeneficiario(id_user: number, id_beneficiario: number): Observable<DepositoModule>{
+    console.log('getAllDepositosForBeneficiario');
+    console.log('service consola');
+    const params = new HttpParams()
+    .set('id_destinatario', id_user.toString())
+    .set('id_user', id_beneficiario.toString());
+      return this.http.get<DepositoModule[]>(`http://localhost:3000/allDepositsForDestinatario/`,{
+        params: params ,observe: 'response'}).pipe(
+          map((data => new DepositoModule().deserialize(data))
+          )
+        )
+}
+  addDeposito(form: FormData){
+      return this.http.post(`http://localhost:3000/addDeposito/`,form);
 
-
-  // getAllDepositosForUser(id: number): Observable<any>{
-  //   console.log('service consola');
-  //     return this.http.get(`http://localhost:3000/allDepositsForUser/`,{
-  //       params: {id: '1' },observe: 'response'});
-  //     }
+    }
 }

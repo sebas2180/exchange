@@ -1,5 +1,23 @@
-<form action="">
-
-    <input type="file" [(ngModel)]="file" name="foto" id="foto" accept="image/x-png,image/jpeg">
-    <button type="submit" (click)="enviar()">enviar</button>
-</form>
+<div class="central">
+    <form action="" [formGroup]="this.dashForm" (ngSubmit)="enviar(this.dashForm)" enctype="multipart/form-data">
+           
+    <div class="form-group row">
+        <div class="col-sm-2 col-md-2 ">
+            <label for="photo" class=" col-form-label">Photo</label>
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" hidden formControlName='photo' 
+            [ngClass]="{'is-invalid': submitted && dashForm.controls.photo.invalid}">            
+            <app-file-uploap (onFileSelect)="onFileSelect($event)"></app-file-uploap>
+            <div class="invalid-feedback" *ngIf="submitted && dashForm.controls.photo.invalid">
+                <div *ngIf="dashForm.controls.photo.errors.required">El comprobante es requerido</div>
+            </div>
+            <div class="text-danger"  *ngIf="uploadError">{{uploadError}}</div>
+        </div>
+    </div>
+           
+<br><br><br>
+        
+        <button type="submit" class="btn btn-success" >enviar</button>
+    </form>
+</div>

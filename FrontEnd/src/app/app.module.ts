@@ -1,6 +1,5 @@
-import { TasasService } from './services/tasas/tasas.service';
-import { DashboardService } from './services/dasboard/dashboard.service';
-import { BrowserModule } from '@angular/platform-browser';
+
+
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -18,15 +17,19 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { PanelAdministradorComponent } from  '../components/panel-administrador/panel-administrador.component';
 import {MatSelectModule} from '@angular/material/select';
 import { MatSortModule }  from '@angular/material/sort';
 
+import { ManejoFechasService} from '../../shared/services/manejoFechasService/manejo-fechas.service';
+import { TasasService } from './services/tasas/tasas.service';
+import { DashboardService } from './services/dasboard/dashboard.service';
 import { DepositoService } from './services/deposito/deposito.service';
 import { UsuarioService } from '../app/../app/services/usuarioService.service';
 import { BeneficiarioService } from './services/beneficiario/beneficiario.service';
 import { PanelBeneficiarioServiceService } from '../components/panel-beneficiarios/service/panel-beneficiario-service.service';
 import { NuevoBeneficiarioComponent } from '../components/nuevo-beneficiario/nuevo-beneficiario.component';
-
+import { MsjOkDepositComponent } from '../components/nueva-transferencia/msj-ok-deposit/msj-ok-deposit.component';
 import { NuevoBeneficiarioService } from '../components/nuevo-beneficiario/service/nuevo-beneficiario.service';
 import { SiteFooterComponent } from '../components/site-footer/site-footer.component';
 import { DialogoDesconectadoComponent } from '../components/dialogo-desconectado/dialogo-desconectado.component';
@@ -34,6 +37,7 @@ import { DepositosComponent } from './../components/depositos/depositos.componen
 import { NavigatorComponent } from '../components/navigator/navigator.component';
 import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { LoginComponent } from '../components/login/login.component';
+import { FileUploapComponent } from '../../shared/components/file-uploap/file-uploap.component';
 import { PanelBeneficiariosComponent } from '../components/panel-beneficiarios/panel-beneficiarios.component';
 import { PruebaComponent } from '../components/prueba/prueba.component';
 import { NuevaTransferenciaComponent } from '../components/nueva-transferencia/nueva-transferencia.component';
@@ -51,10 +55,13 @@ import { BeneficiarioComponent } from '../components/beneficiario/beneficiario.c
     PruebaComponent,
     NuevaTransferenciaComponent,
     BeneficiarioComponent,
-    NuevoBeneficiarioComponent
+    NuevoBeneficiarioComponent,
+    FileUploapComponent,
+    MsjOkDepositComponent,
+    PanelAdministradorComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    //BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -88,7 +95,8 @@ import { BeneficiarioComponent } from '../components/beneficiario/beneficiario.c
     BeneficiarioService,
     PanelBeneficiarioServiceService,
     NuevoBeneficiarioService,
-    TasasService
+    TasasService,
+    ManejoFechasService
     ],
   bootstrap: [AppComponent]
 })
