@@ -1,3 +1,5 @@
+import { PanelUsuariosComponent } from '../components/panel-usuarios/panel-usuarios.component';
+import { PanelTasasComponent } from './../components/panel-tasas/panel-tasas.component';
 import { DepositosComponent } from './../components/depositos/depositos.component';
 import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { LoginComponent } from '../components/login/login.component';
@@ -8,6 +10,7 @@ import { PruebaComponent } from 'src/components/prueba/prueba.component';
 import { NuevaTransferenciaComponent } from 'src/components/nueva-transferencia/nueva-transferencia.component';
 import { NuevoBeneficiarioComponent } from 'src/components/nuevo-beneficiario/nuevo-beneficiario.component';
 import { PanelAdministradorComponent } from 'src/components/panel-administrador/panel-administrador.component';
+import { NuevoUsuarioComponent } from 'src/components/nuevo-usuario/nuevo-usuario.component';
 
 const routes: Routes = [
   {
@@ -41,6 +44,15 @@ const routes: Routes = [
 {
   path: 'panelAdministrador',
   component: PanelAdministradorComponent,
+},{
+  path: 'panelTasas',
+  component: PanelTasasComponent
+},{
+  path: 'panelAdmUsuarios',
+  component: PanelUsuariosComponent
+},{
+  path: 'addUsuario',
+  component: NuevoUsuarioComponent
 }
 ];
 

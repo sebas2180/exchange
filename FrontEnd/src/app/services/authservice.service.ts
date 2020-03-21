@@ -14,6 +14,7 @@ export class AuthserviceService {
   public getLocal(){
     return localStorage.getItem('userInfo');
   }
+
   public isAuthenticatede() : Boolean {
     let userData = localStorage.getItem('userInfo');
     if(localStorage.getItem('userInfo') != 'undefined'){

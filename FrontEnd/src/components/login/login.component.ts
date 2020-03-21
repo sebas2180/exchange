@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if(this.service.canActivate()) {
       this.service.logeado = true;
-      this.route.navigate(['/panel-usuario']); 
+      this.route.navigate(['/panel-usuario']);
     }
     this.usuario = {
       usuario : '',
@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
   entrar(){
     console.log('ok');
     this.service.login(this.usuario).subscribe(
-      res => { 
+      res => {
+        console.log(res['user']);
         if(res['status'] == ( 702 || 703) ) {
           console.log(res['success']);
         }

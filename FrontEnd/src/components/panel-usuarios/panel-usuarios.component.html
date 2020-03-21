@@ -1,0 +1,10 @@
+<div class="box">
+ <app-tabla-usuarios (isLoader)="this.updateLoader($event)"></app-tabla-usuarios>
+</div>
+<div class="boton box2" routerLink='/panelAdministrador'>
+    VOLVER
+</div>
+<div class="boton box3" routerLink='/addUsuario'>
+   NUEVO USUARIO
+</div>
+<app-loader *ngIf="isLodeader"></app-loader>

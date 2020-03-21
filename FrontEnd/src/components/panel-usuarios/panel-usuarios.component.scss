@@ -1,0 +1,46 @@
+.box{
+    position: relative;
+    //top: 19%;
+    margin-top: 8%;
+    height: 60%;
+    width: 100%;
+}
+.box2{
+    height: 10%;
+    left: 0.2%;
+    width: 49.6%;
+}
+.box3{
+    left: 50.2%;
+    height: 10%;
+    width: 49.6%;
+}
+.boton{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(80, 96, 240) ;
+    border-color: black;
+    border: solid 1px;
+    color: black;
+    font-size: 1.6em;
+}
+a{
+    font-size: 1.6em;
+    color: black;
+}
+app-loader{
+    position: fixed;
+    z-index: 150px;
+    top: 45%;
+    left: 45%;
+}
+@media(max-width: 768px){
+
+    .box{
+        position: absolute;
+        top:165;
+    }
+}

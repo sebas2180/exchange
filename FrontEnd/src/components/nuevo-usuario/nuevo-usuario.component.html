@@ -1,0 +1,74 @@
+<div class="panel-general">
+    <form  [formGroup]="this.form" >
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h1>NUEVO USUARIO</h1>
+                </div>
+                <div class="card-body">
+                    <div class="panel-1" *ngIf="this.panelActual==1">
+                        <mat-form-field class="nombre" *ngIf="!isAdministrador">
+                            <mat-label>Usuario</mat-label>
+                            <input matInput type="text"formControlName="usuario" >
+                            <mat-error *ngIf="this.form.controls.usuario?.invalid">Falta el nombre</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="nombre" *ngIf="isAdministrador">
+                            <mat-label>Usuario</mat-label>
+                            <input matInput type="text"formControlName="usuario" >
+                            <mat-error *ngIf="this.form.controls.usuario?.invalid">Falta el nombre</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="panel-2" *ngIf="this.panelActual==2">
+                        <mat-form-field class="email">
+                            <mat-label>EMAIL</mat-label>
+                            <input matInput type="email"formControlName="email" >
+                            <mat-error *ngIf="this.form.controls.email?.invalid">Falta el email</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="panel-3" *ngIf="this.panelActual==3">
+                        <mat-form-field class="email">
+                            <mat-label>PAIS</mat-label>
+                            <mat-select formControlName="pais"> 
+                                <mat-option *ngFor="let pais of this.paises"  [value]="pais" >
+                                    {{pais}}</mat-option>
+                               
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="panel-4" *ngIf="this.panelActual==4">
+                        <mat-form-field class="email">
+                            <mat-label>CONTRASEÑA</mat-label>
+                            <input matInput type="password" formControlName="password"  readonly="readonly">
+                            <mat-error *ngIf="this.form.controls.password?.invalid"  >Falta la contraseña</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="panel-5" *ngIf="this.panelActual==5">
+                        
+                        
+                        <button>crear</button>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="box1"  *ngIf="this.panelActual<5">
+                        <h1><i class="material-icons"  
+                            *ngIf="this.panelActual>1" (click)="this.beforePanel()"> 
+                            navigate_before </i></h1>
+                           
+                    </div>
+                    <div class="box2"   >
+                       
+                            <h3>{{this.panelActual}}/5</h3>
+                            
+                    </div>
+                    <div class="box3"  *ngIf="this.panelActual<5">
+                            <h1 ><i class="material-icons"  (click)="this.nextPanel()"
+                                *ngIf="this.panelActual<=5"> 
+                            navigate_next </i></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</div>

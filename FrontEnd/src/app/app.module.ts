@@ -37,11 +37,18 @@ import { DepositosComponent } from './../components/depositos/depositos.componen
 import { NavigatorComponent } from '../components/navigator/navigator.component';
 import { UsuarioComponent } from '../components/usuario/usuario.component';
 import { LoginComponent } from '../components/login/login.component';
+import { NuevoUsuarioComponent } from '../components/nuevo-usuario/nuevo-usuario.component';
+
 import { FileUploapComponent } from '../../shared/components/file-uploap/file-uploap.component';
 import { PanelBeneficiariosComponent } from '../components/panel-beneficiarios/panel-beneficiarios.component';
 import { PruebaComponent } from '../components/prueba/prueba.component';
 import { NuevaTransferenciaComponent } from '../components/nueva-transferencia/nueva-transferencia.component';
 import { BeneficiarioComponent } from '../components/beneficiario/beneficiario.component';
+import { PanelTasasComponent } from '../components/panel-tasas/panel-tasas.component'
+import { PanelUsuariosComponent } from 'src/components/panel-usuarios/panel-usuarios.component';
+import { LoaderComponent } from 'shared/components/loader/loader.component';
+import { TablaUsuariosComponent } from 'src/components/tabla-usuarios/tabla-usuarios.component';
+import { TablaUsuariosService } from './services/tabla-usuarios/tabla-usuarios.service';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -58,7 +65,12 @@ import { BeneficiarioComponent } from '../components/beneficiario/beneficiario.c
     NuevoBeneficiarioComponent,
     FileUploapComponent,
     MsjOkDepositComponent,
-    PanelAdministradorComponent
+    PanelAdministradorComponent,
+    PanelTasasComponent,
+    PanelUsuariosComponent,
+    LoaderComponent,
+    TablaUsuariosComponent,
+    NuevoUsuarioComponent
   ],
   imports: [
     //BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -96,7 +108,8 @@ import { BeneficiarioComponent } from '../components/beneficiario/beneficiario.c
     PanelBeneficiarioServiceService,
     NuevoBeneficiarioService,
     TasasService,
-    ManejoFechasService
+    ManejoFechasService,
+    TablaUsuariosService
     ],
   bootstrap: [AppComponent]
 })

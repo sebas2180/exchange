@@ -54,10 +54,11 @@ export class UsuarioComponent implements OnInit {
   cantidad_depositos : number;
   usuario: UsuarioModule;
   constructor(private authService: AuthserviceService, private depService : DepositoService,private service: UsuarioService) { 
+    this.service.canActivate();
+    this.service.isCliente();
   }
 
   ngOnInit() {
-    this.service.canActivate();
     this.usuario = {
       usuario: 'Sebastian',
       password:'****',
@@ -66,6 +67,14 @@ export class UsuarioComponent implements OnInit {
       id:0    }
     this.cantidad_depositos=0;
     const data = JSON.parse(this.authService.getLocal());
+    this.service.getUsuario(data['id']).subscribe(
+      res=>{
+        console.log(res);
+        const aux = res['body'];
+        const aux1= aux['usuario'];
+        this.usuario =aux1[0] ;
+      }
+    )
     this.depService.getEstadisticasDelUsuario(data['id']).subscribe(
       res => {
         const a =JSON.parse(res['body']);

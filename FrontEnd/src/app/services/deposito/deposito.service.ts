@@ -36,6 +36,21 @@ const params = new HttpParams()
     return this.http.get<string>(`http://localhost:3000/EstadisticasDelUsuario/`,
     {params: params,observe: 'response'});
   }
+
+
+
+getDepositos(isOnlyVerif:boolean) {
+  console.log(!isOnlyVerif);
+  if(isOnlyVerif){
+    console.log('allDepositsOnlyverif');
+    return this.http.get<DepositoModule[]>(`http://localhost:3000/allDepositsOnlyverif/`);
+  }else{
+    console.log('allDeposits');
+    return this.http.get<DepositoModule[]>(`http://localhost:3000/allDeposits/`);
+  }
+  }
+
+
   getAllDepositosForUser(id: number): Observable<DepositoModule>{
     console.log('getAllDepositosForUser');
       console.log('service consola');

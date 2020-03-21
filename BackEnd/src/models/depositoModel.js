@@ -1,5 +1,6 @@
 
 const mysql = require('../../database/mysql');
+var depositos = require('../../database/deposito')();
 const conn = mysql.dbConnection();
 
 
@@ -18,6 +19,28 @@ const conn = mysql.dbConnection();
             });
           })
         },
+        getDepositos: () => {
+            return new Promise((resolve, reject) => {
+              depositos.findAll()
+                .then(
+                  res=>{
+                    console.log(res);
+                    resolve(res);
+                  }
+                )
+            })
+          },
+          getDepositosOnlyVerif: () => {
+            return new Promise((resolve, reject) => {
+              depositos.findAll({     where: {  status      : "EN VERIFICACION"             }    })
+                .then(
+                  res=>{
+                    console.log(res);
+                    resolve(res);
+                  }
+                )
+            })
+          },
         
       
       getEstadisticasDelUsuario: (id) => {

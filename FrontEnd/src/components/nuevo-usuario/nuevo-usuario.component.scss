@@ -1,0 +1,56 @@
+.panel-general{
+    position: absolute;
+    top: 17%;
+    width: 100%;
+    height: 80%;
+    background-color: cornflowerblue;
+}
+.card{
+    position: fixed;
+    left: 2%;
+    top: 18%;
+    width: 96%;
+    height: 78%;
+    background-color: white;
+
+}
+.card-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-body{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left:15%;
+    width:  80%;
+    height: 50%;
+    background-color: white;
+}
+.card-footer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 15%;
+    background-color:white;
+}
+input{
+    font-size: 3em;
+}
+mat-form-field,.panel-1,.panel-2,.panel-3,.panel-4{
+    width: 80%;
+}
+i{
+    font-size: 3em;
+}
+h3{
+    font-size: 2em;
+}
+.box1,.box2,.box3{
+    margin-left: 10%;
+}

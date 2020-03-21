@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const http = require('http');
 const app = express();
@@ -8,6 +10,7 @@ const body_parser = require('body-parser');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 const multer  = require('multer');
+const fs = require('fs');
 
 const dbConnection = require('./database/mysql');
 const conn  = dbConnection.dbConnection();
@@ -20,7 +23,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(fileUpload());
 
 ////passport
-require('./passport/auth.js')(app,passport);
+const Sequelize =require('./passport/auth.js')(app,passport);
 var crypto            = require('crypto');
 var LocalStrategy     = require('passport-local').Strategy;
 
@@ -54,13 +57,27 @@ app.all('*', function(req, res, next) {
 });
 
 
-////
+  
+var models = require('././database/usuarios')();
 const dashBoardRoutes= require('./src/routes/dashBoardRoutes')(app,passport);
 const usuarioRoute= require('./src/routes/usuarioRoute')(app,passport);
 const depositoRoute= require('./src/routes/depositoRoutes')(app,passport);
 const bancoRoute = require('./src/routes/bancoRoutes')(app,passport);
 const tasaRoute = require('./src/routes/tasaRoutes')(app,passport);
 const beneficiarioRoute = require('./src/routes/beneficiarioRoutes')(app,passport);
+require('./database/sequelize');
 server.listen(3000,()=>{//cambiar a 30000 en desarollo
-    console.log('server conectado en el puerto: '+server.address().port);
+    console.log('server conectado en el puerto: '+server.address().port)
 });
+
+// models.findOne({
+//       where: {
+//               usuario: 'sebas'
+//               }
+//             }).then(function(user) {
+//               console.log(user['dataValues']);
+//             }
+//     )
+       
+
+

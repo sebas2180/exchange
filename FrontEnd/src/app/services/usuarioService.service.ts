@@ -39,4 +39,65 @@ export class UsuarioService implements CanActivate {
         )
       )
 }
+getUserForEmail(email: string) {
+  const params = new HttpParams()
+    .set('email',email.toString());
+    return this.http.get<string>(`http://localhost:3000/getUserForEmail/`,
+    {params: params, observe: 'response'});
+}
+getUserForUser(usuario: string) {
+  const params = new HttpParams()
+    .set('usuario',usuario.toString());
+    return this.http.get<string>(`http://localhost:3000/getUserForUser/`,
+    {params: params, observe: 'response'});
+}
+getAllUsers(): Observable<UsuarioModule> {
+
+    return this.http.get<string>(`http://localhost:3000/getAllUsers/`)
+        .pipe(
+        map((data => new UsuarioModule().deserialize(data))
+      )
+    )
+}
+addUsuario(usuario:UsuarioModule){
+  return this.http.put(`http://localhost:3000/addUsuario/`,usuario);
+}
+getRol(){
+  this.canActivate();
+  const data = JSON.parse(this.authService.getLocal());
+  const id= data['id'];
+  const params = new HttpParams()
+  .set('id_user',id);
+  return this.http.get(`http://localhost:3000/getRol/`,
+  {params: params,observe: 'response'});
+}
+isCliente(){
+  this.getRol().subscribe(
+    res=>{
+      const aux = res['body'];
+      const rol_usuario = aux['rol'];
+    
+      console.log('roool:         '+rol_usuario);
+      if(rol_usuario == 'cliente'){
+
+        return true;
+      }else{
+        this.route.navigate(['/panelAdministrador']);
+      }
+    }
+  );
+}
+isAdministrador(){
+  this.getRol().subscribe(
+    res=>{
+      const aux = res['body'];
+      const rol_usuario = aux['rol'];
+      if(rol_usuario=='administrador'){
+        return true;
+      }else{
+        this.route.navigate(['/panel-usuario']);
+      }
+    }
+  );
+}
 }

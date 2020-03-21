@@ -44,7 +44,7 @@
                     <ul>
                         <li>Total:&nbsp; {{this.verificacion}}</li>
                         <li>Activos:&nbsp; {{this.confirmadas}}</li>
-                        <input type="button" class="boton"  value="gestionar"/>
+                        <input type="button" class="boton"  value="gestionar" routerLink="/panelAdmUsuarios">
                         <input type="button" class="boton btn2"  value="Nuevo usuario"/>
                     </ul>
                 </div>
@@ -53,9 +53,9 @@
             <div class="box">     
                 <div class="card">
                     <div class="card-header">
-                        Ultimas transacciones
+                        Ultimas transacciones a verificar
                     </div>
-                    <app-depositos [esCliente]=true ></app-depositos> 
+                    <app-depositos [esCliente]=true [isOnlyVerif]="true" ></app-depositos> 
                 </div>
              </div>
 

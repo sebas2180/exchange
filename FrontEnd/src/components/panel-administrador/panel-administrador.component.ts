@@ -1,3 +1,4 @@
+import { UsuarioService } from './../../app/services/usuarioService.service';
 import { DepositosComponent } from './../depositos/depositos.component';
 
 import { AuthserviceService } from 'src/app/services/authservice.service';
@@ -25,7 +26,13 @@ export class PanelAdministradorComponent implements OnInit {
   confirmadas:number =40;
   verificacion:number =60;
 
-  constructor(private TransaccionService: DepositoService,private authService : AuthserviceService) { }
+  constructor(private TransaccionService: DepositoService,
+    private authService : AuthserviceService,
+    private UsuarioService: UsuarioService) {
+      this.UsuarioService.canActivate();
+      this.UsuarioService.isAdministrador();
+
+   }
 
   ngOnInit(): void {
   }

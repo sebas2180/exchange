@@ -21,12 +21,15 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @Input() esCliente:boolean =false;
   @Input() nroBeneficiario:number =-1;
+  @Input()  isOnlyVerif: boolean =true;
   isFiltrado: boolean=false;
   depositos: DepositoModule[];
   deposito: DepositoModule ;
   aux : string ;
-  displayedColumns: string[] = ['id','id_destinatario','pais','fecha','monto','status','action'];
+  displayedColumns: string[] = ['id','id_destinatario','pais','fecha','monto','action'];
   dataSource;
+  isLoading: boolean = true;
+
   constructor(private TransaccionService: DepositoService,private authService : AuthserviceService) { }
 
 
@@ -36,31 +39,50 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
     
     if(this.esCliente){
-      this.displayedColumns = ['id','pais','fecha','monto'];
+      console.log('---------------ES ADMINISTRADOR ------------');
+      this.displayedColumns = ['id','usuario','fecha','status','actionAdm'];
     }
     this.TransaccionService.CanActivate();
     const data = JSON.parse(this.authService.getLocal());
-    if(this.nroBeneficiario>0){
-      this.TransaccionService.getAllDepositosForBeneficiario(data['id'],this.nroBeneficiario).subscribe(
-        res => {
-              this.deposito = res;
-              this.depositos = res['body'];
-              this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
-             // console.log(this.depositos);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-               },
-                err => {alert('ERROR:     '+JSON.stringify(err)); }
-      );
-
+    if(!this.esCliente){
+      console.log('---------------ES CLIENTE ------------');
+      if(this.nroBeneficiario>0){
+        this.TransaccionService.getAllDepositosForBeneficiario(data['id'],this.nroBeneficiario).subscribe(
+          res => {
+            //console.log('---------------ES FOR BENEFICIARIO ------------');
+                this.deposito = res;
+                this.depositos = res['body'];
+                this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                this.isLoading=false;
+                 },
+                  err => {alert('ERROR:     '+console.log(err)); }
+        );
+  
+      }else{
+        this.TransaccionService.getAllDepositosForUser(data['id']).subscribe(
+          res => {
+                this.deposito = res;
+                this.depositos = res['body'];
+                this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+                this.isLoading=false;
+                 },
+                err => {alert('ERROR:     '+console.log(err)); }
+        );
+      }
     }else{
-      this.TransaccionService.getAllDepositosForUser(data['id']).subscribe(
+      this.TransaccionService.getDepositos(this.isOnlyVerif).subscribe(
         res => {
-              this.deposito = res;
-              this.depositos = res['body'];
+              console.log(res);
+             // this.deposito= res;
+              this.depositos = res;
               this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
+              this.isLoading=false;
                },
                 err => {alert('ERROR:     '+JSON.stringify(err)); }
       );
