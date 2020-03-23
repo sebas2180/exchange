@@ -1,3 +1,4 @@
+import { ComprobarComponent } from './../components/comprobar/comprobar.component';
 
 
 import { NgModule } from '@angular/core';
@@ -49,6 +50,8 @@ import { PanelUsuariosComponent } from 'src/components/panel-usuarios/panel-usua
 import { LoaderComponent } from 'shared/components/loader/loader.component';
 import { TablaUsuariosComponent } from 'src/components/tabla-usuarios/tabla-usuarios.component';
 import { TablaUsuariosService } from './services/tabla-usuarios/tabla-usuarios.service';
+import { DetalleUsuarioComponent } from 'src/components/detalle-usuario/detalle-usuario.component';
+import { TablaTasasComponent } from 'src/components/tabla-tasas/tabla-tasas.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -70,7 +73,10 @@ import { TablaUsuariosService } from './services/tabla-usuarios/tabla-usuarios.s
     PanelUsuariosComponent,
     LoaderComponent,
     TablaUsuariosComponent,
-    NuevoUsuarioComponent
+    NuevoUsuarioComponent,
+    DetalleUsuarioComponent,
+    ComprobarComponent,
+    TablaTasasComponent
   ],
   imports: [
     //BrowserModule.withServerTransition({ appId: 'serverApp' }),

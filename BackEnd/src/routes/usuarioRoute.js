@@ -161,8 +161,8 @@ const conn = mysql.dbConnection();
         })(req, res, next);   
     });
 
-    app.post('/signup',function(req,res,next){
-      
+    app.put('/signup',function(req,res,next){
+      console.log(req.body);   
       User.findOne({     where: {  usuario: req.body.usuario      }     })
       .then(
         user=>{
@@ -178,6 +178,10 @@ const conn = mysql.dbConnection();
             const newUser = new User();
             newUser.usuario= req.body.usuario;
             newUser.password = encPassword;
+            newUser.pais= req.body.pais;
+            newUser.email = req.body.email;
+            newUser.creaeAt = req.body.create_at;
+            newUser.rol = 'cliente';
             newUser.save();
             const resp= {
               status:750,
@@ -216,6 +220,65 @@ const conn = mysql.dbConnection();
            return res.end(JSON.stringify(sendInfo.url));
       });
       });
+    app.put('/addUsusario',(req,res) =>{
+        usuarioModel.addUsuario(req.body)
+        .then(
+            resp=>{
+                      console.log(resp);
+                      return res.end(JSON.stringify(resp));
+            }
+        )
+        .catch(
+            err =>{
+                console.log(err);
+            }
+        )
+    });
+
+    app.get('/disabledUsuario',(req,res) =>{
+      usuarioModel.disabledUsuario(req.query)
+      .then(
+          resp=>{
+              console.log(resp);
+              return res.end(JSON.stringify(resp));
+          }
+      )
+      .catch(
+          err =>{
+              console.log(err);
+          }
+      )
+  });
+  app.get('/validarPassword',(req,res) =>{
+    console.log(req.query);
+    usuarioModel.validarPassword(req.query)
+    .then(
+        resp=>{
+            console.log(resp);
+            return res.end(JSON.stringify(resp));
+        }
+    )
+    .catch(
+        err =>{
+            console.log(err);
+        }
+    )
+});
+app.post('/updateUsuario',(req,res) =>{
+
+  usuarioModel.updateUsuario(req.body)
+  .then(
+      resp=>{
+          console.log(resp);
+          return res.end(JSON.stringify(resp));
+      }
+  )
+  .catch(
+      err =>{
+          console.log(err);
+      }
+  )
+});
 
   function isAuthenticated(req, res, next) {
             if (req.isAuthenticated())

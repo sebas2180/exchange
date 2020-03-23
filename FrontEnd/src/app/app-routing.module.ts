@@ -11,12 +11,17 @@ import { NuevaTransferenciaComponent } from 'src/components/nueva-transferencia/
 import { NuevoBeneficiarioComponent } from 'src/components/nuevo-beneficiario/nuevo-beneficiario.component';
 import { PanelAdministradorComponent } from 'src/components/panel-administrador/panel-administrador.component';
 import { NuevoUsuarioComponent } from 'src/components/nuevo-usuario/nuevo-usuario.component';
+import { ComprobarComponent } from 'src/components/comprobar/comprobar.component';
 
 const routes: Routes = [
   {
   path: '',
-  redirectTo: '/login',
+  redirectTo: '/comprobar',
   pathMatch: 'full'
+},
+{
+  path: 'comprobar',
+  component: ComprobarComponent
 },
 {
   path: 'login',

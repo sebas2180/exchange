@@ -4,6 +4,7 @@ import { UsuarioService } from './../../app/services/usuarioService.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
+import { EmitterVisitorContext } from '@angular/compiler';
 
 @Component({
   selector: 'app-tabla-usuarios',
@@ -15,13 +16,14 @@ export class TablaUsuariosComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @Output() isLoader = new EventEmitter();
+  @Output() usuario = new EventEmitter();
   dataSource;
   usuarios: UsuarioModule[];
   displayedColumns: string[] = ['id','usuario','nombre','pais','rol','accion'];
 
   constructor(private UsuarioService: UsuarioService
     ) { 
-      UsuarioService.isAdministrador();
+     // UsuarioService.isAdministrador();
     }
   ngOnInit(): void {
     this.UsuarioService.getAllUsers().subscribe(
@@ -29,7 +31,6 @@ export class TablaUsuariosComponent implements OnInit {
         this.usuarios = res['usuarios'];
         console.log(this.usuarios);
         const ok = this.cargarTabla();
-        console.log('okkk'+ok);
       },
       err=>{
         console.log(err);
@@ -43,6 +44,10 @@ export class TablaUsuariosComponent implements OnInit {
     this.dataSource.sort =this.sort;
     this.isLoader.emit(false);
     return true;
+  }
+  enviarUsuario(usuario: EmitterVisitorContext){
+ 
+    this.usuario.emit(usuario);
   }
   applyFilter(e){
 

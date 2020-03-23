@@ -1,0 +1,57 @@
+.general{
+    top: 15%;
+    overflow-y: auto;
+    height: 100%;
+}
+.cardPrincipal{
+    width: 90%;
+    margin-left: 5%;
+}
+.principal{
+    overflow-y: auto;
+}
+.inputGroupContainer,label{
+    width: 90%;
+    margin-left: 5%;
+}
+.full-width{
+    width: 80%;
+    left: 10%;
+}
+.card-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    background-color: rgba(32, 32, 238, 0.925);
+    color: white;
+}
+#infoSaldo{
+    position: relative;
+    top: 9.5%;
+    left: 55%;
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4%;
+}
+#infoCreado{
+    position: absolute;
+    top: 9.5%;
+    left: 10%;
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 4%;
+}
+
+.btn1{
+    width: 35%;
+    margin-left: 5%;
+}
+.btn2{
+    width: 35%;
+
+}

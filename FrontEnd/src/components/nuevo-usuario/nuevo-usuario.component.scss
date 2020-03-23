@@ -3,7 +3,7 @@
     top: 17%;
     width: 100%;
     height: 80%;
-    background-color: cornflowerblue;
+    background-color: white;
 }
 .card{
     position: fixed;
@@ -18,6 +18,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: white;
+    font-size: 2.6em;
+    background-color: rgb(77, 32, 201);
 }
 .card-body{
     position: relative;
@@ -36,21 +40,33 @@
     align-items: center;
 
     width: 100%;
-    height: 15%;
+    height: 25%;
     background-color:white;
 }
 input{
-    font-size: 3em;
+    font-size: 2.4em;
 }
-mat-form-field,.panel-1,.panel-2,.panel-3,.panel-4{
+mat-form-field,.panel-1,.panel-2,.panel-3,.panel-4,.panel-5{
     width: 80%;
 }
 i{
-    font-size: 3em;
+    font-size: 2.6em;
 }
 h3{
-    font-size: 2em;
+    font-size: 1.5em;
 }
 .box1,.box2,.box3{
+    margin-left: 9%;
+}
+button{
+    width: 25%;
     margin-left: 10%;
+    height: 100%;
+}
+li{
+    font-size: 1.2em;
+}
+.veri-titulo{
+    text-decoration: underline;
+    font-weight: bold;
 }

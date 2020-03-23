@@ -1,10 +1,17 @@
-<div class="box">
- <app-tabla-usuarios (isLoader)="this.updateLoader($event)"></app-tabla-usuarios>
+<div class="principal" *ngIf="this.isPrincipal" @enterState >
+    <div class="box">
+        <app-tabla-usuarios (isLoader)="this.updateLoader($event)" (usuario)="this.verUsuario($event)"></app-tabla-usuarios>
+       </div>
+       <div class="boton box2" routerLink='/panelAdministrador'>
+           VOLVER
+       </div>
+       <div class="boton box3" routerLink='/addUsuario'>
+          NUEVO USUARIO
+       </div>
+       <app-loader *ngIf="isLodeader"></app-loader>
 </div>
-<div class="boton box2" routerLink='/panelAdministrador'>
-    VOLVER
+<div class="secundario"*ngIf="!this.isPrincipal" @enterState>
+    <detalle-usuario [usuario]="this.usuario" [esAdministrador]="true" (emitChange)="this.verUsuario($event)" >
+
+    </detalle-usuario  >
 </div>
-<div class="boton box3" routerLink='/addUsuario'>
-   NUEVO USUARIO
-</div>
-<app-loader *ngIf="isLodeader"></app-loader>

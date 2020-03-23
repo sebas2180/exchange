@@ -12,7 +12,10 @@ const sequelize= require('./sequelize');
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-          
+            email: {
+                type: Sequelize.STRING,
+                notEmpty: true
+            },
             usuario: {
                 type: Sequelize.STRING,
                 notEmpty: true
@@ -32,8 +35,7 @@ const sequelize= require('./sequelize');
             },
            
             telefono: {
-                type: Sequelize.INTEGER,
-                type: Sequelize.DATE
+                type: Sequelize.INTEGER
             },
           
             status: {
@@ -43,20 +45,17 @@ const sequelize= require('./sequelize');
           
           
             saldo: {
-                type: Sequelize.FLOAT,
-                type: Sequelize.DATE
+                type: Sequelize.FLOAT
             },
             pais: {
-                type: Sequelize.STRING,
-                type: Sequelize.DATE
+                type: Sequelize.STRING
             }, 
              createdAt: {
               type: Sequelize.DATE, 
               field: 'create_at'
             } ,
             rol: {
-                type: Sequelize.STRING,
-                type: Sequelize.DATE
+                type: Sequelize.STRING
             }
           },
           {

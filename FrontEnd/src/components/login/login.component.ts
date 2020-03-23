@@ -19,16 +19,25 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if(this.service.canActivate()) {
       this.service.logeado = true;
-      this.route.navigate(['/panel-usuario']);
+    }else{
+      this.service.logeado = false;
     }
+    var date = new Date();
     this.usuario = {
       usuario : '',
       password: '',
       pais :'',
+      apellido :'',
+      nombre :'',
+      status :'',
+      telefono :'',
+      rol :'',
+      create_at :date,
       id: 0
       
     }
   }
+  
 
   entrar(){
     console.log('ok');
@@ -41,24 +50,24 @@ export class LoginComponent implements OnInit {
         const aux = res['user'];
         console.log(aux.rol);
         switch(aux.rol){
-          case 'cliente':
+          case "cliente":
                     this.authService.setUserInfo( res['user'] );
-                    if(this.service.canActivate()){
+                    console.log('MENU CLIENTE');
                        this.service.logeado = true;
                        console.log('estado logeado:     '+this.service.logeado);
                       this.route.navigate(['/panel-usuario']);
-                    };
-          case 'administrador':
+          break;
+          case "administrador":
                 this.authService.setUserInfo( res['user'] );
-                if(this.service.canActivate()){
+                console.log('MENU ADM');
                   this.service.logeado = true;
                   this.route.navigate(['/panelAdministrador']);
-                };
+          break;
         }
         if(aux.rol == 'cliente'){
 
         }
-      
+  
       },
       err => {
         console.log(err);

@@ -9,27 +9,18 @@ function tasaRoutes(app,passport){
         TasaModule.getTasas()
         .then(
             resp=>{
-                if(resp.length){
-                const sendInfo={
-                    status: 711,
-                    msj: 'Perfecto!, se han encontrado las tasas actuales',
-                    tasas: resp
-                }
-                console.log(sendInfo);
-                res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-                 return res.end(JSON.stringify(sendInfo));
-            }else{
-                console.log('null');
-          const sendInfo={
-              status: 712,
-              msj: 'Ops!.No se encontraron las tasas actuales',
-              tasa: ''
-            }
-            console.log(sendInfo);
-            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-            return res.end(JSON.stringify(sendInfo));
-            }
+                return res.end(JSON.stringify(resp));
             })
+    }),
+    app.post('/updateTasa',(req,res)=>{
+        TasaModule.updateTasa(req)
+        .then(
+            resp=>{
+                console.log(resp);
+                res.send(resp);
+            }
+        );
+        
     }),
     app.get('/getTasa',(req,res,next)=>{
         console.log('gettasa');

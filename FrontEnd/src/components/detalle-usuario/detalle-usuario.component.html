@@ -1,0 +1,84 @@
+<div class="general">
+    <form [formGroup]="this.form">
+    <div class="card cardPrincipal" >
+        <div class="card-header">
+            {{this.form.get('usuario').value}}
+        </div> 
+        <div class="card-body principal">
+            
+            <div class="box">
+                <div class="card" id="infoSaldo">
+                    <div class="card-header"  style="background-color: white;color: black;" >
+                        SALDO
+                    </div>
+                    <div class="card-body">
+                        $ {{this.form.get('saldo').value}}
+                    </div>
+                </div>
+                <div class="card" id="infoCreado">
+                    <div class="card-header"  style="background-color: white;color: black;">
+                        CREADO
+                    </div>
+                    <div class="card-body">
+                       fecha: {{this.form.get('create_at').value}}
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!active"> 
+                <h3 style="color: red;">! El usuario se encuentra inactivo</h3>
+             </div>
+                    <mat-form-field appearance="outline" class="full-width" name="nombre">
+                        <mat-label>NOMBRE</mat-label>
+                        <input  matInput  type="text"
+                                name="nombre" formControlName="nombre" ng-disabled="!usuario.status='active'">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width" name="apellido">
+                        <mat-label>APELLIDO</mat-label>
+                        <input  matInput  type="text"
+                                name="apellido" formControlName="apellido" >
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width" name="email">
+                        <mat-label>EMAIL</mat-label>
+                        <input  matInput  type="email"
+                                name="email" formControlName="email" >
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width" name="email">
+                        <mat-label>TELEFONO</mat-label>
+                        <input  matInput  type="telefono"
+                                name="number" formControlName="telefono" >
+                    </mat-form-field>
+                    
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>PAIS</mat-label>
+                        <mat-select formControlName="pais"> 
+                            <mat-option *ngFor="let pais of this.paises"  [value]="pais" >
+                                {{pais}}</mat-option>        
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>PASSWORD</mat-label>
+                        <input  matInput  type="password"
+                        name="password" formControlName="password" style="width: 68%;" readonly="readonly">
+                        <div *ngIf="active"
+                        ><button mat-raised-button color="default" 
+                            style="position:absolute;width: 30%;top: 0;left: 70%;font-size: 12px;" (click)="this.editar()" >EDITAR</button></div>
+                    </mat-form-field>
+            
+        <div *ngIf="active && esAdministrador==true"> 
+          <button mat-button color="warn" (click)="this.Inabilitar()" >@ Inabilitar usuario</button></div>
+        </div>
+ 
+        <div class="card-footer" style="position: relative;left: 00%;">
+         
+            <button mat-stroked-button color="primary" class=" btn1"  [disabled]="!form.valid" *ngIf="active"
+                                             (click)="this.guardar()">GUARDAR</button>
+            <button mat-stroked-button color="warn"  (click)="this.back()"   class="btn2">VOLVER</button>
+        </div>
+    </div>
+</form>
+</div>

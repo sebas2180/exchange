@@ -38,12 +38,10 @@ function beneficiarioRoute(app,passport) {
 
     });
     app.put('/addBeneficiario',(req,res) =>{
-
         beneficiarioModel.addBeneficiario(req.body)
         .then(
             resp=>{
                       console.log(resp);
-                      //res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
                       return res.end(JSON.stringify(resp));
             }
         )

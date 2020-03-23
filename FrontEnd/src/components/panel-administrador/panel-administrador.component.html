@@ -1,63 +1,114 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="viewPrincipal">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+            <div class="box2">
+                <div class="card">
+                    <div class="card-header header2">  
+                        Tasas 
+                        <span class="material-icons"  style="display: flex; justify-content: space-between;"
+                                *ngIf="this.ViewBox1" (click)="close(1)">vertical_align_top
+                        </span>
+                        <span class="material-icons" style="display: flex; justify-content: space-between;"
+                                *ngIf="!this.ViewBox1" (click)="open(1)">vertical_align_bottom
+                        </span>
+                    </div>
+                    <div class="card-body body2" *ngIf="this.ViewBox1">
+                        <div class="row">
+                            <tabla-tasas (updateTasa)="updateTasa($event)"></tabla-tasas>
+                                <div class="a" style="position: relative;left: 0%;">   
+                                    <button class="btn btn-primary" style="position: relative;width: 150px;left: 50%;"> agregar</button> &nbsp;
+                                </div>
+                                <div class="a" style="position: relative;left: 030%;">   
+                                    <span class="material-icons">library_books</span>&nbsp;Historial
+                                </div>
+                                <div class="a" style="position: relative;left: 60%;">   
+                                    <span class="material-icons">create</span>&nbsp;Ingresar actualizacion
+                                </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+            <div class="espacio"></div>
             <div class="box">
                 <div class="card" id="card1">
-                    <div class="card-header">  Transacciones  </div>
-                    <div class="card-body">
-                        <img src="../../assets//imagenes/iconos/diagrama.png" alt="">
+                    <div class="card-header header">  
+                        Transacciones  
+                        <span class="material-icons"  style="display: flex; justify-content: space-between;" 
+                                *ngIf="this.ViewBox2" (click)="close(2)">vertical_align_top
+                        </span>
+                        <span class="material-icons"  style="display: flex; justify-content: space-between;"
+                                *ngIf="!this.ViewBox2" (click)="open(2)">vertical_align_bottom
+                        </span>
                     </div>
+                    <div class="card-body" *ngIf="this.ViewBox2">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-xs-4 col-sm-4">
+                                <img src="../../assets//imagenes/iconos/diagrama.png" alt="">
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xs-8 col-sm-8">
+                                <ul>
+                                    <li>Ultimo mes: &nbsp; {{this.transacciones}}</li>
+                                    <li>En verificacion:&nbsp; {{this.verificacion}}</li>
+                                    <li>Confirmadas:&nbsp; {{this.confirmadas}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- <img src="../../assets//imagenes/iconos/diagrama.png" alt="">
+                   
                     <ul>
                         <li>Ultimo mes: &nbsp; {{this.transacciones}}</li>
                         <li>En verificacion:&nbsp; {{this.verificacion}}</li>
                         <li>Confirmadas:&nbsp; {{this.confirmadas}}</li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
-
-            <div class="box">
-                <div class="card" id="card1">
-                    <div class="card-header header3">  Tasas  </div>
-                    <div class="card-body">
-                        <img src="../../assets//imagenes/iconos/lista.png" alt="">
-                    </div>
-                    
-                    <ul>
-                        <li>Argentina: &nbsp; {{this.transacciones}}</li>
-                        <li>Peru:&nbsp; {{this.verificacion}}</li>
-                        <li>Uruguay:&nbsp; {{this.confirmadas}}</li>
-                        <li>España:&nbsp; {{this.confirmadas}}</li>
-                        <li>Chile:&nbsp; {{this.confirmadas}}</li>
-                        <li>Brasil:&nbsp; {{this.confirmadas}}</li>
-                    </ul>
-                    
-                </div>
-                
-            </div>
-
-            <div class="box">
-                <div class="card" id="card1">
-                    <div class="card-header header2">
-                        Usuarios
-                    </div>
-                    <div class="card-body">
-                        <img src="../../assets//imagenes/iconos/usuario.png" alt="">
-                    </div>
-                    <ul>
-                        <li>Total:&nbsp; {{this.verificacion}}</li>
-                        <li>Activos:&nbsp; {{this.confirmadas}}</li>
-                        <input type="button" class="boton"  value="gestionar" routerLink="/panelAdmUsuarios">
-                        <input type="button" class="boton btn2"  value="Nuevo usuario"/>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="box">     
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+            <div class="espacio"></div>
+            <div class="box3">
                 <div class="card">
-                    <div class="card-header">
-                        Ultimas transacciones a verificar
+                    <div class="card-header header3">
+                        Usuarios
+                        <span class="material-icons"  style="display: flex; justify-content: space-between;"
+                        *ngIf="this.ViewBox3" (click)="close(3)">vertical_align_top
+                        </span>
+                        <span class="material-icons" s style="display: flex; justify-content: space-between;"
+                        *ngIf="!this.ViewBox3" (click)="open(3)">vertical_align_bottom
+                        </span>
                     </div>
-                    <app-depositos [esCliente]=true [isOnlyVerif]="true" ></app-depositos> 
+                    <div class="card-body" *ngIf="this.ViewBox3">
+                        <img src="../../assets//imagenes/iconos/usuario.png" style="width: 200px;height: 200px;">
+                        <ul>
+                            <li>Total:&nbsp; {{this.verificacion}}</li>
+                            <li>Activos:&nbsp; {{this.confirmadas}}</li>
+                            <input type="button" class="boton"  value="gestionar" routerLink="/panelAdmUsuarios">
+                            <input type="button" class="boton btn2"  value="Nuevo usuario" routerLink="/addUsuario">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+            <div class="espacio"></div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+            <div class="box4">     
+                <div class="card">
+                    <div class="card-header header4">
+                        Ultimas transacciones a verificar
+                        <span class="material-icons"  style="display: flex; justify-content: space-between;"
+                        *ngIf="this.ViewBox4" (click)="close(4)">vertical_align_top
+                        </span>
+                        <span class="material-icons" s style="display: flex; justify-content: space-between;"
+                        *ngIf="!this.ViewBox4" (click)="open(4)">vertical_align_bottom
+                        </span>
+                    </div>
+                    <app-depositos [esCliente]=true [isOnlyVerif]="true"  *ngIf="this.ViewBox4"></app-depositos>
                 </div>
              </div>
-
-
+        </div>
+    </div>
 </div>

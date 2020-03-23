@@ -59,9 +59,7 @@ getAllUsers(): Observable<UsuarioModule> {
       )
     )
 }
-addUsuario(usuario:UsuarioModule){
-  return this.http.put(`http://localhost:3000/addUsuario/`,usuario);
-}
+
 getRol(){
   this.canActivate();
   const data = JSON.parse(this.authService.getLocal());
@@ -70,6 +68,25 @@ getRol(){
   .set('id_user',id);
   return this.http.get(`http://localhost:3000/getRol/`,
   {params: params,observe: 'response'});
+}
+addUsuario(form: FormData){
+  return this.http.put<string>(`http://localhost:3000/signup/`,form);
+}
+updateUsuario(form: FormData){
+  return this.http.post<string>(`http://localhost:3000/updateUsuario/`,form);
+}
+disabledUsuario(usuario){
+  const params = new HttpParams()
+  .set('usuario',usuario);
+  return this.http.get<string>(`http://localhost:3000/disabledUsuario/`,
+  {params: params, observe: 'response'});
+}
+validarPassword(password,usuario){
+  const params = new HttpParams()
+  .set('password',password)
+  .set('usuario',usuario);
+  return this.http.get<string>(`http://localhost:3000/validarPassword/`,
+  {params: params, observe: 'response'});
 }
 isCliente(){
   this.getRol().subscribe(
@@ -95,7 +112,7 @@ isAdministrador(){
       if(rol_usuario=='administrador'){
         return true;
       }else{
-        this.route.navigate(['/panel-usuario']);
+        this.route.navigate(['/panelAdministrador']);
       }
     }
   );

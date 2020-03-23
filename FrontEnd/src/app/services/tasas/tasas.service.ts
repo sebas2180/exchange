@@ -16,14 +16,18 @@ export class TasasService {
   Tasas: TasaModule[];
   constructor(private http: HttpClient,private route : Router) {
    }
-   getTasas(){
-     const params = new HttpParams();
-    return this.http.get<any>(`http://localhost:3000/getTasas`,
-    {params:params,observe:'response'}).pipe(
-      map(data=>{
-        new TasaModule().deserialize(data);
-      })
-    );
+  getTasas() {
+      console.log('allDepositsOnlyverif');
+      return this.http.get<TasaModule[]>(`http://localhost:3000/getTasas/`)
+      .pipe(
+        map((data => new TasaModule().deserialize(data))
+        )
+      )
+
+  }
+  updateTasa(TasaMo){
+    return this.http.post(`http://localhost:3000/updateTasa/`,TasaMo);
+
   }
   getTasa(pais: string){
     console.log('pais tasa'+ pais);

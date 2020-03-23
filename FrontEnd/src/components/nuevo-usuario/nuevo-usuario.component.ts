@@ -1,3 +1,6 @@
+import { trigger, style, state, transition, animate } from '@angular/animations';
+import { Router } from '@angular/router';
+import { ManejoFechasService } from './../../../shared/services/manejoFechasService/manejo-fechas.service';
 import { UsuarioService } from './../../app/services/usuarioService.service';
 import { AuthserviceService } from './../../app/services/authservice.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -7,13 +10,28 @@ import swal  from 'sweetalert2';
 @Component({
   selector: 'app-nuevo-usuario',
   templateUrl: './nuevo-usuario.component.html',
-  styleUrls: ['./nuevo-usuario.component.scss']
+  styleUrls: ['./nuevo-usuario.component.scss'],
+  animations:[
+    trigger('enterState',[
+      state('void',style({
+        transform:'translateX(-50%)',
+        opacity:0
+      })),
+      transition(':enter',[
+        animate('0.5s',style({
+          transform:'translateX(0)',
+        opacity:1
+        }))
+      ])
+    ])]
 })
 export class NuevoUsuarioComponent implements OnInit {
 
   @Input() isAdministrador: boolean = false;
   constructor( private AuthserviceService: AuthserviceService,
-                private UsuarioService : UsuarioService) {
+                private UsuarioService : UsuarioService,
+                private ManejoFechasService: ManejoFechasService,
+                private router: Router) {
     //UsuarioService.isAdministrador();
     UsuarioService.canActivate();
 
@@ -21,14 +39,14 @@ export class NuevoUsuarioComponent implements OnInit {
   }
   form: FormGroup;
   panelActual: number=1;
-
+  hide = true;
   paises: string[] = [ 'ARGENTINA','BRASIL','CHILE','URUGUAY','PARAGUAY','ESPAÑA'];
   ngOnInit(): void {
     this.newForm();
           var userRamdom=(Math.random())*1000000;
           var userRamdom2='pwd'+(Math.trunc(userRamdom));
           this.form.patchValue({password:userRamdom2});
-
+          this.form.patchValue({create_at: this.ManejoFechasService.createDateCreateAt()});
     this.UsuarioService.getRol().subscribe(
       res=>{
         const aux = res['body'];
@@ -49,9 +67,7 @@ export class NuevoUsuarioComponent implements OnInit {
     beforePanel(){
       this.panelActual--;
     }
-    crear_usuario(){
-        
-    }
+
     nextPanel(){
 
       if(this.panelActual == 4){
@@ -146,8 +162,43 @@ export class NuevoUsuarioComponent implements OnInit {
         usuario: new FormControl('',[Validators.required]),
         pais: new FormControl('',[Validators.required]),
         email: new FormControl('',[Validators.required]),
-        password: new FormControl('',[Validators.required])
+        password: new FormControl('',[Validators.required]),
+        create_at: new FormControl('',[Validators.required])
       });
+    }
+    guardarUsuario(){
+      const dataForm= new FormData();
+      dataForm.append('usuario',this.form.get('usuario').value);
+      dataForm.append('email',this.form.get('email').value);
+      dataForm.append('password',this.form.get('password').value);
+      dataForm.append('pais',this.form.get('pais').value);
+      dataForm.append('create_at',this.form.get('create_at').value);
+      this.UsuarioService.addUsuario(dataForm).subscribe(
+        res=>{
+          console.log(res);
+          swal.fire({
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 2200
+          }).then(
+            res=> {
+              this.router.navigate(['/panelAdministrador']);
+          })
+        },
+        err=>{
+          swal.fire({
+            icon: 'error',
+            title: 'Error al guardar el usuario, intentalo luego',
+            showConfirmButton: false,
+            showCancelButton: true
+          }).then(
+            res=> {
+              this.router.navigate(['/PanelBeneficiarios']);
+          })
+          console.log(err);
+        }
+      )
     }
 
 }

@@ -1,13 +1,10 @@
-
-<br>
+<div *ngIf="!verUsuario">
 <div class="div1" @enterStateRight>
-    <p>Bienvenido   {{this.usuario.usuario}}!</p>
-    <div class="edit">
-        <i class="material-icons">settings_system_daydream</i>
-      </div>
-      
+    <p>Bienvenido   {{this.form.get('usuario').value || 'error'}}!</p>
+    <div class="edit">   
+        <span class="material-icons"(click)="configuraciones()" >settings</span>
+      </div> 
 </div>
-
 <div class="container" id="div2" @enterState>
     <mat-grid-list cols="2" rowHeight="160px" >
         <mat-grid-tile class="grid-test-1"> 
@@ -36,7 +33,7 @@
         <mat-grid-tile class="grid-test-1"> 
             <mat-card style="width: 105%;">
                 <label   class=" text-center" >Pais</label>
-                <h4 class="text-center">{{this.usuario.pais}}</h4>  
+                <h4 class="text-center"> {{this.form.get('pais').value || 'error'}}</h4>  
                 </mat-card>
         </mat-grid-tile>
         <mat-grid-tile class="grid-test-1" > 
@@ -48,7 +45,7 @@
                 </mat-card-header>
                 <mat-card-content>
                    <mat-label>
-                    <h4 class="text-center">{{this.usuario.saldo}}
+                    <h4 class="text-center"> {{this.form.get('saldo').value || 'error'}}
                         <span matPrefix>$&nbsp;</span>
                     </h4> 
                    </mat-label> 
@@ -74,3 +71,6 @@
     </div>
    
 </div>
+</div>
+<detalle-usuario *ngIf="verUsuario" [esAdministrador]="false" 
+            [usuario]="this.usuario" (emitChange)="changeVentana($event)"></detalle-usuario>
