@@ -15,6 +15,7 @@ import {map} from 'rxjs/operators';
 export class DepositoService  {
 
   isViewTable:boolean=false;
+  public rut : string =`http://us-cdbr-iron-east-01.cleardb.net:3000/`;
   
   constructor(private http: HttpClient,private authService: AuthserviceService, private route : Router) { 
 
@@ -38,7 +39,7 @@ const params = new HttpParams()
   }
 
 
-
+//return this.http.get(this.rut+`getRol/`,
 getDepositos(isOnlyVerif:boolean) {
   console.log(!isOnlyVerif);
   if(isOnlyVerif){
@@ -57,6 +58,16 @@ getDepositos(isOnlyVerif:boolean) {
       const params = new HttpParams()
       .set('id', id.toString());
         return this.http.get<DepositoModule[]>(`http://localhost:3000/allDepositsForUser/`,{
+          params: params ,observe: 'response'}).pipe(
+            map((data => new DepositoModule().deserialize(data))
+            )
+          )
+  }
+  getDepositosForId(id:number ): Observable<DepositoModule>{
+      console.log('service consola');
+      const params = new HttpParams()
+      .set('id', id.toString());
+        return this.http.get<DepositoModule[]>(`http://localhost:3000/getDepositosForId/`,{
           params: params ,observe: 'response'}).pipe(
             map((data => new DepositoModule().deserialize(data))
             )

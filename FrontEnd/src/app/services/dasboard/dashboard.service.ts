@@ -10,7 +10,7 @@ export class DashboardService {
   constructor(private http: HttpClient) { }
 
   uppload(data: FormData) {
-
+    console.log(data);
     return this.http.post(`http://localhost:3000/prueba`, data);
   }
 }

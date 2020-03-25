@@ -35,12 +35,16 @@ export class PanelBeneficiariosComponent implements OnInit {
               private authService:AuthserviceService,
               public panelService: PanelBeneficiarioServiceService) {
   }
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
+    
     const data = JSON.parse(this.authService.getLocal());
     console.log(data['id']);
     this.BeneficiariosAutho.getBeneficiarios(data['id']).subscribe(
       res=>{
+       
         this.beneficiariosAux = res['body'];
+        console.log(this.beneficiariosAux['beneficiario']);
         this.BeneficiariosAutho.beneficiarios= this.beneficiariosAux['beneficiario'];
       },
       err=>{

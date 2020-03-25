@@ -29,7 +29,7 @@ export class TablaTasasComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @Output() updateTasa = new EventEmitter();
-  displayedColumns: string[] = ['pais','create_at','tasa','acciones'];
+  displayedColumns: string[] = ['pais','createAt','tasa','acciones'];
   arrayTasas: TasaModule[];
   dataSource;
   isLoading: boolean = true;
@@ -38,7 +38,10 @@ export class TablaTasasComponent implements OnInit {
       res=>{
        
         this.arrayTasas= res['msj'];
+        console.log(res['msj']);
         this.dataSource =  new MatTableDataSource<TasaModule>(this.arrayTasas);
+        console.log(this.arrayTasas);
+
         this.dataSource.sort =this.sort;
         this.isLoading=false;
 

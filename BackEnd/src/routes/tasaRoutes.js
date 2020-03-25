@@ -28,11 +28,11 @@ function tasaRoutes(app,passport){
         .then(
             resp=>{
                // console.log(resp);
-                if(resp.length){
+                if(resp){
                 const sendInfo={
                     status: 711,
                     msj: 'Perfecto!, se han encontrado las tasas actuales',
-                    tasa: resp[0]
+                    tasa: resp
                 }
                 console.log(sendInfo);
                 res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');

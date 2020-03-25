@@ -1,7 +1,7 @@
 
 const mysql = require('../../database/mysql');
 const conn = mysql.dbConnection();
-
+const Beneficiario = require('../../database/beneficiarios')();
 module.exports = {
 
     
@@ -10,18 +10,26 @@ module.exports = {
         const linea= 'SELECT * FROM beneficiario WHERE id_usuario='+id;
         console.log(linea);
             return new Promise((resolve,reject) =>{
-                conn.query(linea,(err,res1) => {
-                    if(err) {
-                        console.log(err);
+                Beneficiario.findAll({ where:{ id_usuario : id}})
+                .then(
+                    res=>{
+                        resolve(res);
                     }
+                )
+
+
+                // conn.query(linea,(err,res1) => {
+                //     if(err) {
+                //         console.log(err);
+                //     }
                     
-                    if(!res1.length){
-                        resolve([]);
-                    }else{
-                        resolve(res1);
-                    }
-                    resolve(res1);
-                });
+                //     if(!res1.length){
+                //         resolve([]);
+                //     }else{
+                //         resolve(res1);
+                //     }
+                //     resolve(res1);
+                // });
             });
     
     },
@@ -44,12 +52,14 @@ module.exports = {
         } else{
             conn.query(linea,[beneficiario],(err,results,fields)=>{  
                 if (err) throw err;
+                
                 if(err) {
+
                      resolve({status:701,msj:'Error al guardar usuario, reintente mas tarde.'});
                  }
                 if(results != null){
                     if(results.affectedRows > 0){
-                     
+                   
                         resolve({status:700,msj:'guardado correcto',insertId:results.insertId});
                   }
                 }

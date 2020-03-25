@@ -1,4 +1,4 @@
-import { ComprobarComponent } from './../components/comprobar/comprobar.component';
+
 
 
 import { NgModule } from '@angular/core';
@@ -52,6 +52,8 @@ import { TablaUsuariosComponent } from 'src/components/tabla-usuarios/tabla-usua
 import { TablaUsuariosService } from './services/tabla-usuarios/tabla-usuarios.service';
 import { DetalleUsuarioComponent } from 'src/components/detalle-usuario/detalle-usuario.component';
 import { TablaTasasComponent } from 'src/components/tabla-tasas/tabla-tasas.component';
+import { NuevoDashboardComponent } from '../components/nuevo-dashboard/nuevo-dashboard.component';
+import { ComprobarComponent } from './../components/comprobar/comprobar.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -76,7 +78,8 @@ import { TablaTasasComponent } from 'src/components/tabla-tasas/tabla-tasas.comp
     NuevoUsuarioComponent,
     DetalleUsuarioComponent,
     ComprobarComponent,
-    TablaTasasComponent
+    TablaTasasComponent,
+    NuevoDashboardComponent
   ],
   imports: [
     //BrowserModule.withServerTransition({ appId: 'serverApp' }),

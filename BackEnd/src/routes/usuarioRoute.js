@@ -1,9 +1,9 @@
 
 const usuarioModel = require('../../src/models/usuarioModel');
-const mysql = require('../../database/mysql');
+//const mysql = require('../../database/mysql');
 var crypto            = require('crypto');
 const User = require('../../database/usuarios')();
-const conn = mysql.dbConnection();
+//const conn = mysql.dbConnection();
     function usuarioRoute(app,passport){
     app.get('/getRol',isAuthenticated,(req,res,next)=>{
         usuarioModel.getRol(req.query.id_user)

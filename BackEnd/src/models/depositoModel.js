@@ -1,22 +1,24 @@
 
 const mysql = require('../../database/mysql');
 var depositos = require('../../database/deposito')();
-const conn = mysql.dbConnection();
-
+var Sequelize = require('sequelize');
 
     module.exports= {
       
       getDepositos: (id) => {
-        console.log('id_user' +(id));
-          const linea = 'SELECT * FROM depositos d WHERE d.id_user='+id+' order by d.fecha DESC';
-          console.log(linea);
+        //console.log('id_user' +(id));
+          //const linea = 'SELECT * FROM depositos d WHERE d.id_user='+id+' order by d.fecha DESC';
+         // console.log(linea);
           return new Promise((resolve, reject) => {
-            conn.query(linea, function(err, results) {
-              if (err) {
-                throw err;
+            depositos.findAll({     where: {  id_user      : id             }    },
+              { order: { fecha: 'DESC'  }})
+            .then(
+              res=>{
+            //    console.log(res);
+                
+                resolve(res);
               }
-              resolve((results));
-            });
+            )
           })
         },
         getDepositos: () => {
@@ -24,7 +26,8 @@ const conn = mysql.dbConnection();
               depositos.findAll()
                 .then(
                   res=>{
-                    console.log(res);
+                   // console.log(res);
+                    
                     resolve(res);
                   }
                 )
@@ -35,7 +38,6 @@ const conn = mysql.dbConnection();
               depositos.findAll({     where: {  status      : "EN VERIFICACION"             }    })
                 .then(
                   res=>{
-                    console.log(res);
                     resolve(res);
                   }
                 )
@@ -44,36 +46,68 @@ const conn = mysql.dbConnection();
         
       
       getEstadisticasDelUsuario: (id) => {
-        console.log(id);
-          const linea = 'SELECT count(1) as cantidad FROM depositos d WHERE d.id_user='+id;
-          console.log(linea);
+
           return new Promise((resolve, reject) => {
-            conn.query(linea, function(err, results) {
-              if (err) {
-                throw err;
+            depositos.count({     where: {  id_user      : id             }    })
+            .then(
+              res=>{
+                console.log(res);  
+                const ultimoMes = new Date();
+                ultimoMes.setMonth(ultimoMes.getMonth()-1);
+                   var options = {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "numeric"
+                };
+                const a =  ultimoMes.toLocaleDateString("fr-CA",options);
+                const Op = Sequelize.Op;
+                depositos.count({ where: { 
+                                       fecha:
+                                            {  [Op.gt]: a }
+                                        } 
+                })
+                .then(
+                  res1=>{
+                     
+                    resolve({ total: res,ultimo_mes: res1});
+                  }
+                )
               }
-            
-              resolve((JSON.stringify(results)));
-            });
+            )
           })
         }   ,
         getDepositosForDestinatario:(beneficiario) => {
-          console.log(beneficiario);
           return new Promise((resolve,reject)=>{
-            conn.query('SELECT * FROM depositos WHERE id_user=? and id_destinatario=?',
-            [beneficiario.id_user,beneficiario.id_destinatario],(err,res)=>{
-              if(err) throw err;
-
-              resolve(res);
-            });
+            depositos.findAll({     where: {  id_user      : beneficiario.id_destinatario ,
+                                              id_destinatario : beneficiario.id_user    }   
+                              })
+            .then(
+              res=>{
+              // console.log(res);
+                resolve(res);
+              }
+            )
+          });
+        },
+        getDepositosForId:(deposito) => {
+          return new Promise((resolve,reject)=>{
+            depositos.findAll({     where: {  id      : deposito.id    }   
+                              })
+            .then(
+              res=>{
+         
+                resolve(res);
+              }
+            )
           });
         },
         addDeposito:(req) =>{
           return new Promise((resolve,reject)=>{
 
             const linea =  `INSERT INTO depositos set? `;
-            console.log(linea);
+         //   console.log(linea);
             conn.query(linea,[req.body],(err,result)=>{
+              conn.release();
               resolve({status:721,id_deposito:result.insertId});
             });
           });

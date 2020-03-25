@@ -22,11 +22,13 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   @Input() esCliente:boolean =false;
   @Input() nroBeneficiario:number =-1;
   @Input()  isOnlyVerif: boolean =true;
+  @Output()   isMostrarDash = new EventEmitter;
   isFiltrado: boolean=false;
+
   depositos: DepositoModule[];
   deposito: DepositoModule ;
   aux : string ;
-  displayedColumns: string[] = ['id','id_destinatario','pais','fecha','monto','action'];
+  displayedColumns: string[] = ['id','id_destinatario','pais','fecha','action'];
   dataSource;
   isLoading: boolean = true;
 
@@ -52,6 +54,7 @@ export class DepositosComponent implements OnInit,AfterViewInit {
             //console.log('---------------ES FOR BENEFICIARIO ------------');
                 this.deposito = res;
                 this.depositos = res['body'];
+                console.log(res);
                 this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
@@ -65,6 +68,7 @@ export class DepositosComponent implements OnInit,AfterViewInit {
           res => {
                 this.deposito = res;
                 this.depositos = res['body'];
+                console.log(this.depositos);
                 this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
@@ -95,6 +99,10 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   edit(dep: DepositoModule) {
 
   }
+  generarDashBoard(indexDeposito){
+     this.isMostrarDash.emit(indexDeposito);
+  }
+
   filtrado(){
     this.isFiltrado=true;
 

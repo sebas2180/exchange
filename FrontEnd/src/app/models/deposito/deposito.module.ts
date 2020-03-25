@@ -14,7 +14,7 @@ export class DepositoModule implements Deserializable{
   fecha?: Date;
   pais?: string;
   status?: string;
-  create_at?: Date;
+  create_at?:  Date=new Date();
   id_user?: number;
   monto?: number;
   tasa?: number;

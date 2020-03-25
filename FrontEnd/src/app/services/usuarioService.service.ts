@@ -12,7 +12,7 @@ export class UsuarioService implements CanActivate {
   desconectado: boolean= false;
   public logeado: boolean= false;
   public usuario: UsuarioModule;
-  
+  public rut : string =`http://us-cdbr-iron-east-01.cleardb.net:3000/`;
   constructor(private http: HttpClient,private authService : AuthserviceService, private route : Router) { }
 
   canActivate(){
@@ -93,10 +93,8 @@ isCliente(){
     res=>{
       const aux = res['body'];
       const rol_usuario = aux['rol'];
-    
       console.log('roool:         '+rol_usuario);
       if(rol_usuario == 'cliente'){
-
         return true;
       }else{
         this.route.navigate(['/panelAdministrador']);
@@ -107,12 +105,14 @@ isCliente(){
 isAdministrador(){
   this.getRol().subscribe(
     res=>{
+
       const aux = res['body'];
       const rol_usuario = aux['rol'];
+      console.log(rol_usuario);
       if(rol_usuario=='administrador'){
         return true;
       }else{
-        this.route.navigate(['/panelAdministrador']);
+        this.route.navigate(['/panel-usuario']);
       }
     }
   );

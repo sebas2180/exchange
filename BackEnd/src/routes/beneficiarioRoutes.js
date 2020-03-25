@@ -6,7 +6,7 @@ function beneficiarioRoute(app,passport) {
         beneficiarioModel.getBeneficiarios(req.query.id_usuario)
         .then(
             resp=>{
-                if(!resp.length){
+                if(!resp){
                     console.log('null');
 
                     const sendInfo={

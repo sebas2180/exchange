@@ -55,6 +55,7 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
 export class UsuarioComponent implements OnInit {
 
   cantidad_depositos : number;
+  ultimo_mes: number;
   usuario: UsuarioModule = new UsuarioModule();
   form: FormGroup;
   verUsuario:boolean=false;
@@ -102,8 +103,11 @@ export class UsuarioComponent implements OnInit {
         this.newUsuario(aux['usuario']);
         this.depService.getEstadisticasDelUsuario(data['id']).subscribe(
           res => {
-            const a =JSON.parse(res['body']);
-            this.cantidad_depositos= (a[0].cantidad);
+           
+            const aux= (res['body']);
+            const aux2 = aux['msj'];
+            this.cantidad_depositos= aux2['total'];
+            this.ultimo_mes = aux2['ultimo_mes'];
           },
           err => {
             console.log(err);

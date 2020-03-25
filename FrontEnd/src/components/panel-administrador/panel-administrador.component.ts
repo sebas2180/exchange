@@ -1,3 +1,4 @@
+import { BeneficiarioModule } from './../../app/models/beneficiario/beneficiario.module';
 import { TasasService } from './../../app/services/tasas/tasas.service';
 
 import { ManejoFechasService } from './../../../shared/services/manejoFechasService/manejo-fechas.service';
@@ -36,6 +37,8 @@ export class PanelAdministradorComponent implements OnInit {
   ViewBox3:boolean =true;
   ViewBox4:boolean =true;
   viewPrincipal:boolean =true;
+  isMostrarDash: number =-1;
+  beneficiarioDash: BeneficiarioModule;
   constructor(private TransaccionService: DepositoService,
     private ManejoFechasService: ManejoFechasService,
     private authService : AuthserviceService,
@@ -61,6 +64,16 @@ export class PanelAdministradorComponent implements OnInit {
     if(index==3) {     this.ViewBox3=true;    }
     if(index==4) {     this.ViewBox4=true;    }
   }
+  setIsMostrarDash(e){
+    this.isMostrarDash=e;
+    
+  }
+  // setBeneficiarioDash(e){
+  //   alert('eee');
+  //   console.log(e);
+  //   //hacer una consulta por id de deposito y traer el deposito...
+  //   this.beneficiarioDash=e;
+  // }
   updateTasa(e){
     console.log(e);
   Swal.fire({
@@ -77,10 +90,10 @@ export class PanelAdministradorComponent implements OnInit {
       const dataForm = new FormData();
       const TasaMo = new TasaModule();
       const date = new Date();
-      TasaMo.create_at=date;
+      TasaMo.createAt=date;
       TasaMo.tasa_actual=res.value;  
       TasaMo.nombre=   e;
-      dataForm.append('create_at',this.ManejoFechasService.convertDateToCreateAt(TasaMo.create_at));
+      dataForm.append('create_at',this.ManejoFechasService.convertDateToCreateAt(TasaMo.createAt));
       dataForm.append('tasa_actual',TasaMo.tasa_actual.toString());
       dataForm.append('pais',TasaMo.nombre);
       console.log(dataForm);

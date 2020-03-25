@@ -20,6 +20,8 @@ export class BeneficiarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.titular = this.beneficiario.apellido+' '+this.beneficiario.nombre;
+    console.log('gggre');
+    console.log(this.beneficiario);
   }
   deleteBeneficiario(){
     Swal.fire({

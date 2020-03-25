@@ -12,6 +12,7 @@
 
 .card{
     margin-top: 6px;
+    width: 100%;
 }
 .card-header{
     display: flex;
@@ -53,12 +54,21 @@ li{
     font-weight: bold;
     margin-bottom: 6px;
 }
-tabla-tasas,.body2{
+nuevo-dashboard{
     display: flex;
     justify-content: center;
     align-items: initial;
     flex-direction: column-reverse;
     width: 100%;
+}
+nuevo-dashboard{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: initial;
+    flex-direction: column-reverse;
+    width: 100%;
+    top: 17%;
 }
 button,.iconn{
     display: flex;

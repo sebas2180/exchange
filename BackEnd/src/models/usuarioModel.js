@@ -1,12 +1,12 @@
 
-const mysql = require('../../database/mysql');
+//const mysql = require('../../database/mysql');
 const User = require('../../database/usuarios')();
-const conn = mysql.dbConnection();
+//const conn = mysql.dbConnection();
 var crypto  = require('crypto');
 
 module.exports = {
     getUsuarios : function() { 
-        
+        User =  require('../../database/usuarios')();
         return new Promise((resolve,reject)=>{
             User.findAll()
                 .then(
@@ -29,6 +29,7 @@ module.exports = {
                         status:752,
                         rol:aux['rol']
                     }
+                
                     resolve(msj);
                    
                 }else{
@@ -36,6 +37,7 @@ module.exports = {
                         status:753,
                         rol: "Error al obtener el rol"
                     }
+                 
                     resolve(msj);
                 }
             }
@@ -48,6 +50,7 @@ module.exports = {
             User.findOne({ where:{ id : id}})
             .then(
                 res=>{
+                 
                     resolve(res);
                 }
             )
@@ -58,6 +61,7 @@ module.exports = {
             User.findOne({ where:{ email : email}})
             .then(
                 res=>{
+       
                     resolve(res);
                 }
             )
@@ -79,12 +83,14 @@ module.exports = {
                             status:720,
                             msj:'Inhabilitación correcta.'
                         }
+                       
                         resolve(resp);
                     }else{
                         const resp ={
                             status:721,
                             msj:'No se puedo inhabilitar al usuario.'
                         }
+                    
                         resolve(resp);
                     }
                    
@@ -108,12 +114,14 @@ module.exports = {
                             status:722,
                             msj:'Contraseña correcta.'
                         }
+                
                         resolve(resp);
                     }else{
                         const resp ={
                             status:723,
                             msj:'No se pudo comprobar la contraseña.'
                         }
+                   
                         resolve(resp);
                     }
                    
@@ -127,6 +135,7 @@ module.exports = {
             User.findOne({ where:{ usuario : usuario}})
             .then(
                 res=>{
+                    
                     resolve(res);
                 }
             )
@@ -146,23 +155,26 @@ module.exports = {
                             status:724,
                             msj:'Actualizacion correcta.'
                         }
+                     
                         resolve(resp);
                     }else{
                         const resp ={
                             status:725,
                             msj:'Hubo un problema al correcta.'
                         }
+                 
                         resolve(resp);
                     }
                     console.log(res);
+                   
                     resolve(res);
                 }
             )
         })
     },
-    addUsuario: function(usuario){
-        const usuario = new User();
-        //usuario.se
+    // addUsuario: function(usuario){
+    //     const usuario = new User();
+    //     //usuario.se
         
-    }
+    // }
 }

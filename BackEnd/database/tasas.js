@@ -22,8 +22,8 @@ const sequelize= require('./sequelize');
             },
              
              createdAt: {
-              type: Sequelize.DATE, 
-              field: 'create_at'
+              type: Sequelize.DATE 
+              ,field: 'create_at'
             } 
           },
           {

@@ -1,5 +1,6 @@
 
 
+
 const express = require('express');
 const http = require('http');
 const app = express();
@@ -66,18 +67,8 @@ const bancoRoute = require('./src/routes/bancoRoutes')(app,passport);
 const tasaRoute = require('./src/routes/tasaRoutes')(app,passport);
 const beneficiarioRoute = require('./src/routes/beneficiarioRoutes')(app,passport);
 require('./database/sequelize');
-server.listen(3000,()=>{//cambiar a 30000 en desarollo
+const PORT = process.env.PORT || 3000;
+server.listen(PORT,()=>{//cambiar a 30000 en desarollo
     console.log('server conectado en el puerto: '+server.address().port)
 });
-
-// models.findOne({
-//       where: {
-//               usuario: 'sebas'
-//               }
-//             }).then(function(user) {
-//               console.log(user['dataValues']);
-//             }
-//     )
-       
-
 

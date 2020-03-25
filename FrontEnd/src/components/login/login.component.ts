@@ -43,9 +43,9 @@ export class LoginComponent implements OnInit {
     console.log('ok');
     this.service.login(this.usuario).subscribe(
       res => {
-        console.log(res['user']);
+        console.log(res);
         if(res['status'] == ( 702 || 703) ) {
-          console.log(res['success']);
+          console.log(res['user']);
         }
         const aux = res['user'];
         console.log(aux.rol);
@@ -64,10 +64,6 @@ export class LoginComponent implements OnInit {
                   this.route.navigate(['/panelAdministrador']);
           break;
         }
-        if(aux.rol == 'cliente'){
-
-        }
-  
       },
       err => {
         console.log(err);

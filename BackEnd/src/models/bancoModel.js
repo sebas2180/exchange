@@ -1,7 +1,7 @@
 
-const mysql = require('../../database/mysql');
-const conn = mysql.dbConnection();
-
+//const mysql = require('../../database/mysql');
+//const conn = mysql.dbConnection();
+const Bancos = require('../../database/bancos')();
 module.exports = {
 
     
@@ -10,12 +10,22 @@ module.exports = {
         const linea= 'SELECT * FROM bancos';
         console.log(linea);
             return new Promise((resolve,reject) =>{
-                conn.query(linea,(err,res1) => {
-                    if(err) {
-                        console.log(err);
-                    };
-                    resolve(res1);
-                });
+                Bancos.findAll()
+                .then(
+                    res=>{
+                        sequelize.close ()
+                        resolve(res);
+                    }
+                )
+
+                // conn.query(linea,(err,res1) => {
+                //     if(err) {
+                //         conn.release();
+                //         console.log(err);
+                //     };
+                //     c
+                //     resolve(res1);
+                // });
             });
     
     }

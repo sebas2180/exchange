@@ -1,0 +1,66 @@
+<div class="principal">
+    <form action="" [formGroup]="this.dashForm" (ngSubmit)="enviar(this.dashForm)" enctype="multipart/form-data">
+    <div class="card">
+        <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <div class="card card2">
+                                <div class="card-header">
+                                    DATOS DEPOSITO
+                                </div>
+                                <div class="card-body body2">
+                                    <h3>Id deposito:{{deposito.id}} &nbsp;</h3>
+                                    <h3>fecha:{{deposito.tasa}} &nbsp;</h3>
+                                    <h3>Pais remitente:{{deposito.pais}} &nbsp;</h3>
+                                    <h3>Monto: {{deposito.monto}}&nbsp;</h3>
+                                    <h3>Tasa: &nbsp; {{deposito.tasa}}</h3>
+                                    <br>
+                                </div>
+                                <div class="card-footer">
+                                    <h3>Total</h3>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-header">
+                            COMPROBANTE DEPOSITO
+                        </div>
+                        <div class="card card3">
+                            <div class="card-body">
+                                <!-- <div class="optiones" *ngIf="this.isSeleted">
+                                    <span class="material-icons"  style="display: flex; justify-content: space-between;"
+                                        *ngIf="!this.ViewBox3" (click)="close(1)">vertical_align_top
+                                    </span>
+                                    <span class="material-icons" style="display: flex; justify-content: space-between;"
+                                        *ngIf="this.ViewBox3" (click)="open(1)">vertical_align_bottom
+                                    </span>
+                                </div> -->
+                                <div class="card-body body3">
+                                    <img src="../../assets/imagenes/iconos/addimage.PNG" *ngIf="!this.isSeleted">
+                                    <div class="box">
+                                        <app-file-uploap (onFileSelect)="onFileSelect($event)"
+                                                        (isSelected)="changeIsSelected($event)">
+                                        </app-file-uploap>
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="submitted && dashForm.controls.photo.invalid">
+                                        <div *ngIf="dashForm.controls.photo.errors.required">El comprobante es requerido</div>
+                                    </div>
+                                    <div class="text-danger"  *ngIf="uploadError">{{uploadError}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="card-footer">
+            <button class="btn btn-primary btn-block"  type="submit"
+                            [disabled]="dashForm.invalid"> Enviar
+            </button>
+            <button class="btn btn-danger btn-block" (click)="volver()"> Enviar
+</button>
+        </div>
+    </div>
+    </form>
+</div>

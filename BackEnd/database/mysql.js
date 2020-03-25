@@ -12,6 +12,18 @@ hola:  function(){
 
 dbConnection: function () {
 
+    // connection = mysql.createConnection({
+    //     host: 'us-cdbr-iron-east-01.cleardb.net',
+    //     user: 'bb4140aeaa24a0',
+    //     password: 'af327668',
+    //     // database: 'heroku_3f3fe830ae5ac81',
+    //     insecureAuth : true,
+    //     port: 3306,
+    //     dateStrings:true
+    // });
+
+
+    console.log('a');
     connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
@@ -21,15 +33,7 @@ dbConnection: function () {
         port: 3306,
         dateStrings:true
     });
-    // connection = mysql.createConnection({
-    //     host: '172.30.73.147',
-    //     user: 'root',
-    //     password: '1234',
-    //     database: 'exchange',
-    //     insecureAuth : true,
-    //     port: 3306,
-    //     dateStrings:true
-    // });
+
     console.log('conexion a BD exitosa');
     connection.connect();
     return connection;

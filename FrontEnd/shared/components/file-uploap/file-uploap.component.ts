@@ -9,6 +9,7 @@ export class FileUploapComponent implements OnInit {
   public image: string ='';
   @ViewChild('fileUpoader',{static: false}) fileUpoader: ElementRef<HTMLElement>;
   @Output() onFileSelect: EventEmitter<Object> = new EventEmitter();
+  @Output() isSelected = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class FileUploapComponent implements OnInit {
       };
       reader.readAsDataURL(file);
       this.onFileSelect.emit(file);
+      this.isSelected.emit(true);
     }
   }
 

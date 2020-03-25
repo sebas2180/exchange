@@ -16,10 +16,15 @@ export class ComprobarComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.service.canActivate()) {
+    //  console.log('ffffffffffffffffffffffffffffff');
+    //  const aux = JSON.parse(this.authService.getLocal());
+    //  if(aux.rol == 'cliente'){
+       
+    //  }
       this.service.logeado = true;
       this.service.isCliente();
       this.service.isAdministrador();
-      //this.route.navigate(['/panel-usuario']);
+
     }else{
     this.route.navigate(['/login']);
     }
