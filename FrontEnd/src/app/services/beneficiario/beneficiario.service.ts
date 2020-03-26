@@ -41,10 +41,17 @@ export class BeneficiarioService {
       )
 
   }
+  getBeneficiario(id_beneficiario: number){
+    const params = new HttpParams()
+      .set('id_beneficiario',id_beneficiario.toString());
+      return this.http.get<string>(`http://localhost:3000/getBeneficiario/`,
+      {params: params, observe:'response'});
+      
+  }
   deleteBeneficiario(id: number){
     const params = new HttpParams()
     .set('id',id.toString());
-      return this.http.delete<string>('http://localhost:3000/deleteBeneficiario/',
+      return this.http.delete<BeneficiarioModule>('http://localhost:3000/deleteBeneficiario/',
       {params: params, observe:'response'});
   }
 }

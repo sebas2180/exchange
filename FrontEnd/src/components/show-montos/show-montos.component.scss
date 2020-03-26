@@ -1,0 +1,48 @@
+.card-header{
+    background-color: rgb(58, 95, 199);
+    color: white;
+    font-size: 1.3em;
+    width: 100%;
+}
+mat-form-field,label{
+    height: 50px;
+    width: 50%;
+
+}
+.card-header,.card-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+     
+}
+
+.card-body{
+    width: 100%;
+    display: flex;
+    justify-content: initial;
+    align-items: initial;
+    flex-direction: column;
+}
+.dato{
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+    flex-direction: row;
+    margin-left: 3%;
+    justify-content: space-around;
+}
+.header1{
+    display: flex;
+    //align-items:flex-end ;
+    flex-direction: column;
+    justify-items: right;
+     
+}
+.acciones{
+    position: absolute;
+    align-items:flex-end ;
+    display: flex;
+    right: 5%;
+    justify-content: flex-end;
+}

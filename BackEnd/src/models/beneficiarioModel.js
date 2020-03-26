@@ -16,20 +16,19 @@ module.exports = {
                         resolve(res);
                     }
                 )
-
-
-                // conn.query(linea,(err,res1) => {
-                //     if(err) {
-                //         console.log(err);
-                //     }
-                    
-                //     if(!res1.length){
-                //         resolve([]);
-                //     }else{
-                //         resolve(res1);
-                //     }
-                //     resolve(res1);
-                // });
+            });
+    
+    },
+    getBeneficiario: (id_beneficiario)=>{
+      //  const linea= 'SELECT * FROM beneficiario WHERE id_usuario='+id;
+       // console.log(linea);
+            return new Promise((resolve,reject) =>{
+                Beneficiario.findOne({ where:{ id : id_beneficiario}})
+                .then(
+                    res=>{
+                        resolve(res);
+                    }
+                )
             });
     
     },

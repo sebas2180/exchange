@@ -12,7 +12,9 @@ const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 const multer  = require('multer');
 const fs = require('fs');
-
+// cors = require('cors');
+// app.use(cors());
+ 
 const dbConnection = require('./database/mysql');
 const conn  = dbConnection.dbConnection();
 
@@ -22,6 +24,7 @@ app.use(body_parser.json());
 app.set('port',process.env.port||9000);
 app.use(express.static(path.join(__dirname,'public')));
 app.use(fileUpload());
+
 
 ////passport
 const Sequelize =require('./passport/auth.js')(app,passport);

@@ -220,7 +220,7 @@ const User = require('../../database/usuarios')();
            return res.end(JSON.stringify(sendInfo.url));
       });
       });
-    app.put('/addUsusario',(req,res) =>{
+    app.put('/addUsusario',isAuthenticated,(req,res) =>{
         usuarioModel.addUsuario(req.body)
         .then(
             resp=>{
@@ -235,7 +235,7 @@ const User = require('../../database/usuarios')();
         )
     });
 
-    app.get('/disabledUsuario',(req,res) =>{
+    app.get('/disabledUsuario',isAuthenticated,(req,res) =>{
       usuarioModel.disabledUsuario(req.query)
       .then(
           resp=>{
@@ -249,7 +249,7 @@ const User = require('../../database/usuarios')();
           }
       )
   });
-  app.get('/validarPassword',(req,res) =>{
+  app.get('/validarPassword',isAuthenticated,(req,res) =>{
     console.log(req.query);
     usuarioModel.validarPassword(req.query)
     .then(
@@ -264,7 +264,7 @@ const User = require('../../database/usuarios')();
         }
     )
 });
-app.post('/updateUsuario',(req,res) =>{
+app.post('/updateUsuario',isAuthenticated,(req,res) =>{
 
   usuarioModel.updateUsuario(req.body)
   .then(
@@ -279,13 +279,13 @@ app.post('/updateUsuario',(req,res) =>{
       }
   )
 });
-
-  function isAuthenticated(req, res, next) {
-            if (req.isAuthenticated())
-            console.log('aut');
-              return next();
-
-        }
 }
 
 module.exports = usuarioRoute;
+
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated())
+  console.log('aut');
+    return next();
+
+}

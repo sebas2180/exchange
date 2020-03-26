@@ -1,0 +1,31 @@
+ <div class="card-body">
+        <div class="dato">
+            <label class="col-md-4 control-label">FECHA</label>
+            <mat-form-field class="full-width" appearance="fill" >
+                <input  readonly matInput  type="text" placeholder="{{deposito.fecha}}"  >
+            </mat-form-field>
+        </div>  
+
+        <div class="dato">
+            <label class="col-md-4 control-label">Monto</label>
+           <mat-form-field class="full-width" appearance="fill" >
+               <span matPrefix>$&nbsp;</span>
+               <input  readonly matInput  type="text" placeholder="{{deposito.monto}}"  >
+           </mat-form-field>
+       </div>  
+         
+        <div class="dato"> 
+            <label class="col-md-4 control-label">Tasa de cambio</label>
+            <mat-form-field class="full-width"appearance="fill">
+                <span matPrefix>%&nbsp;</span>
+                <input  readonly matInput  type="text" placeholder="{{deposito.tasa}}"  >
+            </mat-form-field>
+        </div>
+        <div class="dato"> 
+            <label class="col-md-4 control-label">Monto total</label>
+            <mat-form-field class="full-width"appearance="fill">
+                <span matPrefix>$&nbsp;</span>
+                <input  readonly matInput  type="text" placeholder="{{deposito.monto_transaccion}}"  >
+            </mat-form-field> 
+        </div>
+    </div>

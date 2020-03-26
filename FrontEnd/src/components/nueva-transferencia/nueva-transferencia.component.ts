@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, Event } from '@angular/router';
 
 import { DepositoService } from 'src/app/services/deposito/deposito.service';
 import { DepositoModule } from 'src/app/models/deposito/deposito.module';
@@ -52,7 +52,7 @@ export class NuevaTransferenciaComponent implements OnInit {
   fechaCreate_at = this.pipe.transform(this.fechaDeHoy,'yyy-MM-dd hh:mm:ss');
   id_destinatario;
   deposito_guardado:boolean =false;
-
+  
   newForm(){
     this.isForm=true;
     this.form = new FormGroup({
@@ -78,10 +78,12 @@ export class NuevaTransferenciaComponent implements OnInit {
                 const id= this.data['id'];
                 this.UsuarioService.getUsuario(id).subscribe(
                   res=>{
+                   // console.log(res['body']);
                     const aux  = res['body'];
                     const aux2= aux['usuario'];
                     const aux3= aux2[0]; 
-                    this.usuario=aux2[0];
+                   // console.log(aux2);
+                    this.usuario=aux2;
                     this.UsuarioService.usuario=this.usuario;
                     console.log( this.UsuarioService.usuario.pais);
                     this.form.patchValue({ pais:this.UsuarioService.usuario.pais});
@@ -108,10 +110,12 @@ export class NuevaTransferenciaComponent implements OnInit {
     this.newForm();
   }
   enviar(){
+   // this.calcularMonto();
     const dataForm = new FormData();
     dataForm.append('pais', this.form.get('pais').value);
     dataForm.append('id_user', this.form.get('id_user').value);
     dataForm.append('monto', this.form.get('monto').value);
+    dataForm.append('monto_transaccion', this.form.get('monto_transaccion').value);
     dataForm.append('tasa', this.form.get('tasa_actual').value);
     dataForm.append('fecha', this.form.get('fecha').value);
     dataForm.append('id_destinatario', this.id_destinatario);
@@ -147,6 +151,8 @@ export class NuevaTransferenciaComponent implements OnInit {
     this.id_destinatario=id_beneficiario;
   }
   calcularMonto(){
+ 
+   // this.importe= this.importe*this.TasasService.Tasa.tasa_actual;
     this.importe = this.form.get('monto').value * this.TasasService.Tasa.tasa_actual;
     this.form.patchValue({ monto_transaccion:this.importe});
   }

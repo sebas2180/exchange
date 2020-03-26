@@ -2,7 +2,7 @@
 const mysql = require('../../database/mysql');
 var depositos = require('../../database/deposito')();
 var Sequelize = require('sequelize');
-
+const conn = mysql.dbConnection();
     module.exports= {
       
       getDepositos: (id) => {
@@ -83,7 +83,7 @@ var Sequelize = require('sequelize');
                               })
             .then(
               res=>{
-              // console.log(res);
+              console.log(res);
                 resolve(res);
               }
             )
@@ -101,13 +101,26 @@ var Sequelize = require('sequelize');
             )
           });
         },
+        updateStateDeposit:(id_deposito,state) => {
+          return new Promise((resolve,reject)=>{
+            depositos.update({  status : state         },
+                              {     where: {  id      : id_deposito   }   
+                              })
+            .then(
+              res=>{
+              console.log(res);
+                resolve(res);
+              }
+            )
+          });
+        },
         addDeposito:(req) =>{
           return new Promise((resolve,reject)=>{
 
             const linea =  `INSERT INTO depositos set? `;
          //   console.log(linea);
             conn.query(linea,[req.body],(err,result)=>{
-              conn.release();
+              
               resolve({status:721,id_deposito:result.insertId});
             });
           });

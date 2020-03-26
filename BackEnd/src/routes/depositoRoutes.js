@@ -3,7 +3,7 @@ const depositoModel = require('../models/depositoModel');
 
 function depositosRoutes(app,passport) {
     
-    app.post('/addDeposito',(req,res)=>{
+    app.post('/addDeposito',isAuthenticated,(req,res)=>{
         depositoModel.addDeposito(req)
         .then(
             resp=>{
@@ -13,7 +13,17 @@ function depositosRoutes(app,passport) {
         );
         
     });
-    app.get('/EstadisticasDelUsuario',(req,res)=>{
+    // app.post('/updateStateDeposit',(req,res)=>{
+    //     depositoModel.updateStateDeposit(req)
+    //     .then(
+    //         resp=>{
+                
+    //             res.send(resp);
+    //         }
+    //     );
+        
+    // });
+    app.get('/EstadisticasDelUsuario',isAuthenticated,(req,res)=>{
         resp = depositoModel.getEstadisticasDelUsuario(req.query.id_user)
      .then(resp =>{
          console.log(resp);
@@ -35,7 +45,7 @@ function depositosRoutes(app,passport) {
       
     });
 
-    app.get('/allDepositsForUser',(req,res)=>{ 
+    app.get('/allDepositsForUser',isAuthenticated,(req,res)=>{ 
     //console.log('alldepositsForUser')
      resp = depositoModel.getDepositos(req.query.id)
      .then(resp =>{
@@ -54,7 +64,7 @@ function depositosRoutes(app,passport) {
         
     });
 
-    app.get('/allDepositsForDestinatario',(req,res)=>{ 
+    app.get('/allDepositsForDestinatario',isAuthenticated,(req,res)=>{ 
         resp = depositoModel.getDepositosForDestinatario(req.query)
         .then(resp =>{  
            if(resp != undefined){
@@ -70,7 +80,7 @@ function depositosRoutes(app,passport) {
            }
            
        });
-       app.get('/getDepositosForId',(req,res)=>{ 
+       app.get('/getDepositosForId',isAuthenticated,(req,res)=>{ 
         resp = depositoModel.getDepositosForId(req.query)
         .then(resp =>{  
            if(resp != undefined){
@@ -86,7 +96,7 @@ function depositosRoutes(app,passport) {
            }
            
        });
-    app.get('/allDeposits',(req,res)=>{ 
+    app.get('/allDeposits',isAuthenticated,(req,res)=>{ 
         resp = depositoModel.getDepositos()
         .then(resp =>{
            if(resp != undefined){
@@ -102,7 +112,7 @@ function depositosRoutes(app,passport) {
            }
            
        });
-       app.get('/allDepositsOnlyverif',(req,res)=>{ 
+       app.get('/allDepositsOnlyverif',isAuthenticated,(req,res)=>{ 
         resp = depositoModel.getDepositosOnlyVerif()
         .then(resp =>{
            if(resp != undefined){
@@ -118,8 +128,14 @@ function depositosRoutes(app,passport) {
            }
            
        });
-   
-    
+
 }
 
 module.exports= depositosRoutes;
+
+
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated())
+    console.log('aut');
+      return next();
+    }

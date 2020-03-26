@@ -1,36 +1,22 @@
 <div class="container-fluid" *ngIf="viewPrincipal && this.isMostrarDash<0">
     <div class="row">
         <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-            <div class="box2">
+            <div class="box4">     
                 <div class="card">
-                    <div class="card-header header2">  
-                        Tasas z
+                    <div class="card-header header4">
+                        Ultimas transacciones a verificar
                         <span class="material-icons"  style="display: flex; justify-content: space-between;"
-                                *ngIf="this.ViewBox1" (click)="close(1)">vertical_align_top
+                        *ngIf="this.ViewBox4" (click)="close(4)">vertical_align_top
                         </span>
-                        <span class="material-icons" style="display: flex; justify-content: space-between;"
-                                *ngIf="!this.ViewBox1" (click)="open(1)">vertical_align_bottom
+                        <span class="material-icons" s style="display: flex; justify-content: space-between;"
+                        *ngIf="!this.ViewBox4" (click)="open(4)">vertical_align_bottom
                         </span>
                     </div>
-                    <tabla-tasas (updateTasa)="updateTasa($event)"></tabla-tasas>
-                    <div class="card-body body2" *ngIf="this.ViewBox1">
-                        <div class="row">
-                            
-                          
-                                <div class="a" style="position: absolute;left: 0%;">   
-                                    <button class="btn btn-primary"> agregar</button> &nbsp;
-                                </div>
-                                <div class="a" style="position: absolute;left: 035%;">   
-                                    <span class="material-icons">library_books</span>&nbsp;Historial
-                                </div>
-                                <div class="a" style="position: absolute;left: 70%;">   
-                                    <span class="material-icons">create</span>&nbsp;Actualizar
-                                </div>
-                          
-                        </div>
-                    </div>  
+                    <app-depositos [esCliente]=true [isOnlyVerif]="true"  *ngIf="this.ViewBox4" 
+                 (isMostrarDash)="setIsMostrarDash($event)">
+                </app-depositos>
                 </div>
-            </div>
+             </div>
         </div>
         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
             <div class="espacio"></div>
@@ -54,7 +40,7 @@
                                 <ul>
                                     <li>Ultimo mes: &nbsp; {{this.transacciones}}</li>
                                     <li>En verificacion:&nbsp; {{this.verificacion}}</li>
-                                    <li>Confirmadas:&nbsp; {{this.confirmadas}}</li>
+                                    <li>Faltan confirmar:&nbsp; {{this.confirmadas}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -98,24 +84,37 @@
             <div class="espacio"></div>
         </div>
         <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-            <div class="box4">     
+            <div class="box2">
                 <div class="card">
-                    <div class="card-header header4">
-                        Ultimas transacciones a verificar
+                    <div class="card-header header2">  
+                        Tasas  
                         <span class="material-icons"  style="display: flex; justify-content: space-between;"
-                        *ngIf="this.ViewBox4" (click)="close(4)">vertical_align_top
+                                *ngIf="this.ViewBox1" (click)="close(1)">vertical_align_top
                         </span>
-                        <span class="material-icons" s style="display: flex; justify-content: space-between;"
-                        *ngIf="!this.ViewBox4" (click)="open(4)">vertical_align_bottom
+                        <span class="material-icons" style="display: flex; justify-content: space-between;"
+                                *ngIf="!this.ViewBox1" (click)="open(1)">vertical_align_bottom
                         </span>
                     </div>
-                    <app-depositos [esCliente]=true [isOnlyVerif]="true"  *ngIf="this.ViewBox4" 
-                 (isMostrarDash)="setIsMostrarDash($event)">
-                </app-depositos>
+                    <tabla-tasas (updateTasa)="updateTasa($event)"  *ngIf="this.ViewBox1"></tabla-tasas>
+                    <div class="card-body body2" *ngIf="this.ViewBox1">
+                        <div class="row">               
+                                <div class="a" style="position: absolute;left: 0%;">   
+                                    <button class="btn btn-primary"> agregar</button> &nbsp;
+                                </div>
+                                <div class="a" style="position: absolute;left: 035%;">   
+                                    <span class="material-icons">library_books</span>&nbsp;Historial
+                                </div>
+                                <div class="a" style="position: absolute;left: 70%;">   
+                                    <span class="material-icons">create</span>&nbsp;Actualizar
+                                </div>
+                          
+                        </div>
+                    </div>  
                 </div>
-             </div>
+            </div>
         </div>
+        
     </div>
 </div>
 
-<nuevo-dashboard *ngIf="this.isMostrarDash>=0" [idDeposito]="this.isMostrarDash"></nuevo-dashboard>
+<nuevo-dashboard *ngIf="this.isMostrarDash>=0" (setIsMostrarDash)="setIsMostrarDash($event) " [idDeposito]="this.isMostrarDash"></nuevo-dashboard>

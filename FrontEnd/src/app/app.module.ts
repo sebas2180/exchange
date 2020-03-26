@@ -1,6 +1,5 @@
 
 
-
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -26,6 +25,8 @@ import { ManejoFechasService} from '../../shared/services/manejoFechasService/ma
 import { TasasService } from './services/tasas/tasas.service';
 import { DashboardService } from './services/dasboard/dashboard.service';
 import { DepositoService } from './services/deposito/deposito.service';
+import { ShowDashboardComponent } from './../components/show-dashboard/show-dashboard.component';
+import { ShowRemitenteComponent } from './../components/show-remitente/show-remitente.component';
 import { UsuarioService } from '../app/../app/services/usuarioService.service';
 import { BeneficiarioService } from './services/beneficiario/beneficiario.service';
 import { PanelBeneficiarioServiceService } from '../components/panel-beneficiarios/service/panel-beneficiario-service.service';
@@ -54,6 +55,8 @@ import { DetalleUsuarioComponent } from 'src/components/detalle-usuario/detalle-
 import { TablaTasasComponent } from 'src/components/tabla-tasas/tabla-tasas.component';
 import { NuevoDashboardComponent } from '../components/nuevo-dashboard/nuevo-dashboard.component';
 import { ComprobarComponent } from './../components/comprobar/comprobar.component';
+import { ShowDestinatarioComponent } from 'src/components/show-destinatario/show-destinatario.component';
+import { ShowMontosComponent } from 'src/components/show-montos/show-montos.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -79,7 +82,11 @@ import { ComprobarComponent } from './../components/comprobar/comprobar.componen
     DetalleUsuarioComponent,
     ComprobarComponent,
     TablaTasasComponent,
-    NuevoDashboardComponent
+    NuevoDashboardComponent,
+    ShowDestinatarioComponent,
+    ShowRemitenteComponent,
+    ShowMontosComponent,
+    ShowDashboardComponent
   ],
   imports: [
     //BrowserModule.withServerTransition({ appId: 'serverApp' }),

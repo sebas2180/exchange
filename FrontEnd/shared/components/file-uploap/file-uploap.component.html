@@ -1,10 +1,16 @@
 <div *ngIf="image" class="preview">
-    <!-- <div class="box">
-        <img [src]="image" />
-    </div> -->
+    <div class="box">
+        <img [src]="image"  className="img-fluid " />
+    </div>
 </div>
 <div class="uploader-wrap" (click)="triggerClick()" >
-    <input *ngIf="image" type="text" class="form-control" readonly [ngModel]="imageName"/>
-    <button type="button" class="btn btn-success">Elegir imagen</button>
+    <div class="box">
+        <img src="../../../src/assets/imagenes/iconos/addimage.PNG"   className="img-fluid " *ngIf="!this.IsImage">
+    </div>
+    
+    <div class="buttons">
+        <button type="button" class="btn btn-success" *ngIf=" !this.IsImage">Elegir imagen</button>
+        <button type="button" class="btn btn-danger" *ngIf="this.IsImage">Remover</button>
+    </div>
 </div>
-<input type="file" class="form-control d-none" (change)="selectFile($event)"  #fileUpoader />
+<input type="file" accept="image/x-png,image/gif,image/jpeg"  class="form-control d-none" (change)="selectFile($event)"  #fileUpoader />

@@ -1,51 +1,86 @@
 .card{
     width: 100%;
     background-color: white;
-
-
 }
-.card-header{
-    width: 100%;
-}
+
 .card-body{
+    width: 100%;
     display: flex;
     justify-content: initial;
     align-items: initial;
     flex-direction: column;
+}
+.dato{
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+    flex-direction: row;
+    margin-left: 3%;
+    justify-content: space-around;
+}
+.div1{
+    margin-left: 15%;
+}
+mat-form-field,label{
+    height: 50px;
+    width: 50%;
+
 }
 .card-header,.card-footer{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+     
+}
+.card-header{
+    background-color: rgb(58, 95, 199);
+    color: white;
+
 }
 .principal{
     width: 100%;
 }
-.box,img{
-    width: 40%;
-    height: 40%;
-}
+
 .optiones{
     display: flex;
     justify-content: right;
     align-items: flex-end;
     flex-direction: column;
 }
-.card2,.body2{
-    position: relative;
-    height: 350px;
-}
-.card3{
-    position: relative;
-    max-height: 500px;
-}
+
 .body3{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: flex-start;
     flex-direction: column;
+
 }
-.box{
-    max-height: 500px;
+
+.footer3 {
+    display:flex;
+    flex-direction: row;
+    align-items:stretch;
+  }
+.btn {
+    border:1px solid ;
+    text-align:center;
+    width:50%;
+}
+.card3{
+
+    height: 400px;
+}
+.acciones{
+    position: absolute;
+    align-items:flex-end ;
+    display: flex;
+    right: 5%;
+    justify-content: flex-end;
+}
+
+.container-fluid{
+    width: 100%;
+    position: absolute;
+    top: 16%;
 }

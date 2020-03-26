@@ -1,3 +1,4 @@
+import { ShowDashboardComponent } from './../components/show-dashboard/show-dashboard.component';
 import { PanelUsuariosComponent } from '../components/panel-usuarios/panel-usuarios.component';
 import { PanelTasasComponent } from './../components/panel-tasas/panel-tasas.component';
 import { DepositosComponent } from './../components/depositos/depositos.component';
@@ -12,6 +13,7 @@ import { NuevoBeneficiarioComponent } from 'src/components/nuevo-beneficiario/nu
 import { PanelAdministradorComponent } from 'src/components/panel-administrador/panel-administrador.component';
 import { NuevoUsuarioComponent } from 'src/components/nuevo-usuario/nuevo-usuario.component';
 import { ComprobarComponent } from 'src/components/comprobar/comprobar.component';
+import { NuevoDashboardComponent } from 'src/components/nuevo-dashboard/nuevo-dashboard.component';
 
 const routes: Routes = [
   {
@@ -58,6 +60,12 @@ const routes: Routes = [
 },{
   path: 'addUsuario',
   component: NuevoUsuarioComponent
+},{
+  path: 'nuevoDashboard',
+  component: NuevoDashboardComponent
+},{
+  path: 'viewDashboard',
+  component: ShowDashboardComponent
 }
 ];
 

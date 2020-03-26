@@ -29,17 +29,17 @@
                    </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
-                <mat-label>Monto</mat-label>
-                <span matPrefix>$&nbsp;</span>
-                <input  matInput  type="number" placeholder="Monto" 
-                        name="monto" formControlName="monto" (keypress)="this.calcularMonto()">
-                      <mat-error *ngIf="this.form.get('monto')?.invalid ">El monto debe ser mayor a cero</mat-error>
+          <mat-label>Monto</mat-label>
+          <span matPrefix>$&nbsp;</span>
+          <input  matInput  type="number" placeholder="Monto"  
+                name="monto" formControlName="monto" (keyup)="this.calcularMonto( )">
+          <mat-error *ngIf="this.form.get('monto')?.invalid ">El monto debe ser mayor a cero</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-                <mat-label>Monto transaccion</mat-label>
-                <input  matInput  type="number" placeholder="Monto transaccion" #importe
-                        name="monto_transaccion" formControlName="monto_transaccion" readonly="readonly">
-                <span matPrefix>$&nbsp;</span>
+          <mat-label>Monto transaccion</mat-label>
+          <input  matInput  type="number" placeholder="Monto transaccion" #importe
+              name="monto_transaccion" formControlName="monto_transaccion" readonly="readonly">
+            <span matPrefix>$&nbsp;</span>
         </mat-form-field>
               <br>
         </mat-card-content>

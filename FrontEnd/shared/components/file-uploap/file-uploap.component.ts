@@ -7,9 +7,10 @@ import { Component, OnInit, Output, EventEmitter, ElementRef, ViewChild } from '
 export class FileUploapComponent implements OnInit {
   public imageName : string ='';
   public image: string ='';
+  public IsImage: boolean =false;
   @ViewChild('fileUpoader',{static: false}) fileUpoader: ElementRef<HTMLElement>;
   @Output() onFileSelect: EventEmitter<Object> = new EventEmitter();
-  @Output() isSelected = new EventEmitter();
+  @Output() isSelected: EventEmitter<boolean> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -28,6 +29,7 @@ export class FileUploapComponent implements OnInit {
       const reader  = new FileReader();
       reader.onload = () => {
         this.image  = reader.result as string;
+        this.IsImage=true;
       };
       reader.readAsDataURL(file);
       this.onFileSelect.emit(file);

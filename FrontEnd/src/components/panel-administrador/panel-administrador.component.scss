@@ -23,16 +23,17 @@
     color:white;
 }
 .header{
-    background-color: yellow;
+    background-color: rgb(58, 95, 199);;
 }
 .header2{
-    background-color: blue;
+    background-color: rgb(58, 95, 199);;
+
 }
 .header3{
-    background-color: darkorchid;
+    background-color: rgb(58, 95, 199);;
 }
 .header4{
-    background-color: rgb(221, 221, 45);
+    background-color: rgb(58, 95, 199);;
 }
 .card-body{
     display: flex;
@@ -75,4 +76,8 @@ button,.iconn{
     justify-content: center;
     align-items: center; margin-left: 25%;
     flex-direction: row;
+}
+.body2{
+    position: relative;
+    height: 80px;
 }

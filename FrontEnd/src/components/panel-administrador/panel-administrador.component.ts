@@ -1,3 +1,4 @@
+import { DashboardService } from './../../app/services/dasboard/dashboard.service';
 import { BeneficiarioModule } from './../../app/models/beneficiario/beneficiario.module';
 import { TasasService } from './../../app/services/tasas/tasas.service';
 
@@ -44,6 +45,7 @@ export class PanelAdministradorComponent implements OnInit {
     private authService : AuthserviceService,
     private UsuarioService: UsuarioService,
     private TasasService:TasasService,
+    private DashboardService: DashboardService,
     private router: Router) {
       this.UsuarioService.canActivate();
       this.UsuarioService.isAdministrador();
@@ -66,14 +68,9 @@ export class PanelAdministradorComponent implements OnInit {
   }
   setIsMostrarDash(e){
     this.isMostrarDash=e;
-    
+    // this.DashboardService.isMostrarDash=e;
+    // this.router.navigate['/nuevoDashboard'];
   }
-  // setBeneficiarioDash(e){
-  //   alert('eee');
-  //   console.log(e);
-  //   //hacer una consulta por id de deposito y traer el deposito...
-  //   this.beneficiarioDash=e;
-  // }
   updateTasa(e){
     console.log(e);
   Swal.fire({

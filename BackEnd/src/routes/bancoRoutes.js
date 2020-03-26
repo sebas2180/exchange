@@ -1,7 +1,7 @@
 const bancoModel = require('../models/bancoModel');
 
 function bancoRoutes(app,passport) {
-    app.get('/getBancos',(req,res,next)=>{
+    app.get('/getBancos',isAuthenticated,(req,res,next)=>{
          bancos = bancoModel.getBancos()
          .then(
              resp=>{
@@ -14,8 +14,14 @@ function bancoRoutes(app,passport) {
                   return res.end(JSON.stringify(sendInfo.bancos)); 
              }
          )
-         
-
+        
     });
 }
 module.exports = bancoRoutes;
+
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated())
+    console.log('aut');
+      return next();
+
+}

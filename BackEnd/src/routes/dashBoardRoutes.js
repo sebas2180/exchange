@@ -2,15 +2,17 @@ const mysql = require('mysql2');
 const dashBoardModel = require('../models/dashBoardModel');
 const multer  = require('multer');
  var upload = multer({ dest: '/tmp/' });
-const DIR     = 'src/assets/imagenes/comprobantes/'; 
+const DIR     = 'FrontEnd/src/assets/imagenes/comprobantes/'; 
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log('dest');
     cb(null, DIR);
   },
   filename: (req, file, cb) => {
     let fileName = file.originalname.toLowerCase().split(' ').join('-');
     fileName = fileName.replace(/(\.[\w\d_-]+)$/i, '_' + Date.now() + '$1');
+    console.log('ombre de archivo'+fileName);
     cb(null, fileName)
   }
 });
@@ -31,20 +33,19 @@ var upload = multer({
   }
 });
 function dashBoardRoutes(app,passport) {
-    app.post('/prueba',upload.single('photo'),function(req,res){
-    
-        if(req.fileTypeValidationError) {
-          console.log('rerrerere');
-            let resp = {
-              status: "fail",
-              statusMessage: req.fileTypeValidationError,
-              data: []
-            }
+    app.post('/prueba',isAuthenticated,upload.single('photo'),function(req,res){
+      if(req.fileTypeValidationError) {
+        console.log('rerrerere');
+          let resp = {
+          status: "fail",
+          statusMessage: req.fileTypeValidationError,
+          data: []
+          }
             res.send(resp);
             return false;
           }
           console.log('rerrerere');
-        dashBoardModel.prueba(req.body, req.file.filename)
+        dashBoardModel.prueba(req.body, req.files.photo.name)
        .then(resp =>{
       console.log(resp);
         if(resp != undefined){
@@ -58,7 +59,33 @@ function dashBoardRoutes(app,passport) {
             res.send(response);   
         } 
      });
-    });    
-}
+    });   
+    /////////////////////////////////////////////////////////////////////////
+    app.post('/upploadInfo',isAuthenticated,(req,res,next)=>{
+      console.log(req.body);
+      dashBoardModel.upploadInfo(req.body).then(
+        response=>{
+          console.log(response);
+          return res.send(response);
+        }
+      )
+    }); 
+    //////////////////////////////////////////////
+    app.get('/getDashboard',isAuthenticated,(req,res,next)=>{
+      console.log(req.query.id_deposito);
+      dashBoardModel.getDashboard(req.query.id_deposito).then(
+        resp=>{
+          res.send(JSON.stringify(resp));
+        }
+      )
+    })
+  }
 
 module.exports= dashBoardRoutes;
+
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated())
+  console.log('aut');
+    return next();
+
+}

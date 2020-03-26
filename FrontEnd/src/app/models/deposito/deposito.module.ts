@@ -17,7 +17,9 @@ export class DepositoModule implements Deserializable{
   create_at?:  Date=new Date();
   id_user?: number;
   monto?: number;
+  monto_transaccion?: number;
   tasa?: number;
+  id_destinatario?: number;
 
   setDeposito(pais: string, id_user: number,monto: number,tasa: number){
     this.id_user=id_user;

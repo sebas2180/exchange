@@ -17,6 +17,10 @@ const sequelize= require('./sequelize');
                 type: Sequelize.FLOAT,
                 notEmpty: true
             },
+            monto_transaccion: {
+                type: Sequelize.FLOAT,
+                notEmpty: true
+            },
             pais: {
                 type: Sequelize.STRING,
                 notEmpty: true

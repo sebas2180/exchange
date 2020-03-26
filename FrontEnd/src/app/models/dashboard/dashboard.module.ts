@@ -11,4 +11,14 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardModule { 
   
+  id:number;
+  imagen: Blob;
+  create_at: Date;
+  id_deposito:number;
+  
+  deserialize?(input: any): this {
+    return Object.assign(this, input);
+  }
 }
+
+

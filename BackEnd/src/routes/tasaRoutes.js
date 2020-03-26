@@ -5,14 +5,14 @@ const TasaModule = require('../models/tasaModel');
 
 
 function tasaRoutes(app,passport){
-    app.get('/getTasas',(req,res,next)=>{
+    app.get('/getTasas',isAuthenticated,(req,res,next)=>{
         TasaModule.getTasas()
         .then(
             resp=>{
                 return res.end(JSON.stringify(resp));
             })
     }),
-    app.post('/updateTasa',(req,res)=>{
+    app.post('/updateTasa',isAuthenticated,(req,res)=>{
         TasaModule.updateTasa(req)
         .then(
             resp=>{
@@ -22,7 +22,7 @@ function tasaRoutes(app,passport){
         );
         
     }),
-    app.get('/getTasa',(req,res,next)=>{
+    app.get('/getTasa',isAuthenticated,(req,res,next)=>{
         console.log('gettasa');
         TasaModule.getTasa(req.query.pais)
         .then(
@@ -51,5 +51,14 @@ function tasaRoutes(app,passport){
             }
             })
     });
+
+
 }
 module.exports=tasaRoutes;
+
+
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated())
+    console.log('aut');
+      return next();
+}
