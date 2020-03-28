@@ -21,6 +21,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
+    "connect-multiparty": "^2.2.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dateformat": "^3.0.3",

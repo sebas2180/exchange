@@ -1,6 +1,6 @@
 
 //const mysql = require('../../database/mysql');
-const User = require('../../database/usuarios')();
+var User = require('../../database/usuarios')();
 //const conn = mysql.dbConnection();
 var crypto  = require('crypto');
 

@@ -40,7 +40,7 @@ export class NuevaTransferenciaComponent implements OnInit {
   beneficiariosAux: BeneficiarioModule[];
   banco: string;
   saldo = 0;
-  importe=0;
+  importe:number=0;
   data = JSON.parse(this.authService.getLocal());
   pipe = new DatePipe('en-US');
   fechaDeHoy= Date.now();
@@ -57,7 +57,7 @@ export class NuevaTransferenciaComponent implements OnInit {
     this.isForm=true;
     this.form = new FormGroup({
       id_user: new FormControl(this.data['id'],[Validators.required]),
-      fecha: new FormControl(this.fechaConvertida,[Validators.required]),
+      fecha: new FormControl(this.fechaConvertida,[Validators.required]),//Validators.pattern("^[0-9]*$")]
       monto: new FormControl('',[Validators.required,Validators.min(1)]),
       destinatario: new FormControl('',[Validators.required]),
       monto_transaccion: new FormControl(this.importe),
@@ -155,5 +155,6 @@ export class NuevaTransferenciaComponent implements OnInit {
    // this.importe= this.importe*this.TasasService.Tasa.tasa_actual;
     this.importe = this.form.get('monto').value * this.TasasService.Tasa.tasa_actual;
     this.form.patchValue({ monto_transaccion:this.importe});
+    console.log(this.form.get('monto').value*this.TasasService.Tasa.tasa_actual);
   }
 }

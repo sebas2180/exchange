@@ -64,6 +64,7 @@ export class DepositosComponent implements OnInit,AfterViewInit {
         );
   
       }else{
+        console.log('id usuario:'+data['id']);
         this.TransaccionService.getAllDepositosForUser(data['id']).subscribe(
           res => {
                 this.deposito = res;

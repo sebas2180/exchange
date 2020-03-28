@@ -106,17 +106,23 @@ export class NuevoDashboardComponent implements OnInit {
     const formData = new FormData();
     const formData2 = new FormData();
     formData.append('photo', this.dashForm.get('photo').value);
+//   formData.append('create_at', this.dashForm.get('create_at').value);
     formData2.append('create_at',this.ManejoFechasService.createDateCreateAt());
     formData2.append('id_deposito', this.deposito.id.toString());
     this.dashService.uppload(formData).subscribe(
       res=>{
         if(res['status']==732){
-          console.log('Es status 732')
+          console.log('Es status 732');
+        
           const id_foto= res['msj'];
+          console.log(id_foto);
           formData2.append('id',id_foto);
           this.dashService.upploadInfo(formData2).subscribe(
             res2=>{
-              if(res2['status']==734){
+              console.log(res2);
+              const status = res2['status'];
+              console.log(status);
+              if(status  == 734){
                 swal.fire({
                   icon: 'success',
                   title: 'CARGA DE COMPROBANTE EXITOSA' ,

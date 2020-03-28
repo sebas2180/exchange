@@ -1,3 +1,4 @@
+import { BarraSuperiorService } from './services/barra-superior/barra-superior.service';
 
 
 import { NgModule } from '@angular/core';
@@ -57,6 +58,7 @@ import { NuevoDashboardComponent } from '../components/nuevo-dashboard/nuevo-das
 import { ComprobarComponent } from './../components/comprobar/comprobar.component';
 import { ShowDestinatarioComponent } from 'src/components/show-destinatario/show-destinatario.component';
 import { ShowMontosComponent } from 'src/components/show-montos/show-montos.component';
+import { BarraSuperiorComponent } from 'src/components/barra-superior/barra-superior.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -86,7 +88,8 @@ import { ShowMontosComponent } from 'src/components/show-montos/show-montos.comp
     ShowDestinatarioComponent,
     ShowRemitenteComponent,
     ShowMontosComponent,
-    ShowDashboardComponent
+    ShowDashboardComponent,
+    BarraSuperiorComponent
   ],
   imports: [
     //BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -125,7 +128,8 @@ import { ShowMontosComponent } from 'src/components/show-montos/show-montos.comp
     NuevoBeneficiarioService,
     TasasService,
     ManejoFechasService,
-    TablaUsuariosService
+    TablaUsuariosService,
+    BarraSuperiorService
     ],
   bootstrap: [AppComponent]
 })

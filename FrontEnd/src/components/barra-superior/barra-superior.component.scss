@@ -1,0 +1,24 @@
+.container-fluid{
+    display: flex;
+    height:10% ;
+    width: 100%;
+    background-color: #67cf75;  /* fallback for old browsers */
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.titulo{
+    font-size: 1.8em; 
+}
+.salir{
+    position: absolute;
+    font-size: 1.8em;
+    right: 3%;
+    color: rgb(80, 80, 146);
+}
+.volver{
+    position: absolute;
+    font-size: 1.8em;
+    left: 3%;
+    color:  rgb(80, 80, 146);
+}

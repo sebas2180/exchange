@@ -62,7 +62,6 @@ function beneficiarioRoute(app,passport) {
         )
     });
     app.get('/getBeneficiario',(req,res) =>{
-        console.log('EWEEEEEEEEEEE');
         beneficiarioModel.getBeneficiario(req.query.id_beneficiario)
         .then(
             resp=>{

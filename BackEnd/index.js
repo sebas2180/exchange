@@ -1,6 +1,4 @@
 
-
-
 const express = require('express');
 const http = require('http');
 const app = express();
@@ -12,9 +10,7 @@ const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 const multer  = require('multer');
 const fs = require('fs');
-// cors = require('cors');
-// app.use(cors());
- 
+
 const dbConnection = require('./database/mysql');
 const conn  = dbConnection.dbConnection();
 
@@ -25,12 +21,10 @@ app.set('port',process.env.port||9000);
 app.use(express.static(path.join(__dirname,'public')));
 app.use(fileUpload());
 
-
 ////passport
 const Sequelize =require('./passport/auth.js')(app,passport);
 var crypto            = require('crypto');
 var LocalStrategy     = require('passport-local').Strategy;
-
 var sess              = require('express-session');
 var Store             = require('express-session').Store;
 var BetterMemoryStore = require('session-memory-store')(sess);
@@ -74,4 +68,3 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT,()=>{//cambiar a 30000 en desarollo
     console.log('server conectado en el puerto: '+server.address().port)
 });
-

@@ -54,6 +54,7 @@ import { trigger, style, state, transition, animate } from '@angular/animations'
 })
 export class UsuarioComponent implements OnInit {
 
+  titulo: string ='PANEL USUARIO';
   cantidad_depositos : number;
   ultimo_mes: number;
   usuario: UsuarioModule = new UsuarioModule();

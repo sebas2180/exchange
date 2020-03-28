@@ -16,27 +16,13 @@ export class ShowDashboardComponent implements OnInit {
   constructor(private DashboardService:DashboardService) {
     this.DashboardService.getDashboard(this.id_deposito)
     .subscribe(
-      data => {
-        console.log(data);
-        saveAs(data, this.id_deposito)},
+      response => {
+
+      },
       error => console.error(error)
     
       );
-    // .subscribe(
-    //   res=>{
-    //     console.log(res);
-    //     //const aux = res['body'];
-    //    // this.dashboard= aux['dashboard'];
-    //   //  console.log(this.dashboard);
-    //     const reader  = new FileReader();
-    //   reader.onload = () => {
-    //     this.image  = reader.result as string;
-    //   };
-    //   reader.readAsDataURL(this.dashboard.imagen);
-    //   },err=>{
-    //     console.log(err);
-    //   }
-    // )
+
    }
   ngOnInit(): void {
   }

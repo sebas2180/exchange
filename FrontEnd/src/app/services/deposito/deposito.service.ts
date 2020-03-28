@@ -54,7 +54,7 @@ getDepositos(isOnlyVerif:boolean) {
 
   getAllDepositosForUser(id: number): Observable<DepositoModule>{
     console.log('getAllDepositosForUser');
-      console.log('service consola');
+      console.log('service consola   id'+id);
       const params = new HttpParams()
       .set('id', id.toString());
         return this.http.get<DepositoModule[]>(`http://localhost:3000/allDepositsForUser/`,{

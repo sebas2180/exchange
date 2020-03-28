@@ -27,7 +27,11 @@
                     <div class="panel-2" *ngIf="this.panelActual==2"  @enterState>
                         <mat-form-field class="tipo_documento">
                             <mat-label>Tipo de documento</mat-label>
-                            <input matInput type="text" formControlName="tipo_documento">
+                            <mat-select formControlName="banco"> 
+                                <mat-option *ngFor="let banco of this.bancos"  [value]="banco" 
+                                 >{{banco.banco}}</mat-option>
+                               
+                            </mat-select>
                         </mat-form-field>
                     
                         <mat-form-field class="nro_documento">

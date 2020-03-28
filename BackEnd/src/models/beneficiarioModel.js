@@ -46,7 +46,9 @@ module.exports = {
 
              conn.query(lin,[beneficiario],function (err,rows){        
             console.log(lin);
-        if(rows[0].suma>0){
+            console.log(rows);
+            if(err) {console.log(err)}
+        if(rows.suma>0){
             resolve({status:702,msj:'Ops, ya tienes un beneficiario cargado identico a este.'});
         } else{
             conn.query(linea,[beneficiario],(err,results,fields)=>{  

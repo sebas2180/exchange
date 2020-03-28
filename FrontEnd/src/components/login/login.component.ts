@@ -1,3 +1,4 @@
+import { BarraSuperiorService } from './../../app/services/barra-superior/barra-superior.service';
 
 import { AuthserviceService } from './../../app/services/authservice.service';
 import { UsuarioService } from '../../app/services/usuarioService.service';
@@ -13,8 +14,11 @@ import {  Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   usuario: UsuarioModule;
-
-  constructor(  private route : Router,private authService : AuthserviceService, private service: UsuarioService) { }
+  titulo: string ;
+  constructor(  private barraService: BarraSuperiorService,
+    private route : Router,private authService : AuthserviceService, private service: UsuarioService) { 
+      this.titulo ='BIZCA EXCHANGE';
+    }
 
   ngOnInit() {
     if(this.service.canActivate()) {
@@ -51,6 +55,7 @@ export class LoginComponent implements OnInit {
         console.log(aux.rol);
         switch(aux.rol){
           case "cliente":
+                    //this.barraService.setTitulo('PANEL USUARIO');
                     this.authService.setUserInfo( res['user'] );
                     console.log('MENU CLIENTE');
                        this.service.logeado = true;
@@ -58,6 +63,8 @@ export class LoginComponent implements OnInit {
                       this.route.navigate(['/panel-usuario']);
           break;
           case "administrador":
+                
+                //this.barraService.setTitulo('PANEL ADMINISTRADOR');
                 this.authService.setUserInfo( res['user'] );
                 console.log('MENU ADM');
                   this.service.logeado = true;

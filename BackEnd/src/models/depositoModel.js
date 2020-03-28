@@ -5,10 +5,8 @@ var Sequelize = require('sequelize');
 const conn = mysql.dbConnection();
     module.exports= {
       
-      getDepositos: (id) => {
-        //console.log('id_user' +(id));
-          //const linea = 'SELECT * FROM depositos d WHERE d.id_user='+id+' order by d.fecha DESC';
-         // console.log(linea);
+      allDepositsForUser: (id) => {
+        console.log('allDepositsForUser id');
           return new Promise((resolve, reject) => {
             depositos.findAll({     where: {  id_user      : id             }    },
               { order: { fecha: 'DESC'  }})
@@ -21,8 +19,9 @@ const conn = mysql.dbConnection();
             )
           })
         },
-        getDepositos: () => {
+          getDepositos: () => {
             return new Promise((resolve, reject) => {
+              console.log('getDepositos');
               depositos.findAll()
                 .then(
                   res=>{
@@ -90,6 +89,7 @@ const conn = mysql.dbConnection();
           });
         },
         getDepositosForId:(deposito) => {
+          console.log('getDepositosForId');
           return new Promise((resolve,reject)=>{
             depositos.findAll({     where: {  id      : deposito.id    }   
                               })

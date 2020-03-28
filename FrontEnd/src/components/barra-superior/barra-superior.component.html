@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <div class="volver">
+        <span class="material-icons" *ngIf= "this.auth.isAuthenticatede()">keyboard_backspace</span>
+    </div>
+    <div class="titulo">
+       {{titulo}}
+    </div>
+    <div class="salir">
+        <span class="material-icons" *ngIf= "this.auth.isAuthenticatede()" (click)= "salir()" >exit_to_app </span>
+    </div>
+</div>

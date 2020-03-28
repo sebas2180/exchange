@@ -46,22 +46,21 @@ function depositosRoutes(app,passport) {
     });
 
     app.get('/allDepositsForUser',isAuthenticated,(req,res)=>{ 
-    //console.log('alldepositsForUser')
-     resp = depositoModel.getDepositos(req.query.id)
+        console.log(req.query);
+    depositoModel.allDepositsForUser(req.query.id)
      .then(resp =>{
         
-        if(resp != undefined){
+        if(resp){
         res.send(JSON.stringify(resp));
         }
-     });
-        if(resp == undefined){
+        if(!resp){
             const response = {
                 status: 600,
                 msj: "No se ha encontrado depositos"
             }
             res.send(response);   
         }
-        
+     });
     });
 
     app.get('/allDepositsForDestinatario',isAuthenticated,(req,res)=>{ 
