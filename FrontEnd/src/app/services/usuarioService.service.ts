@@ -13,7 +13,7 @@ export class UsuarioService implements CanActivate {
   panelPrincipal:boolean =false;//sirve para
   public logeado: boolean= false;
   public usuario: UsuarioModule;
-  public rut : string =`http://us-cdbr-iron-east-01.cleardb.net:3000/`;
+   
   constructor(private http: HttpClient,private authService : AuthserviceService, private route : Router) { }
 
   canActivate(){

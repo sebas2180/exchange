@@ -1,4 +1,4 @@
-import { AuthService } from './../../../../../../crypto-info/frontend/src/services/authService/auth.service';
+import { AuthserviceService } from '../../services/authservice.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -15,7 +15,7 @@ export class DashboardService {
      headers: new HttpHeaders({ Accept: 'application/json' })
 };
 
-  constructor(private http: HttpClient, private AuthService : AuthService) { }
+  constructor(private http: HttpClient, private AuthService : AuthserviceService) { }
 
   uppload(data: FormData) {
  

@@ -1,6 +1,7 @@
-import { AuthService } from './../../../../../../crypto-info/frontend/src/services/authService/auth.service';
+import { AuthserviceService } from '../../services/authservice.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from '../../../../../../crypto-info/frontend/src/services/authService/auth.service';
 
 @Injectable({
   providedIn: 'root'

@@ -16,7 +16,7 @@ export class DepositoService  {
 
   
   isViewTable:boolean=false;
-  public rut : string =`http://us-cdbr-iron-east-01.cleardb.net:3000/`;
+  //public rut : string =`http://us-cdbr-iron-east-01.cleardb.net:3000/`;
   
   constructor(private http: HttpClient,private authService: AuthserviceService, private route : Router) { 
 

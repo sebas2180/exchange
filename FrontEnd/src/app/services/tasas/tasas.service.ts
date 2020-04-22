@@ -1,4 +1,4 @@
-import { AuthService } from './../../../../../../crypto-info/frontend/src/services/authService/auth.service';
+import { AuthserviceService } from '../../services/authservice.service';
 import { CanActivate, Router } from '@angular/router';
 import { TasaModule } from './../../models/tasa/tasa.module';
 
@@ -15,7 +15,7 @@ import { Injectable } from '@angular/core';
 export class TasasService {
   Tasa: TasaModule;
   Tasas: TasaModule[];
-  constructor(private http: HttpClient,private route : Router,private AuthService :AuthService) {
+  constructor(private http: HttpClient,private route : Router,private AuthService :AuthserviceService) {
    }
   getTasas() {
       console.log('allDepositsOnlyverif');
