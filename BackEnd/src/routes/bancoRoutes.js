@@ -5,13 +5,9 @@ function bancoRoutes(app,passport) {
          bancos = bancoModel.getBancos()
          .then(
              resp=>{
-                const sendInfo={
-                    status: 999,
-                    bancos: resp
-                  }
-                  console.log(sendInfo);
+                 
                   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-                  return res.end(JSON.stringify(sendInfo.bancos)); 
+                  return res.end(JSON.stringify(resp)); 
              }
          )
         

@@ -181,6 +181,8 @@ const User = require('../../database/usuarios')();
             newUser.pais= req.body.pais;
             newUser.email = req.body.email;
             newUser.creaeAt = req.body.create_at;
+            newUser.saldo=req.body.saldo;
+            newUser.tasa=1;
             newUser.rol = 'cliente';
             newUser.save();
             const resp= {
@@ -263,6 +265,21 @@ const User = require('../../database/usuarios')();
             console.log(err);
         }
     )
+});
+app.get('/usuarioVerificado',isAuthenticated,(req,res) =>{
+  console.log(req.query);
+  usuarioModel.usuarioVerificado(req.query)
+  .then(
+      resp=>{
+          console.log(resp);
+          return res.end(JSON.stringify(resp));
+      }
+  )
+  .catch(
+      err =>{
+          console.log(err);
+      }
+  )
 });
 app.post('/updateUsuario',isAuthenticated,(req,res) =>{
 

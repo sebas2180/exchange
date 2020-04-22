@@ -4,12 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BarraSuperiorService {
-
-  //public titulo: string = 'BIZKA EXCHANGE';
+  public volver: boolean =true;
+  public ir_menu_beneficiacrios = false;
+ 
   constructor() { }
-
-
-  // setTitulo(titulo){
-  //   this.titulo=titulo;
-  // }
+ 
 }

@@ -1,16 +1,15 @@
 
-<div class="container-fluid" id="div1">
-    
-<div class="row">
-    <div class="col" id="nombre">
+<barra-superior [titulo]="this.titulo" 
+                [volver_atras]="false" 
+                (verUsuario)="volver_atras($event)">
+</barra-superior>
+<div class="container-fluid" >  
         <form [formGroup]="this.form" >
-            <div class="card" @enterState>
-                <div class="card-header" id="cont">
-                    <div class="card-title">
-                        <h1>Nuevo beneficiario</h1>            
-                    </div>
+            <div class="card div1" @enterState>
+                <div class="cardheader" >
+                        <div class="titulo">Datos</div>            
                 </div>
-                <div class="card-body">
+                <div class="contenido">
                     <div class="panel-1"  *ngIf="this.panelActual==1" @enterState>
                         <mat-form-field class="nombre">
                             <mat-label>Nombre</mat-label>
@@ -24,19 +23,20 @@
                      </mat-form-field>
                     </div>
 
-                    <div class="panel-2" *ngIf="this.panelActual==2"  @enterState>
-                        <mat-form-field class="tipo_documento">
+                     <div class="panel-2" *ngIf="this.panelActual==2"  @enterState>
+                        <mat-form-field class="tipo_documento" appearance="outline" name="tipo_documento">
                             <mat-label>Tipo de documento</mat-label>
-                            <mat-select formControlName="banco"> 
-                                <mat-option *ngFor="let banco of this.bancos"  [value]="banco" 
-                                 >{{banco.banco}}</mat-option>
-                               
+                            <mat-select formControlName="tipo_documento"> 
+                                <mat-option *ngFor="let tipo of this.tipos_de_documento"  [value]="tipo"  >
+                                    {{tipo}}</mat-option>      
                             </mat-select>
+                            <mat-error *ngIf="this.form.get('tipo_documento')?.invalid ">Falta tipo documento</mat-error>       
                         </mat-form-field>
                     
-                        <mat-form-field class="nro_documento">
+                        <mat-form-field class="nro_documento" appearance="outline"  name="nro_documento">
                             <mat-label>Numero de documento</mat-label>
                             <input matInput type="number" formControlName="nro_documento" minlength="8" maxlength="8">
+                        <mat-error *ngIf="this.form.get('nro_documento')?.invalid ">El documento debe tener 8 digitos</mat-error>       
                         </mat-form-field>
                     </div>
 
@@ -44,59 +44,73 @@
                         <mat-form-field>
                             <mat-label >Banco:</mat-label>
                             <mat-select formControlName="banco"> 
-                                <mat-option *ngFor="let banco of this.bancos"  [value]="banco" 
-                                (onSelectionChange)="changeBanco(banco.banco)">{{banco.banco}}</mat-option>
-                               
+                                <mat-option *ngFor="let banco of this.bancos"  [value]="banco.nombre" 
+                                (onSelectionChange)="changeBanco(banco.nombre)">{{banco.nombre}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                     
 
                     <div class="panel-4" *ngIf="this.panelActual==4"  @enterState>
-                        <mat-form-field class="tipo_cuenta">
+                        <mat-form-field class="tipo_cuenta" appearance="outline" name="tipo_cuenta">
                             <mat-label>Tipo de cuenta</mat-label>
-                            <input matInput type="text" formControlName="tipo_cuenta">
+                            <mat-select formControlName="tipo_cuenta"> 
+                                <mat-option *ngFor="let tipo of this.tipos_de_cuenta"  [value]="tipo"  >
+                                    {{tipo}}</mat-option>      
+                            </mat-select>
+                            <mat-error *ngIf="this.form.get('tipo_cuenta')?.invalid ">Falta tipo cuenta</mat-error>       
                         </mat-form-field>
                     
-                        <mat-form-field class="nro_cuenta">
+                        <mat-form-field class="nro_cuenta" appearance="outline"  name="nro_cuenta">
                             <mat-label>Numero de cuenta</mat-label>
-                            <input matInput type="text" formControlName="nro_cuenta">
+                            <input matInput type="number" formControlName="nro_cuenta" minlength="10" maxlength="20">
+                        <mat-error *ngIf="this.form.get('nro_cuenta')?.invalid ">el CBU dene tener 20 digitos</mat-error>       
                         </mat-form-field>
                     </div>
 
 
                     <div class="panel-5" *ngIf="this.panelActual==5"  @enterState>
-                        aqui van datos
+                        <h4>DATOS :</h4>
+                        <ul>
+                            <li>Nombre:&nbsp; {{this.form.get('nombre').value}}</li>
+                            <li>Apellido:&nbsp; {{this.form.get('apellido').value}}</li>
+                            <li>Nombre:&nbsp; {{this.form.get('nombre').value}}</li>
+                            <li>Tipo de documento:&nbsp; {{this.form.get('tipo_documento').value}}</li>
+                            <li>Nupero de documento:&nbsp; {{this.form.get('nro_documento').value}}</li>
+                            <li>Tipo de cuenta:&nbsp; {{this.form.get('tipo_cuenta').value}}</li>
+                            <li>Numero de cuenta::&nbsp; {{this.form.get('nro_cuenta').value}}</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="box1"  *ngIf="this.panelActual<4">
-                    <h1><i class="material-icons"  
-                        *ngIf="this.panelActual>1" (click)="this.beforePanel()"> 
-                        navigate_before </i></h1>
-                       
-                </div>
-                <div class="box2"  *ngIf="this.panelActual<4" >
-                   
-                        <h3>{{this.panelActual}}/4</h3>
+
+                    <div class="box1"  *ngIf="this.panelActual<4">
+                        <h1><i class="material-icons"  
+                            *ngIf="this.panelActual>1" (click)="this.beforePanel()"> 
+                            navigate_before </i>      
+                        </h1>
+                     </div>
+                     <div class="box2"  *ngIf="this.panelActual<4" >
                         
+                             <h3>{{this.panelActual}}/4</h3>
+                             
+                     </div>
+                     <div class="box3"  *ngIf="this.panelActual<5">
+                            <i class="material-icons"  (click)="this.nextPanel()"
+                                 *ngIf="this.panelActual<=5"> 
+                             navigate_next </i>
+                     </div>
                 </div>
-                <div class="box3"  *ngIf="this.panelActual<5">
-                        <h1 ><i class="material-icons"  (click)="this.nextPanel()"
-                            *ngIf="this.panelActual<=5"> 
-                        navigate_next </i></h1>
+                     
                 </div>
-                <div class="card-footer">
-                    <div class="row" *ngIf="this.panelActual==5">
-                        <button class="btn btn-primary btn-block"
-                        (click)="this.guardar()">GUARDAR</button>
-                    </div>
-                    <div class="row" >
-                        <button class="btn btn-danger btn-block"
-                        (click)="this.volver()">VOLVER MENU</button>
-                    </div>
-                    </div>
-                </div>
+
+
         </form>
     </div>
-</div>
+
+<div class="botones">
+    <div class="boton"  (click)="this.volver()"*ngIf="this.panelActual!=5"  >
+         <h2 >VOLVER</h2>
+    </div>
+    <div class="boton"  (click)="this.guardar()" *ngIf="this.panelActual==5" >
+        <h2 >GUARDAR</h2>
+   </div>
 </div>

@@ -1,3 +1,4 @@
+import { ComprobarDatosComponent } from 'src/components/comprobar-datos/comprobar-datos.component';
 import { ShowDashboardComponent } from './../components/show-dashboard/show-dashboard.component';
 import { PanelUsuariosComponent } from '../components/panel-usuarios/panel-usuarios.component';
 import { PanelTasasComponent } from './../components/panel-tasas/panel-tasas.component';
@@ -28,6 +29,10 @@ const routes: Routes = [
 {
   path: 'login',
   component: LoginComponent
+},
+{
+  path: 'verificar-datos',
+  component: ComprobarDatosComponent
 },
 {
   path: 'panel-usuario',

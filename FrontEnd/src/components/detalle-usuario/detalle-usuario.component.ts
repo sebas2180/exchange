@@ -15,33 +15,56 @@ import Swal from 'sweetalert2';
 export class DetalleUsuarioComponent implements OnInit {
   @Input() usuario: UsuarioModule;
   @Input() esAdministrador: boolean;
+  @Input() esVerificar: boolean;
   @Output() emitChange  =  new EventEmitter();
   input: string;
-  constructor(private UsuarioServ: UsuarioService,
+  constructor(public UsuarioServ: UsuarioService,
     private router: Router) { }
-  paises: string[] = [ 'ARGENTINA','BRASIL','CHILE','URUGUAY','PARAGUAY','ESPAÑA'];
+  paises: string[] = ['','ARGENTINA','BRASIL','CHILE','URUGUAY','PARAGUAY','ESPAÑA'];
+  tipos_de_documento: string[]=['','CED','RIF'];
   form : FormGroup;
   active:boolean =false;
+  ready_tipo_documento:boolean=false;
   ngOnInit(): void {
     this.newForm();
     
   }
   newForm(){
-
+   // console.log(this.usuario);
+  //  console.log('telefono:    :');
+ //   console.log(this.usuario.telefono);
     this.form= new FormGroup({
       usuario: new FormControl(this.usuario.usuario,[Validators.required]),
-      pais: new FormControl(this.usuario.pais,[Validators.required]),
+      pais: new FormControl('',[Validators.required]),
       email: new FormControl(this.usuario.email,[Validators.required]),
       password: new FormControl(this.usuario.password,[Validators.required]),
       create_at: new FormControl(this.usuario.create_at),
-      nombre: new FormControl(this.usuario.nombre),
-      apellido: new FormControl(this.usuario.apellido),
+      nombre: new FormControl(this.usuario.nombre,[Validators.required]),
+      apellido: new FormControl(this.usuario.apellido,[Validators.required]),
       saldo: new FormControl(this.usuario.saldo),
       status: new FormControl(this.usuario.status),
-      telefono: new FormControl(this.usuario.telefono)
+      telefono: new FormControl('',[Validators.required]),
+      tipo_documento: new FormControl('',[Validators.required]),
+      nro_documento: new FormControl('',[Validators.required,Validators.max(99999999),Validators.min(10000000)]),
     });
     status = this.form.get('status').value;
-    console.log(status);
+ 
+    if(this.usuario.nro_documento !=null){
+      this.form.patchValue({ nro_documento: this.usuario.nro_documento});
+    }
+    if(this.usuario.tipo_documento !=null && this.usuario.tipo_documento !=''){
+      this.form.patchValue({ tipo_documento: this.usuario.tipo_documento});
+      this.tipos_de_documento= [this.usuario.tipo_documento];
+    }
+    if(this.usuario.pais !=null && !this.esAdministrador){
+      this.form.patchValue({ pais: this.usuario.pais});
+      this.paises= [this.usuario.pais];
+    }
+    if(this.usuario.telefono){
+      this.form.patchValue({ telefono: this.usuario.telefono});
+    }
+
+  // console.log(status);
     if(status =='inactivo'){
       this.form.disable();
       this.active=false;
@@ -52,7 +75,6 @@ export class DetalleUsuarioComponent implements OnInit {
   }
 
   Inabilitar(){
-    
     Swal.fire({
     input: 'password',
     title: 'Para borrar el usuario, ingrese \''+this.form.get('usuario').value+'\' y confirme',
@@ -73,8 +95,6 @@ export class DetalleUsuarioComponent implements OnInit {
             this.usuario.status='inactive';
             this.form.disable();
             this.active=false;
-            
-
            }else{
             Swal.fire({
               icon: 'error',
@@ -93,52 +113,68 @@ export class DetalleUsuarioComponent implements OnInit {
 
   }
   back(){
+   if(this.esVerificar){
+    this.router.navigate(['/transferencias']);
+   }else{
     this.emitChange.emit(true);
+   }
   }
   guardar(){
-    const dataForm = new FormData();
-    dataForm.append('usuario',this.form.get('usuario').value);
-    dataForm.append('pais',this.form.get('pais').value);
-    dataForm.append('email',this.form.get('email').value);
-    dataForm.append('nombre',this.form.get('nombre').value);
-    dataForm.append('apellido',this.form.get('apellido').value);
-    dataForm.append('telefono',this.form.get('telefono').value);
-    
-    this.UsuarioServ.updateUsuario(dataForm).subscribe(
-      res=>{
-        if(res['status']==724){
-          Swal.fire({
-            icon: 'success',
-            timer: 1500,
-            title: res['msj']
-          }).then(
-            r=>{
-              this.emitChange.emit(true);
-            })
-        }else{
+    if(!this.form.invalid){
+      this.usuario.nombre=this.form.get('nombre').value;
+      this.usuario.pais=this.form.get('pais').value;
+      this.usuario.email=this.form.get('email').value;
+      this.usuario.apellido=this.form.get('apellido').value;
+      this.usuario.telefono=this.form.get('telefono').value;
+      this.usuario.tipo_documento=this.form.get('tipo_documento').value;
+      this.usuario.nro_documento=this.form.get('nro_documento').value;
+     
+      const dataForm = new FormData();
+      dataForm.append('nombre',this.form.get('nombre').value);
+      dataForm.append('apellido',this.form.get('apellido').value);
+      dataForm.append('tipo_documento',this.form.get('tipo_documento').value);
+      dataForm.append('nro_documento',this.form.get('nro_documento').value);
+      dataForm.append('telefono',this.form.get('telefono').value);
+      dataForm.append('email',this.form.get('email').value);
+      dataForm.append('usuario',this.form.get('usuario').value);
+      dataForm.append('pais',this.form.get('pais').value);
+
+      this.UsuarioServ.updateUsuario(dataForm).subscribe(
+        res=>{
+          if(res['status']==724){
+            Swal.fire({
+              icon: 'success',
+              timer: 1500,
+              title: res['msj']
+            }).then(
+              r=>{
+                this.emitChange.emit(true);
+              })
+          }else{
+            Swal.fire({
+              icon: 'error',
+              timer: 1500,
+              title: res['msj']
+            }).then(
+              r=>{
+                this.router.navigate(['/comprobar']);
+              }
+            )
+          }
+        },error=>{
           Swal.fire({
             icon: 'error',
             timer: 1500,
-            title: res['msj']
+            title: 'Error al actualizar',
+            
           }).then(
             r=>{
-              this.router.navigate(['/panelAdmUsuarios']);
+              this.router.navigate(['/comprobar']);
             }
           )
         }
-      },error=>{
-        Swal.fire({
-          icon: 'error',
-          timer: 1500,
-          title: 'Error al actualizar'
-        }).then(
-          r=>{
-            this.router.navigate(['/panelAdmUsuarios']);
-          }
-        )
-       
-      }
-    )
+      )
+    }
   }
   editar(){
     var pass1;
@@ -200,4 +236,6 @@ export class DetalleUsuarioComponent implements OnInit {
        }
      )
   }
+
 }
+

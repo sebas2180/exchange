@@ -1,3 +1,4 @@
+import { BarraSuperiorService } from './../../app/services/barra-superior/barra-superior.service';
 import { Router, Event } from '@angular/router';
 
 import { DepositoService } from 'src/app/services/deposito/deposito.service';
@@ -37,6 +38,7 @@ import swal from 'sweetalert2';
 })
 export class NuevaTransferenciaComponent implements OnInit {
 
+  isUsuarioVerificado:boolean= true;
   beneficiariosAux: BeneficiarioModule[];
   banco: string;
   saldo = 0;
@@ -49,6 +51,7 @@ export class NuevaTransferenciaComponent implements OnInit {
   fechaConvertida  = this.pipe.transform(this.fechaDeHoy,'yyy-MM-dd');
   form: FormGroup;
   isForm:boolean=false;
+  titulo:string="NUEVA TRANSFERENCIA";
   fechaCreate_at = this.pipe.transform(this.fechaDeHoy,'yyy-MM-dd hh:mm:ss');
   id_destinatario;
   deposito_guardado:boolean =false;
@@ -63,6 +66,7 @@ export class NuevaTransferenciaComponent implements OnInit {
       monto_transaccion: new FormControl(this.importe),
       pais: new FormControl('',[Validators.required]),
       tasa_actual: new FormControl('',[Validators.required]),
+      saldo_restante: new FormControl('',[Validators.required,Validators.min(0)]),
       create_at: new FormControl(this.fechaCreate_at,[Validators.required])
      });
   }
@@ -73,33 +77,42 @@ export class NuevaTransferenciaComponent implements OnInit {
         public UsuarioService: UsuarioService,
         public TasasService: TasasService,
         private DepositoService: DepositoService,
-        private router: Router
+        private router: Router,
+        public BarraSuperiorService:BarraSuperiorService
               ) {
                 const id= this.data['id'];
                 this.UsuarioService.getUsuario(id).subscribe(
                   res=>{
-                   // console.log(res['body']);
                     const aux  = res['body'];
                     const aux2= aux['usuario'];
-                    const aux3= aux2[0]; 
-                   // console.log(aux2);
                     this.usuario=aux2;
                     this.UsuarioService.usuario=this.usuario;
-                    console.log( this.UsuarioService.usuario.pais);
                     this.form.patchValue({ pais:this.UsuarioService.usuario.pais});
-
+                    this.form.patchValue({ tasa_actual:this.UsuarioService.usuario.tasa});
                     this.BeneficiarioService.getBeneficiarios(this.data['id']).subscribe(
                       res=>{
                         this.beneficiariosAux = res['body'];
                         this.BeneficiarioService.beneficiarios= this.beneficiariosAux['beneficiario'];
                       }
                     );
-                    this.TasasService.getTasa(this.UsuarioService.usuario.pais).subscribe(
-                      res=>{this.TasasService.setTasa(res);
-                        this.form.patchValue({ tasa_actual: this.TasasService.Tasa.tasa_actual });
-                      },
-                      err=>{console.log('Error en traer tasa actual');}
-                    );
+                    this.UsuarioService.usuarioVerificado(this.usuario.usuario).subscribe(
+                      resVerificado=>{
+                        
+                        var aux = resVerificado['body'];
+                        console.log(aux['status']);
+                        if(aux['status']==742){
+                          this.isUsuarioVerificado=true;
+                        }else{
+                          this.isUsuarioVerificado=false;
+                        }
+                      },errVerif=>{
+                        console.log(errVerif);
+                        this.isUsuarioVerificado=true;
+                      }
+                    )
+                    // if(this.UsuarioService.usuario.isUsuarioConfirmado()){
+                    //   this.isUsuarioVerificado=false;
+                    // }
                   },
                   err =>{
                     console.log(err)
@@ -107,10 +120,36 @@ export class NuevaTransferenciaComponent implements OnInit {
                 );
   }
   ngOnInit(): void {
+    this.BarraSuperiorService.volver=false;
     this.newForm();
+
+    
+  }
+  actualizarDatos(){
+    this.UsuarioService.panelPrincipal=true;
+    this.router.navigate(['/verificar-datos'] );
+
+  }
+  volver(e){
+    this.BarraSuperiorService.volver=true;
+    if(this.BarraSuperiorService.ir_menu_beneficiacrios){
+      this.router.navigate(['/PanelBeneficiarios']);
+    }else{
+      this.UsuarioService.panelPrincipal=false;
+      this.router.navigate(['/panel-usuario/'],{ queryParams: { verUsuario: 'false'}});
+    }
   }
   enviar(){
    // this.calcularMonto();
+
+   if(this.form.invalid){
+    swal.fire({
+      title:'Verifica los datos',
+      text: 'Hay campos invalidos',
+      icon: 'error',
+      showConfirmButton: true
+    })
+   }else{
     const dataForm = new FormData();
     dataForm.append('pais', this.form.get('pais').value);
     dataForm.append('id_user', this.form.get('id_user').value);
@@ -118,16 +157,20 @@ export class NuevaTransferenciaComponent implements OnInit {
     dataForm.append('monto_transaccion', this.form.get('monto_transaccion').value);
     dataForm.append('tasa', this.form.get('tasa_actual').value);
     dataForm.append('fecha', this.form.get('fecha').value);
+    dataForm.append('saldo_restante', this.form.get('saldo_restante').value);
+    dataForm.append('viejo_saldo', this.UsuarioService.usuario.saldo.toString());
     dataForm.append('id_destinatario', this.id_destinatario);
     dataForm.append('status', 'EN VERIFICACION');
     dataForm.append('create_at',  this.form.get('create_at').value);
+    
+   
     this.DepositoService.addDeposito(dataForm).subscribe(
       res=>{
         const aux = res;
-        console.log(aux['id_deposito']);
+       if(aux['status']==738){
         swal.fire({
-          title:'Guardado exitoso',
-          text: 'Ahora ya puedes hacer transferencias a este usuario',
+          title:aux['title'],
+          text: aux['text'],
           icon: 'success',
           showConfirmButton: true
         }).then((result) => {
@@ -135,6 +178,19 @@ export class NuevaTransferenciaComponent implements OnInit {
             this.router.navigate(['/']);
             } 
         });
+       }else{
+        swal.fire({
+          title:aux['title'],
+          text: aux['text'],
+          icon: 'error',
+          showConfirmButton: true
+        }).then((result) => {
+          if (result.value) {
+            this.router.navigate(['/']);
+            } 
+        });
+       }
+
         this.deposito_guardado=true;
        this.form.reset();
        },
@@ -142,6 +198,8 @@ export class NuevaTransferenciaComponent implements OnInit {
         console.log('error al enviar el formulario');
        }
     );
+   }
+
   }
   onResetForm(){
     this.form.reset();
@@ -151,10 +209,12 @@ export class NuevaTransferenciaComponent implements OnInit {
     this.id_destinatario=id_beneficiario;
   }
   calcularMonto(){
- 
-   // this.importe= this.importe*this.TasasService.Tasa.tasa_actual;
-    this.importe = this.form.get('monto').value * this.TasasService.Tasa.tasa_actual;
+    var saldo = this.UsuarioService.usuario.saldo;
+    var tasa = this.form.get('tasa_actual').value;
+    this.importe = this.form.get('monto').value * tasa;
+    saldo = saldo-this.importe;
     this.form.patchValue({ monto_transaccion:this.importe});
-    console.log(this.form.get('monto').value*this.TasasService.Tasa.tasa_actual);
+    this.form.patchValue({ saldo_restante: saldo});
+ 
   }
 }

@@ -12,20 +12,16 @@ module.exports = {
             return new Promise((resolve,reject) =>{
                 Bancos.findAll()
                 .then(
-                    res=>{
-                        sequelize.close ()
-                        resolve(res);
+                    resp=>{
+                         
+                        const sendInfo={
+                            status: 752,
+                            msj:'Banco encontrados',
+                            bancos: resp
+                          }
+                        resolve(sendInfo);
                     }
                 )
-
-                // conn.query(linea,(err,res1) => {
-                //     if(err) {
-                //         conn.release();
-                //         console.log(err);
-                //     };
-                //     c
-                //     resolve(res1);
-                // });
             });
     
     }

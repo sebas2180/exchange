@@ -25,9 +25,21 @@ export class UsuarioModule {
   rol?: string;
   status?: string;
   create_at?: Date;
-
+  tasa?: Date;
+  tipo_documento ?: string;
+  nro_documento?: string;
   deserialize?(input: any): this {
     return Object.assign(this, input);
   }
 
+  isUsuarioConfirmado?= ()=>{
+    console.log(this.telefono+'    '+this.nombre+'    '+ this.apellido +'    '+  this.nro_documento
+    +'    '+ this.tipo_documento +'    '+this.nro_documento +'    '+this.tipo_documento);
+    if(this.telefono && this.nombre && this.apellido &&  this.nro_documento
+             && this.tipo_documento && this.nro_documento && this.tipo_documento){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

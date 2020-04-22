@@ -41,7 +41,7 @@ module.exports = {
             const lin = `select count(*) as suma from beneficiario where nombre = \'`+beneficiario.nombre+
             `\' and apellido = \'`+beneficiario.apellido+`\' and nro_cuenta=`+beneficiario.nro_cuenta+
             ` and tipo_cuenta=\'`+beneficiario.tipo_cuenta+`\' and tipo_documento=\'`+beneficiario.tipo_cuenta+
-            `\' and nro_documento =`+beneficiario.nro_cuenta+` and id_usuario =`+beneficiario.id_usuario+
+            `\' and nro_documento =`+beneficiario.nro_documento+` and id_usuario =`+beneficiario.id_usuario+
             ` and banco =\'`+beneficiario.banco+`\'`;
 
              conn.query(lin,[beneficiario],function (err,rows){        
@@ -51,20 +51,27 @@ module.exports = {
         if(rows.suma>0){
             resolve({status:702,msj:'Ops, ya tienes un beneficiario cargado identico a este.'});
         } else{
-            conn.query(linea,[beneficiario],(err,results,fields)=>{  
-                if (err) throw err;
-                
-                if(err) {
-
-                     resolve({status:701,msj:'Error al guardar usuario, reintente mas tarde.'});
-                 }
-                if(results != null){
-                    if(results.affectedRows > 0){
-                   
-                        resolve({status:700,msj:'guardado correcto',insertId:results.insertId});
-                  }
+            const ben= new Beneficiario();
+            ben.nombre=beneficiario.nombre;
+            ben.apellido=beneficiario.apellido;
+            ben.tipo_cuenta=beneficiario.tipo_cuenta;
+            ben.nro_cuenta=beneficiario.nro_cuenta;
+            ben.tipo_documento=beneficiario.tipo_documento;
+            ben.nro_documento=beneficiario.nro_documento;
+            ben.banco=beneficiario.banco;
+            ben.id_usuario=beneficiario.id_usuario;
+            ben.createAt=beneficiario.create_at;
+            ben.save().then(
+                respSave=>{ 
+                    resolve({status:700,msj:'guardado correcto',insertId:respSave['dataValues'].id});          
                 }
-            })  
+            )
+                    .catch(
+                        err=>{
+                            console.log(err)
+                            resolve({status:701,msj:'Error al guardar usuario, reintente mas tarde.'});
+                        }
+                    )  
         }
     });   
           

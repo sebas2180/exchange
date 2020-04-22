@@ -1,13 +1,15 @@
+import { BarraSuperiorService } from './../../app/services/barra-superior/barra-superior.service';
+ 
 import { MatTableModule } from '@angular/material/table';
 
 import { DepositoModule } from './../../app/models/deposito/deposito.module';
 import { DepositoService } from 'src/app/services/deposito/deposito.service';
 import { Component, OnInit, ViewChild, AfterViewInit, Input, EventEmitter, Output } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { AuthserviceService } from 'src/app/services/authservice.service';
 import {  MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortable } from '@angular/material/sort';
 export interface PeriodicElement {
 
 }
@@ -22,17 +24,23 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   @Input() esCliente:boolean =false;
   @Input() nroBeneficiario:number =-1;
   @Input()  isOnlyVerif: boolean =true;
+  @Input()  isDepositoPorUsuario: boolean =false;
   @Output()   isMostrarDash = new EventEmitter;
+  @Output()   volver_panelBeneficiario = new EventEmitter;
   isFiltrado: boolean=false;
 
+  titulo:string = "TRANSFERENCIAS";
   depositos: DepositoModule[];
   deposito: DepositoModule ;
   aux : string ;
-  displayedColumns: string[] = ['id','id_destinatario','pais','fecha','action'];
+  displayedColumns: string[] = ['id_destinatario','monto','tasa','monto_transaccion','fecha','action1','action2'];
   dataSource;
   isLoading: boolean = true;
 
-  constructor(private TransaccionService: DepositoService,private authService : AuthserviceService) { }
+  constructor(private TransaccionService: DepositoService,
+    private authService : AuthserviceService
+    ,private router:Router,
+    public BarraSuperiorService: BarraSuperiorService) { }
 
 
   ngAfterViewInit(): void {
@@ -42,7 +50,7 @@ export class DepositosComponent implements OnInit,AfterViewInit {
     
     if(this.esCliente){
       console.log('---------------ES ADMINISTRADOR ------------');
-      this.displayedColumns = ['id','usuario','fecha','status','actionAdm'];
+      this.displayedColumns = ['usuario','fecha','monto_transaccion','actionAdm'];
     }
     this.TransaccionService.CanActivate();
     const data = JSON.parse(this.authService.getLocal());
@@ -82,10 +90,10 @@ export class DepositosComponent implements OnInit,AfterViewInit {
       this.TransaccionService.getDepositos(this.isOnlyVerif).subscribe(
         res => {
               console.log(res);
-             // this.deposito= res;
               this.depositos = res;
               this.dataSource = new MatTableDataSource<DepositoModule>(this.depositos);
               this.dataSource.paginator = this.paginator;
+              this.sort.sort(({ id: 'fecha', start: 'desc'}) as MatSortable);
               this.dataSource.sort = this.sort;
               this.isLoading=false;
                },
@@ -103,13 +111,13 @@ export class DepositosComponent implements OnInit,AfterViewInit {
   generarDashBoard(indexDeposito){
      this.isMostrarDash.emit(indexDeposito);
   }
-
-  filtrado(){
-    this.isFiltrado=true;
-
-  }
-  cerrarFiltro(){
-    this.isFiltrado=false;
-    this.dataSource.filter = '';
+  volver(){
+     
+    if(!this.isDepositoPorUsuario){
+      this.BarraSuperiorService.volver=true;
+      this.router.navigate(['/panel-usuario']);
+    }else{
+      this.volver_panelBeneficiario.emit(false);
+    }
   }
 }

@@ -15,6 +15,10 @@ const sequelize= require('./sequelize');
             nombre: {
                 type: Sequelize.STRING,
                 notEmpty: true
+              },
+            codigo: {
+                type: Sequelize.INTEGER,
+                notEmpty: true
               }
             },
             {

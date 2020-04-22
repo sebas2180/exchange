@@ -1,27 +1,30 @@
 .panel-general{
-    position: absolute;
-    top: 17%;
-    width: 100%;
-    height: 80%;
+    position: fixed;
+    top: 80px;
+    width: 96%;
+    height: 70%;
     background-color: white;
 }
 .card{
-    position: fixed;
-    left: 2%;
-    top: 18%;
-    width: 96%;
-    height: 78%;
+    position: absolute;
+    left: 7%;
+    width: 90%;
+    height: 100%;
     background-color: white;
+    border:solid 1px black;
+    
 
 }
-.card-header{
+.cardHeader{
+    height: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: white;
-    font-size: 2.6em;
-    background-color: rgb(77, 32, 201);
+    color: black;
+    font-size: 5rem;
+    font-weight: bold;
+    background-color: #67cf75;
 }
 .card-body{
     position: relative;
@@ -29,25 +32,27 @@
     justify-content: center;
     align-items: center;
     left:15%;
-    width:  80%;
-    height: 50%;
+    width:  75%;
+    height:60%;
     background-color: white;
 }
 .card-footer{
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
-
     width: 100%;
-    height: 25%;
+    height: 20%;
     background-color:white;
 }
 input{
-    font-size: 2.4em;
+    position: relative;
+    font-size: 1.5em;
+    width: 95%;
 }
-mat-form-field,.panel-1,.panel-2,.panel-3,.panel-4,.panel-5{
-    width: 80%;
+mat-form-field{
+ position: absolute;
+ left: 0;
+ width: 100%;
 }
 i{
     font-size: 2.6em;
@@ -58,11 +63,6 @@ h3{
 .box1,.box2,.box3{
     margin-left: 9%;
 }
-button{
-    width: 25%;
-    margin-left: 10%;
-    height: 100%;
-}
 li{
     font-size: 1.2em;
 }
@@ -70,3 +70,49 @@ li{
     text-decoration: underline;
     font-weight: bold;
 }
+
+  .boton{
+    border-color:#4c9756 ;
+   // border: ridge 1px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .botones{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    bottom: 0;
+    height: 40px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: #67cf75;
+  }
+.bto{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    bottom: 0;
+    height:100%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: #67cf75;
+}
+  @media(min-width:768px){
+    .card{
+        height: 80%; 
+    }
+    .card-body{
+        height: 50%;
+
+    }
+    .card-footer{
+        height: 20%;
+    }
+  }

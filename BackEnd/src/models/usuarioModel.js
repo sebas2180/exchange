@@ -1,7 +1,7 @@
 
-//const mysql = require('../../database/mysql');
+const mysql = require('../../database/mysql');
 var User = require('../../database/usuarios')();
-//const conn = mysql.dbConnection();
+const conn = mysql.dbConnection();
 var crypto  = require('crypto');
 
 module.exports = {
@@ -65,6 +65,39 @@ module.exports = {
                     resolve(res);
                 }
             )
+        })
+    },
+    usuarioVerificado : function(usuario) { 
+        return new Promise((resolve,reject)=>{
+        
+            const linea = 'SELECT count(1) as count FROM usuarios WHERE telefono is not null  AND nombre is not null AND '+
+            'apellido is not null AND tipo_documento is not null AND nro_documento is not'+
+            ' null AND email is not null AND pais is not null and '+
+            ' telefono !=\'\' AND nombre !=\'\' AND pais !=\'\' AND apellido !=\'\' AND tipo_documento !=\'\''+
+            'AND email !=\'\' AND nro_documento !=\'\'  AND usuario=\'' +usuario.id+'\'';
+            console.log(linea);
+             
+            conn.query(linea,(error,res1)=>{
+                if(error)  { 
+                    console.log(error)
+                    resolve({status:742,msj:'Error al verificar usuario'});
+                }
+               
+                const aux =(res1[0]);
+                
+               // console.log(res1);
+               // console.log(aux['TextRow']);
+               // console.log(aux.TextRow);
+                if(aux.count == 0){
+                    console.log(res1);  // hacer el service de esto y llamarlo
+                    resolve({status:741,msj:'Usuario no verificado'});
+                }else{
+                    console.log('no');
+                    resolve({status:742,msj:'Usuario verificado'});
+                    
+                }
+                
+            })
         })
     },
     disabledUsuario : function(req) { 
@@ -141,35 +174,87 @@ module.exports = {
             )
         })
     },
-    updateUsuario : function(usuario) { 
+    updateSaldo : function(nuevoSaldo,viejoSaldo,id_user) { 
         return new Promise((resolve,reject)=>{
+            console.log(nuevoSaldo+'   '+viejoSaldo+'   '+id_user);
             User.update(
-                {nombre: usuario.nombre,   apellido:usuario.apellido, 
-                 email:  usuario.email,    pais:usuario.pais,
-                 telefono:usuario.telefono},
-                { where:{ usuario : usuario.usuario}})
-            .then(
+                {   saldo: nuevoSaldo},
+                    { where:{ id :  id_user,saldo:viejoSaldo}}
+            ).then(
                 res=>{
-                    if(res==1){
-                        const resp ={
-                            status:724,
-                            msj:'Actualizacion correcta.'
-                        }
-                     
-                        resolve(resp);
-                    }else{
-                        const resp ={
-                            status:725,
-                            msj:'Hubo un problema al correcta.'
-                        }
-                 
-                        resolve(resp);
-                    }
                     console.log(res);
-                   
-                    resolve(res);
+                    if(res==0){
+                        resolve({status:737,title:'Error',text:'El saldo previo no coincide, por favor generá devuelta la transacción'});
+                    }else{
+                        resolve({status:738,title:'Transferencia exitosa',text:'Ahora toca esperar la confirmación'});
+                    }
                 }
             )
+        })
+    },
+    updateUsuario : function(usuario) { 
+        return new Promise((resolve,reject)=>{
+            console.log('usuarioooo');
+            console.log(usuario);
+            const linea  = 'UPDATE usuarios SET nombre=?,apellido=?,tipo_documento=?,nro_documento=?'+
+                            ',telefono=?,email=?,pais=? WHERE usuario=?'
+            conn.query(linea,[usuario.nombre,usuario.apellido,usuario.tipo_documento,usuario.nro_documento,
+                usuario.telefono,usuario.email,usuario.pais,usuario.usuario],(err,res)=>{
+                if(err) {console.log(err)}
+                const actualizado=res.affectedRows;
+                if(actualizado==0){
+
+                    const resp ={
+                        status:725,
+                         msj:'Hubo un problema al correcta.'
+                    }
+                 resolve(resp);
+                }else{
+                    const resp ={
+                        status:724,
+                        msj:'Actualizacion correcta.'
+                   }
+                        resolve(resp);
+                }
+                resolve(res);
+            })
+            // User.update({ pais: usuario.pais},{ where:  { usuario : usuario.usuario}});
+            // User.update(
+            //     {    nombre: usuario.nombre,   
+            //          apellido:usuario.apellido, 
+            //          email:  usuario.email,    
+            //          telefono:usuario.telefono,
+                      
+            //          tipo_documento:usuario.tipo_documento,
+            //          nro_documento:usuario.nro_documento},
+            //     { where:
+            //         { usuario : usuario.usuario}}
+            //         )
+            // .then(
+            //     res=>{
+            //         if(res==1){
+            //             const resp ={
+            //                 status:724,
+            //                 msj:'Actualizacion correcta.'
+            //             }
+                     
+            //             resolve(resp);
+            //         }else{
+            //             const resp ={
+            //                 status:725,
+            //                 msj:'Hubo un problema al correcta.'
+            //             }
+                 
+            //             resolve(resp);
+            //         }
+            //         console.log(res);
+                   
+            //         resolve(res);
+            //     }
+            // )
+            // .catch(
+            //     err=>{console.log(err);}
+            // )
         })
     },
     // addUsuario: function(usuario){

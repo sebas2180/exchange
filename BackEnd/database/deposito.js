@@ -45,7 +45,11 @@ const sequelize= require('./sequelize');
                 defaultValue: 'active'
             },
           
-          
+            createAt: {
+
+                type: Sequelize.DATE,
+                field: 'create_at'
+            },
             id_destinatario: {
                 type: Sequelize.INTEGER
             }

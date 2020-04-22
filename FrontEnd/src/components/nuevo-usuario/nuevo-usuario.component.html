@@ -1,10 +1,9 @@
+<barra-superior [titulo]="this.titulo" [volver_atras]="false" (verUsuario)="volver($event)"></barra-superior>
 <div class="panel-general">
     <form  [formGroup]="this.form" >
-    <div class="row">
-        <div class="col">
             <div class="card">
-                <div class="card-header">
-                    <h1>NUEVO USUARIO</h1>
+                <div class="cardHeader">
+                    <h1>Ingrese los datos</h1>
                 </div>
                 <div class="card-body">
                     <div class="panel-1" *ngIf="this.panelActual==1" @enterState>
@@ -58,6 +57,11 @@
                 </div>
                
                 <div class="card-footer">
+                    <div class="bto"  *ngIf="this.panelActual==5"> 
+                    <div class="boton" (click)="this.guardarUsuario()" *ngIf="this.panelActual==5">
+                       <h1> CREAR</h1>
+                    </div>
+                    </div>
                     <div class="box1"  *ngIf="this.panelActual<5">
                         <h1><i class="material-icons"  
                             *ngIf="this.panelActual>1" (click)="this.beforePanel()"> 
@@ -74,12 +78,14 @@
                                 *ngIf="this.panelActual<=5"> 
                             navigate_next </i></h1>
                     </div>
-                    <button class="btn btn-primary btn-block" (click)="this.guardarUsuario()" *ngIf="this.panelActual==5">crear</button>
-                    <button class="btn btn-danger btn-block" (click)="this.panelActual=1"*ngIf="this.panelActual==5">Corregir</button>
-                    
+                    <!-- <button class="btn btn-danger btn-block" (click)="this.panelActual=1"*ngIf="this.panelActual==5">Corregir</button> -->
                 </div>
             </div>
-        </div>
-    </div>
+        
 </form>
+</div>
+<div class="botones">
+    <div class="boton"  (click)="this.volver2()" *ngIf="this.panelActual<5">
+         <h2 >VOLVER</h2>
+   </div>
 </div>

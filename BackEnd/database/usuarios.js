@@ -35,6 +35,15 @@ const sequelize= require('./sequelize');
             },
            
             telefono: {
+                type: Sequelize.STRING,
+                notEmpty: true
+            },
+
+            tipo_documento: {
+                type: Sequelize.STRING,
+                notEmpty: true
+            },
+            nro_documento: {
                 type: Sequelize.INTEGER
             },
           
@@ -45,6 +54,9 @@ const sequelize= require('./sequelize');
           
           
             saldo: {
+                type: Sequelize.FLOAT
+            },
+            tasa: {
                 type: Sequelize.FLOAT
             },
             pais: {

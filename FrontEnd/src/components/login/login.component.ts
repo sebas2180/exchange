@@ -6,6 +6,7 @@ import { UsuarioService } from '../../app/services/usuarioService.service';
 import { UsuarioModule } from '../../app/models/usuario/usuario.module';
 import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -38,43 +39,50 @@ export class LoginComponent implements OnInit {
       rol :'',
       create_at :date,
       id: 0
-      
     }
   }
-  
-
   entrar(){
-    console.log('ok');
+   
+   // console.log('ok');
     this.service.login(this.usuario).subscribe(
       res => {
-        console.log(res);
-        if(res['status'] == ( 702 || 703) ) {
-          console.log(res['user']);
-        }
-        const aux = res['user'];
-        console.log(aux.rol);
-        switch(aux.rol){
-          case "cliente":
-                    //this.barraService.setTitulo('PANEL USUARIO');
+       // console.log(res);
+        if(res['status'] == ( 702 ) ) {
+          swal.fire({
+            icon: 'error',
+            timer: 1500,
+            title: 'Usuario y/o contraseña incorrecta',
+            text: 'Verifique los datos',
+          })
+        }else{
+          if(res['status'] ==703){
+            const aux = res['user'];
+           // console.log(aux.rol);
+            switch(aux.rol){
+              case "cliente":
+                        //this.barraService.setTitulo('PANEL USUARIO');
+                        this.authService.setUserInfo( res['user'] );
+                        //console.log('MENU CLIENTE');
+                           this.service.logeado = true;
+                           console.log('estado logeado:     '+this.service.logeado);
+                          this.route.navigate(['/panel-usuario']);
+              break;
+              case "administrador":
+                    
+                    //this.barraService.setTitulo('PANEL ADMINISTRADOR');
                     this.authService.setUserInfo( res['user'] );
-                    console.log('MENU CLIENTE');
-                       this.service.logeado = true;
-                       console.log('estado logeado:     '+this.service.logeado);
-                      this.route.navigate(['/panel-usuario']);
-          break;
-          case "administrador":
-                
-                //this.barraService.setTitulo('PANEL ADMINISTRADOR');
-                this.authService.setUserInfo( res['user'] );
-                console.log('MENU ADM');
-                  this.service.logeado = true;
-                  this.route.navigate(['/panelAdministrador']);
-          break;
+                    //console.log('MENU ADM');
+                      this.service.logeado = true;
+                      this.route.navigate(['/panelAdministrador']);
+              break;
+            }
+          }
         }
+
       },
       err => {
-        console.log(err);
-        console.log(err[0]);
+        //console.log(err);
+        //console.log(err[0]);
       }
     );
   };

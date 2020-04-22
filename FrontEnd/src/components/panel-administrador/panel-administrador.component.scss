@@ -1,9 +1,27 @@
+barra-superior{
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    z-index: 50;
+     
+}
+
+barra-inferior{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    
+    bottom: 0%;
+}
 
 .container-fluid{
     width: 100%;
     position: absolute;
-    top: 16%;
+   // display: flex;
+    top: 80px;
+    margin-bottom: 90px;
 }
+
 .box,.box2,.box3,.box4{
     position: relative;
     width: 100%;
@@ -23,17 +41,17 @@
     color:white;
 }
 .header{
-    background-color:#215f00;
+    background-color: #67cf75; 
 }
 .header2{
-    background-color:#215f00;
+    background-color: #67cf75; 
 
 }
 .header3{
-    background-color:#215f00;
+    background-color: #67cf75; 
 }
 .header4{
-    background-color:#215f00;
+    background-color: #67cf75; 
 }
 .card-body{
     display: flex;
@@ -49,19 +67,30 @@ img{
     height: 10px;
 }
 
-//
 li{
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 6px;
 }
-nuevo-dashboard{
-    display: flex;
-    justify-content: center;
-    align-items: initial;
-    flex-direction: column-reverse;
+.botones-usuario{
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
+    align-self: center;
+    justify-content: center;
+
 }
+.boton{
+    width: 50%;
+    bottom: 0;
+    height: 40px;
+    background-color: #67cf75;
+    text-align: center;
+    align-items: center;
+    font-size: 1.4rem;
+    justify-content: center;
+  }
 nuevo-dashboard{
     position: absolute;
     display: flex;
@@ -69,7 +98,7 @@ nuevo-dashboard{
     align-items: initial;
     flex-direction: column-reverse;
     width: 100%;
-    top: 17%;
+   // top: 80px;
 }
 button,.iconn{
     display: flex;

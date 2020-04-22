@@ -1,3 +1,5 @@
+import { BancoModule } from './../../app/models/banco/banco.module';
+import { BancoService } from './../../app/services/banco/banco.service';
 import { ManejoFechasService } from './../../../shared/services/manejoFechasService/manejo-fechas.service';
 import { AuthserviceService } from 'src/app/services/authservice.service';
 import { BeneficiarioService } from './../../app/services/beneficiario/beneficiario.service';
@@ -26,26 +28,32 @@ import swal  from 'sweetalert2';
     ])]
 })
 export class NuevoBeneficiarioComponent implements OnInit {
+  titulo='NUEVO BENEFICIARIO';
+  tipos_de_documento: string[]=['','CED','RIF'];
+  tipos_de_cuenta: string[]=['','AHORRO','CORRIENTE'];
   panelActual=1;
   avanzar=false;
   id_banco: number;
-  bancos =[{id_banco:1,banco:'Santander'},
-            {id_banco:2,banco:'Galicia'},
-            {id_banco:3,banco:'Macro'}];
+  bancos : BancoModule[];
   form: FormGroup;
   dataUsuarioLocal = JSON.parse(this.authService.getLocal());
    unamePattern = "[a-zA-Z ]*";
   constructor(private router : Router,
               private beneficiarioService: BeneficiarioService,
               private authService: AuthserviceService,
-              private ManejoFechasService: ManejoFechasService
-              ) { }
+              private ManejoFechasService: ManejoFechasService,
+              private bancosService: BancoService
+              ) { 
+
+              }
 
   ngOnInit(): void {
     this.newForm();
+    
   }
 
   nextPanel(){
+
 
     if(this.panelActual == 4){
       if(this.form.controls.nro_cuenta.invalid || this.form.controls.tipo_cuenta.invalid){
@@ -85,6 +93,12 @@ if(this.panelActual == 2){
       timer: 1500
     })
   }else{
+    this.bancosService.getBancos().subscribe(
+      res=>{
+        console.log(res['bancos']);
+        this.bancos=res['bancos'];
+      }
+    )
     this.panelActual++;
   }  
 }
@@ -110,9 +124,10 @@ if(this.panelActual == 1){
       apellido: new FormControl('',[Validators.required]),
       id_banco: new FormControl('',[Validators.required]),
       tipo_documento: new FormControl('',[Validators.required]),
-      nro_documento: new FormControl('',[Validators.required]),
+      nro_documento: new FormControl('',[Validators.required,Validators.min(10000000),Validators.max(99999999)]),
       tipo_cuenta: new FormControl('',[Validators.required]),
-      nro_cuenta: new FormControl('',[Validators.required]),
+      banco: new FormControl('',[Validators.required]),
+      nro_cuenta: new FormControl('',[Validators.required,Validators.min(1000000000000000000),Validators.max(9999999999999999999)]),
       id_user: new FormControl('',[Validators.required]),
       create_at: new FormControl(this.ManejoFechasService.createDateCreateAt(),[Validators.required])
     });
@@ -146,7 +161,7 @@ if(this.panelActual == 1){
           timer: 2200
         }).then(
           res=> {
-            this.router.navigate(['/PanelBeneficiarios']);
+           this.router.navigate(['/PanelBeneficiarios']);
         })
       },
       err=>{
@@ -171,6 +186,9 @@ if(this.panelActual == 1){
   
   }
   volver(){
-    this.router.navigate(['/']);
+    this.router.navigate(['/PanelBeneficiarios']);
+  }
+  volver_atras(e){
+    this.router.navigate(['/PanelBeneficiarios']);
   }
 }

@@ -1,13 +1,35 @@
-.aux{
-  position: relative;
-  width: 16%;
-  height: 16%;
-}
+// .aux{
+//   position: relative;
+//   width: 16%;
+//   height: 16%;
+// }
+
 .tab{
-  position: relative;
- 
+position: relative;
+ top: 18%;
   width: 100%;
 }
+table {
+  position: relative;
+  font-size: 14px;
+  width: 100%;
+  height: 50%;
+  top:17%;
+  overflow-y: auto;
+  }
+  #filtro{
+    position: fixed;
+     bottom: 0;
+     font-size: 1.5em;
+     font-weight: bold;
+     height: 50px;
+     width: 100%;
+     display:flex;
+     justify-content: center;
+     align-items: center;
+     background-color: #67cf75;
+     color: white;
+  }
 .app-loader{
   position: fixed;
   left: 45%;
@@ -19,37 +41,37 @@
 }
 .divFiltro{
     position: fixed;
-    bottom:0%;
+    top: 75%;
     width:  100%;
     height: 8%;
-    background-color: white;
+   
     z-index: 100px;
     border-color: black;
     border: 10px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
-table {
-  //position: absolute;
-  font-size: 14px;
-  width: 100%;
-  height: 50%;
-  top:19%;
-  z-index: 500px;
-  overflow-y: auto;
-  }
+// mat-paginator{
+//   position: fixed;
+//   top: 75%;
+  
+// }
+
   @media  (max-width: 766px) {
     td {
       font-size: 0.8em;
     }
   }
-
-#filtro{
-  position: fixed;
-  bottom: 10%;
-  right: 2%;
-  z-index: 0px;
-}
+ 
 nuevo-dashBoard{
   position: relative;
   width: 100%;
   top: 18%;
 }
+// @media(max-width:768px){
+//   mat-paginator{
+//     position: fixed;
+//     top: 83%;
+//   }
+// }

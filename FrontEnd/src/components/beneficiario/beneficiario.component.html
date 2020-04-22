@@ -1,40 +1,41 @@
 <div class="container-fluid" style="margin-top: 8px;">
     <mat-card class="beneficiario">
         <mat-card-content>
-            <mat-grid-list cols="5" rowHeight="1:0.4">
-                <mat-grid-tile [colspan]="1" [rowspan]="1" class="myTile">
-                    <p>Titular</p>
+            <mat-grid-list cols="4" rowHeight="1:0.4">
+                <mat-grid-tile [colspan]="2" [rowspan]="1" class="myTile">
+                    <p> {{titular}}</p>
                 </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <p>Banco</p>
-                </mat-grid-tile>           
-            <mat-grid-tile [colspan]="1" [rowspan]="1">
-               <p> {{beneficiario.tipo_documento}}</p>
+         
+            <mat-grid-tile [colspan]="2" [rowspan]="1">
+               <p> {{beneficiario.tipo_documento}}:&nbsp;{{beneficiario.nro_documento}}</p>
             </mat-grid-tile>
-            <mat-grid-tile [colspan]="1" [rowspan]="1">
-                <p>{{beneficiario.tipo_cuenta}}</p>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="1" [rowspan]="1" style="color: red;">
-                <p><i class="material-icons" (click)="deleteBeneficiario()"> delete </i></p>
-            </mat-grid-tile>
+ 
+            
         </mat-grid-list>
 
-            <mat-grid-list cols="5" rowHeight="1:0.4">
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                       <h6> {{titular}}</h6>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                       <h6> {{beneficiario.banco}}</h6>
-                </mat-grid-tile>              
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <h6>{{beneficiario.nro_documento}}</h6>
-                </mat-grid-tile>
-                <mat-grid-tile [colspan]="1" [rowspan]="1">
-                    <h6>{{beneficiario.nro_cuenta}}</h6>
+            <mat-grid-list cols="12" rowHeight="1:0.5">
+                <mat-grid-tile [colspan]="4" [rowspan]="2">
+                       <h6 style="font-size: 0.9rem !important;">{{beneficiario.banco}} &nbsp;</h6>
                 </mat-grid-tile>
 
+                <mat-grid-tile [colspan]="4" [rowspan]="2">
+                       <h6 style="font-size: 0.9rem !important;"> {{beneficiario.tipo_cuenta}}</h6>
+                </mat-grid-tile>              
+                <mat-grid-tile [colspan]="4" [rowspan]="2">
+                    <h6 style="font-size: 0.9rem !important;">{{beneficiario.nro_cuenta}}</h6>
+                </mat-grid-tile>
+
+            </mat-grid-list>
+            <mat-grid-list cols="3" rowHeight="1:0.4">
+                <mat-grid-tile [colspan]="1" [rowspan]="1" style="color: red;">
+                    <p><i class="material-icons" (click)="deleteBeneficiario()"> delete </i></p>
+                </mat-grid-tile>
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
-               <a (click)="ver_depositos(beneficiario.id)"> <h6><i class="material-icons">settings_overscan</i></h6></a>
+                    <a (click)="ver_depositos(beneficiario.id)"> <h6><i class="material-icons">settings_overscan</i></h6></a>
+
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="1">  
+                    <a (click)="ver_depositos(beneficiario.id)"> <h6><span class="material-icons">send</span></h6></a>
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-card-content>

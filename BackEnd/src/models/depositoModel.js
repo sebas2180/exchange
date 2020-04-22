@@ -2,6 +2,7 @@
 const mysql = require('../../database/mysql');
 var depositos = require('../../database/deposito')();
 var Sequelize = require('sequelize');
+var deposito = require('./usuarioModel');
 const conn = mysql.dbConnection();
     module.exports= {
       
@@ -22,11 +23,12 @@ const conn = mysql.dbConnection();
           getDepositos: () => {
             return new Promise((resolve, reject) => {
               console.log('getDepositos');
-              depositos.findAll()
+              depositos.findAll({ order: [
+                ['create_at', 'DESC']
+            ]})
                 .then(
                   res=>{
-                   // console.log(res);
-                    
+
                     resolve(res);
                   }
                 )
@@ -34,7 +36,11 @@ const conn = mysql.dbConnection();
           },
           getDepositosOnlyVerif: () => {
             return new Promise((resolve, reject) => {
-              depositos.findAll({     where: {  status      : "EN VERIFICACION"             }    })
+              console.log('esteeeee')
+              depositos.findAll({     where: {  status      : "EN VERIFICACION"             }    },
+              { order: [
+                ['fecha', 'DESC']
+            ]})
                 .then(
                   res=>{
                     resolve(res);
@@ -116,13 +122,47 @@ const conn = mysql.dbConnection();
         },
         addDeposito:(req) =>{
           return new Promise((resolve,reject)=>{
-
-            const linea =  `INSERT INTO depositos set? `;
-         //   console.log(linea);
-            conn.query(linea,[req.body],(err,result)=>{
-              
-              resolve({status:721,id_deposito:result.insertId});
-            });
+            var depo = new depositos();
+          depo.monto_transaccion=req.body.monto_transaccion;
+          depo.monto=req.body.monto;
+          depo.pais=req.body.pais;
+          depo.status=req.body.status;
+          depo.id_user=req.body.id_user;
+          depo.fecha=req.body.fecha;
+          depo.tasa=req.body.tasa;
+          depo.createAt=req.body.create_at;
+          depo.id_destinatario=req.body.id_destinatario;
+           depo.save().then(
+             resp=>{ 
+              console.log(req.body)
+            deposito.updateSaldo(req.body.saldo_restante,req.body.viejo_saldo, depo.id_user).then(
+              ress=>{
+                console.log(ress);
+                if(ress.status==737){
+                  depositos.destroy({where:{id:resp.dataValues.id}}).then(
+                    resDelete=>{
+                      console.log(resDelete);
+                       if(resDelete==1){
+                        resolve(ress);
+                       }else{
+                        depositos.update({status:'ERROR'},{where:{id:resp.dataValues.id}}).then(
+                          resError=>{
+                            resolve(ress);//aqui generar un codigo para reportar error de eliminado de transaccion
+                          }
+                        )              
+                       }
+                    }
+                  )
+                }
+                resolve(ress);
+             
+              })
+            
+          })
+          .catch((err) => {
+            console.log('There was an error querying contacts', JSON.stringify(err))
+            resolve({status:739,title:'Error',text:'Hubo un error al insetar el deposito'});
           });
-        }
+        })
+      }
       }

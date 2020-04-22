@@ -1,3 +1,5 @@
+<barra-superior  [titulo]="this.titulo"  [volver_atras]="this.volver_atras" (verUsuario)="this.volver($event)" > </barra-superior>
+
 <div class="principal" *ngIf="this.isPrincipal" @enterState >
     <div class="box">
         <app-tabla-usuarios (isLoader)="this.updateLoader($event)" (usuario)="this.verUsuario($event)"></app-tabla-usuarios>
@@ -11,7 +13,7 @@
        <app-loader *ngIf="isLodeader"></app-loader>
 </div>
 <div class="secundario"*ngIf="!this.isPrincipal" @enterState>
-    <detalle-usuario [usuario]="this.usuario" [esAdministrador]="true" (emitChange)="this.verUsuario($event)" >
-
+    <detalle-usuario [usuario]="this.usuario" [esAdministrador]="true" 
+        (emitChange)="this.verUsuario($event)">
     </detalle-usuario  >
 </div>

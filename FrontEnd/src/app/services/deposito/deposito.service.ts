@@ -14,6 +14,7 @@ import {map} from 'rxjs/operators';
 })
 export class DepositoService  {
 
+  
   isViewTable:boolean=false;
   public rut : string =`http://us-cdbr-iron-east-01.cleardb.net:3000/`;
   

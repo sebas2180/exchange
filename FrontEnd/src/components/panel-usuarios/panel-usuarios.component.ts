@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { UsuarioModule } from './../../app/models/usuario/usuario.module';
 import { Component, OnInit, Output } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-panel-usuarios',
   templateUrl: './panel-usuarios.component.html',
@@ -23,10 +23,12 @@ import { Component, OnInit, Output } from '@angular/core';
 })
 export class PanelUsuariosComponent implements OnInit {
 
+  volver_atras=false;
+  titulo="PANEL USUARIOS";
   isLodeader: boolean = true;
   isPrincipal:boolean = true;
   usuario: UsuarioModule ;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -40,10 +42,19 @@ export class PanelUsuariosComponent implements OnInit {
     this.usuario=usuario;
     if(this.isPrincipal){
       this.isPrincipal=false;
+      this.volver_atras=false;
     }else{
       this.isPrincipal=true;
+      this.volver_atras=true;
     }
 
     
+  }
+  volver(e){
+    if(this.isPrincipal){
+      this.router.navigate(['/panelAdministrador']);
+    }
+     this.isPrincipal=true;
+      this.volver_atras=true;
   }
 }

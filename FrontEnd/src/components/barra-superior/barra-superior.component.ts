@@ -1,7 +1,8 @@
+ 
 import { BarraSuperiorService } from './../../app/services/barra-superior/barra-superior.service';
 import { AuthserviceService } from './../../app/services/authservice.service';
 import { UsuarioService } from './../../app/services/usuarioService.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'barra-superior',
@@ -12,17 +13,22 @@ export class BarraSuperiorComponent implements OnInit {
 
   constructor(
     public service: UsuarioService, public auth: AuthserviceService,
-    public barraService: BarraSuperiorService
-  ) { }
+    private barraServ:BarraSuperiorService  ) { }
   @Input() titulo: string =' ';
+  @Input() exit: boolean =true;
+  @Input() volver_atras: boolean =true;
+  @Output()   verUsuario : EventEmitter<boolean>= new EventEmitter;
   logeado ;
   ngOnInit( ) {
     this.logeado = this.service.logeado;
    // this.titulo= this.barraService.titulo;
   }
   salir() {
+
     this.service.logOut().subscribe(
       res => { 
+ 
+        this.barraServ.volver=true;
         this.auth.clearLocalStorage();
         console.log(res);
         this.service.canActivate();
@@ -36,6 +42,14 @@ export class BarraSuperiorComponent implements OnInit {
 
       });
   }
- 
+  edit(){
+    this.verUsuario.emit(false);
+    
+  }
+ volver(){
+  this.exit=false;
+  this.verUsuario.emit(true);
+   
+ }
 
 }

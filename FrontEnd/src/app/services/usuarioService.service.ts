@@ -10,6 +10,7 @@ import { CanActivate,Router } from '@angular/router';
 })
 export class UsuarioService implements CanActivate {
   desconectado: boolean= false;
+  panelPrincipal:boolean =false;//sirve para
   public logeado: boolean= false;
   public usuario: UsuarioModule;
   public rut : string =`http://us-cdbr-iron-east-01.cleardb.net:3000/`;
@@ -59,11 +60,18 @@ getAllUsers(): Observable<UsuarioModule> {
       )
     )
 }
+usuarioVerificado(id)  {
+  const params = new HttpParams()
+  .set('id',id.toString());
+  return this.http.get<string>(`http://localhost:3000/usuarioVerificado/`,
+  {params: params, observe: 'response'});
+}
 
 getRol(){
   this.canActivate();
   const data = JSON.parse(this.authService.getLocal());
   const id= data['id'];
+  
   const params = new HttpParams()
   .set('id_user',id);
   return this.http.get(`http://localhost:3000/getRol/`,

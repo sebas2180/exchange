@@ -38,6 +38,7 @@ export class NuevoUsuarioComponent implements OnInit {
 
   }
   form: FormGroup;
+  titulo: string = 'NUEVO USUARIO';
   panelActual: number=1;
   hide = true;
   paises: string[] = [ 'ARGENTINA','BRASIL','CHILE','URUGUAY','PARAGUAY','ESPAÑA'];
@@ -161,7 +162,7 @@ export class NuevoUsuarioComponent implements OnInit {
       this.form= new FormGroup({
         usuario: new FormControl('',[Validators.required]),
         pais: new FormControl('',[Validators.required]),
-        email: new FormControl('',[Validators.required]),
+        email: new FormControl('',[Validators.required,Validators.email]),
         password: new FormControl('',[Validators.required]),
         create_at: new FormControl('',[Validators.required])
       });
@@ -173,6 +174,7 @@ export class NuevoUsuarioComponent implements OnInit {
       dataForm.append('password',this.form.get('password').value);
       dataForm.append('pais',this.form.get('pais').value);
       dataForm.append('create_at',this.form.get('create_at').value);
+      dataForm.append('saldo','1000');
       this.UsuarioService.addUsuario(dataForm).subscribe(
         res=>{
           console.log(res);
@@ -200,5 +202,10 @@ export class NuevoUsuarioComponent implements OnInit {
         }
       )
     }
-
+    volver(e){
+      this.router.navigate(['/panelAdmUsuarios']);
+    }
+    volver2(){
+      this.router.navigate(['/panelAdmUsuarios']);
+    }
 }

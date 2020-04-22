@@ -1,7 +1,11 @@
 
+<barra-superior [titulo]="this.titulo" 
+                [exit]="false"
+                [volver_atras]="this.BarraSuperiorService.volver" 
+                (verUsuario)=this.volver($event)>
+</barra-superior>
 
-
-<div class="container-fluid" @enterState>
+<div class="container-fluid"  *ngIf="!this.isVisible" @enterState>
   <mat-grid-list cols="2" rowHeight="90px">
     <mat-grid-tile [colspan]="1" [rowspan]="1" >
        <button class="btn btn-success btn-block" routerLink="/nuevo-beneficiario">Nuevo beneficiario</button>
@@ -15,14 +19,22 @@
 </div>
 <div class="list"  @enterState *ngIf="!this.isVisible" >
   <app-beneficiario *ngFor='let beneficiario of this.BeneficiariosAutho.beneficiarios' 
-          [beneficiario]= "beneficiario" 
-          (esVisible)="confVisible($event)" (cliente)="confCliente($event)" (bene)="this.confBeneficiario($event)"></app-beneficiario>
+                      [beneficiario]= "beneficiario" 
+                      (esVisible)="confVisible($event)" 
+                      (cliente)="confCliente($event)" 
+                      (bene)="this.confBeneficiario($event)">
+  </app-beneficiario>
 </div>
 
 
   <div class="Tabla_depositos" *ngIf="this.isVisible">
-    <app-depositos [esCliente]="false" [nroBeneficiario]="this.beneficiario" *ngIf="this.isVisible">
-    
+    <app-depositos [esCliente]="false" 
+                  [nroBeneficiario]="this.beneficiario" 
+                  [isDepositoPorUsuario]="true"
+                  *ngIf="this.isVisible"
+                  (volver_panelBeneficiario)="confVisible($event)"
+                   >
+                  
     </app-depositos>
 </div>
 

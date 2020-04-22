@@ -1,11 +1,12 @@
 .general{
-    top: 15%;
-    overflow-y: auto;
+    position: relative;
+    overflow-x: auto;
     height: 100%;
 }
 .cardPrincipal{
-    width: 90%;
-    margin-left: 5%;
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 70px;
 }
 .principal{
     overflow-y: auto;
@@ -23,35 +24,70 @@
     justify-content: center;
     align-items: center;
     font-size: 1.5em;
-    background-color: rgba(32, 32, 238, 0.925);
+    background-color: #67cf75;
     color: white;
 }
-#infoSaldo{
-    position: relative;
-    top: 9.5%;
-    left: 55%;
-    width: 35%;
+.box{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    margin-bottom: 4%;
-}
-#infoCreado{
-    position: absolute;
-    top: 9.5%;
-    left: 10%;
-    width: 35%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 4%;
-}
+    margin-bottom: 20px;
 
-.btn1{
-    width: 35%;
-    margin-left: 5%;
 }
-.btn2{
-    width: 35%;
+.box1{
+    min-width: 45%;
+
+}
+.box2{
+    min-width: 45%;
+}
+.bodyInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5;
+    height: 50px;
+}
+.botones{
+    position: fixed;
+    width: 100%;
+    bottom: 0%;
+    height:70px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    font-size: 1.7em;
+    font-weight: bold;
+    color: white;
+}
+.boton1{
+    width: 100%;
+    height:50px ;
+    background-color: #67cf75;
+    justify-content: center;
+    align-items: center;
+
+   
+    
+}
+.boton2{
+    width: 50%;
+    height:50px ;
+    left: 50%;
+    background-color: #67cf75;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    border: 2px solid #336339;;
+}
+p{
+    top: 5%;
+    margin-left: 45%;
+}
+.inabilitar{
+    position: absolute;
+    z-index: 100;
+    top:95%;
 
 }

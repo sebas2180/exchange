@@ -1,126 +1,113 @@
-.div1{
+barra-superior{
     position: fixed;
-    top:15%;
-    color: black;
     width: 100%;
-    background-color: rgb(157, 180, 223);
+    height: 100%;
+
+}
+.box_nombre{
+    font-size: 2em;
+    position: fixed;
+    top:12%;
+    left: 25%;
+    width: 100%;
+    height: 4%;
+    position: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.principal{
+    position: fixed;
+    left: 1%;
+    width: 98%;
+    height: 70%;
     display: flex;
+    top: 17%;
+    flex-direction: column;
+    flex-wrap:Nowrap;
+}
+
+.box{
+    position: relative;
+    left: 5%;
+    width: 90%;
+    background: rgb(212, 223, 192);
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3%;
+}
+.info{
+    display: flex;
+    flex-direction: row;
+    top: 10px;
+    width: 90%;
+    padding: 6%;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    height: 13%;
-    font-size: 3em;
+    font-size: 1.5em;
+    
+span{
+    left: 2%;
 }
-mat-card-content{
-    border:black;
+p{
+    left: 20%;
 }
+}
+
+barra-inferior{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    bottom: 0%;
+}
+ 
 detalle-usuario{
-    position: absolute;
-    width: 100%;
-    top: 15%;
-}
-.edit{
-    position: absolute;
-    top:015%;
-    color: black;
-    width: 100%;
-    left: 95%;
-}
-mat-card{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    height: 150px;
-    margin-top:5%;
-    margin-left:5%;
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 1.0),2 3px 6px rgba($color: #000000, $alpha: 1.0);
-    box-sizing: border-box;
-}
-mat-card-header{
-    justify-content: center;
-    align-items: center;
-}
-#div2{
     position: fixed;
-    top:25%;
-    width:140%;
-    margin-left: 3%;
-}
-#div3{
-    position: fixed;
-    top: 94%;
+    overflow-y: auto;
     width: 100%;
-    height: 14%;
+    height: 76%;
+    top: 85px;
 }
 
-label {
-    font-size: 0.9em;
-    text-decoration: underline;
-}
 
-h4 {
-    font-size: 1.7em;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
-}
-
-mat-grid-tile{
-    width: 105%;
-    margin: -2%;
-}
 @media screen and (max-width: 766px) {
     .div1{
         font-size: 1.7em;
     }
-    label {
-        font-size: 1em;
-    }
-    h3{
-        font-size: 1.5em;
-    }
-    button {
-    font-size: 1.1em;
-    width: 100%;
-    height: 159%;
-    }
+
     #div2{
         left: -5%;
         top:35%;
         width: 105%;
     }
-    mat-card{
-        width: 100%;
-       
-    }
-    .edit{
-        position: absolute;
-        top:15%;
-        color: black;
-        width: 100%;
-        left: 90%;
-        font-size: 0.8em;
-    }
-    li{
-        font-size: 0.65em;
-    }
-    #div3{
-        position: fixed;
-        top: 82%;
-        padding: 3px;
-        width: 100%;
-        height: 14%;
-    }
+
+    
+
+
 }
 @media (min-width: 767px){  
 
-    #div2{
-        left: 8%;
-        top:40%;
-    }
     
 
   
 }
-@media(min-width:768px) and (max-width:1250px) {
+@media(min-width:768px)  {
+    .principal{
+        margin-top: 13%;
+        position: relative;
+        overflow-x: auto;
+        flex-wrap: wrap;
+    }
+    .box{
+        position: relative;
+        width: 30%;
+        background: rgb(212, 223, 192);
+      //  justify-content: ;
+        display: flex;
+        align-items:center;
+        flex-direction: row;
+        margin-bottom: 3%;
+        font-size: 1em;
+    }
 }

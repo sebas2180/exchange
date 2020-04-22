@@ -1,5 +1,3 @@
-import { BarraSuperiorService } from './services/barra-superior/barra-superior.service';
-
 
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +23,9 @@ import { MatSortModule }  from '@angular/material/sort';
 import { ManejoFechasService} from '../../shared/services/manejoFechasService/manejo-fechas.service';
 import { TasasService } from './services/tasas/tasas.service';
 import { DashboardService } from './services/dasboard/dashboard.service';
-import { DepositoService } from './services/deposito/deposito.service';
+ import { DepositoService } from './services/deposito/deposito.service';
+import { BarraSuperiorService } from './services/barra-superior/barra-superior.service';
+
 import { ShowDashboardComponent } from './../components/show-dashboard/show-dashboard.component';
 import { ShowRemitenteComponent } from './../components/show-remitente/show-remitente.component';
 import { UsuarioService } from '../app/../app/services/usuarioService.service';
@@ -59,6 +59,9 @@ import { ComprobarComponent } from './../components/comprobar/comprobar.componen
 import { ShowDestinatarioComponent } from 'src/components/show-destinatario/show-destinatario.component';
 import { ShowMontosComponent } from 'src/components/show-montos/show-montos.component';
 import { BarraSuperiorComponent } from 'src/components/barra-superior/barra-superior.component';
+import { BarraInferiorComponent } from 'src/components/barra-inferior/barra-inferior.component';
+import { ComprobarDatosComponent } from 'src/components/comprobar-datos/comprobar-datos.component';
+ 
 @NgModule({
   declarations: [
     LoginComponent,
@@ -89,7 +92,9 @@ import { BarraSuperiorComponent } from 'src/components/barra-superior/barra-supe
     ShowRemitenteComponent,
     ShowMontosComponent,
     ShowDashboardComponent,
-    BarraSuperiorComponent
+    ComprobarDatosComponent,
+    BarraSuperiorComponent,
+    BarraInferiorComponent 
   ],
   imports: [
     //BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -129,7 +134,7 @@ import { BarraSuperiorComponent } from 'src/components/barra-superior/barra-supe
     TasasService,
     ManejoFechasService,
     TablaUsuariosService,
-    BarraSuperiorService
+    BarraSuperiorService 
     ],
   bootstrap: [AppComponent]
 })

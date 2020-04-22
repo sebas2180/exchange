@@ -1,3 +1,5 @@
+<barra-superior [titulo]="this.titulo"  [volver_atras]="this.viewPrincipal" (verUsuario)="volver()" > </barra-superior>
+
 <div class="container-fluid" *ngIf="viewPrincipal && this.isMostrarDash<0">
     <div class="row">
         <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
@@ -15,6 +17,7 @@
                     <app-depositos [esCliente]=true [isOnlyVerif]="true"  *ngIf="this.ViewBox4" 
                  (isMostrarDash)="setIsMostrarDash($event)">
                 </app-depositos>
+              
                 </div>
              </div>
         </div>
@@ -73,9 +76,12 @@
                         <ul>
                             <li>Total:&nbsp; {{this.verificacion}}</li>
                             <li>Activos:&nbsp; {{this.confirmadas}}</li>
-                            <input type="button" class="boton"  value="gestionar" routerLink="/panelAdmUsuarios">
-                            <input type="button" class="boton btn2"  value="Nuevo usuario" routerLink="/addUsuario">
                         </ul>
+                    </div>
+                    <div class="botones-usuario" *ngIf="this.ViewBox3"> 
+                        <div class="boton"  routerLink="/panelAdmUsuarios">gestionar</div>
+                        <div class="boton"  routerLink="/addUsuario">Nuevo usuario</div>
+                      
                     </div>
                 </div>
             </div>
@@ -99,7 +105,7 @@
                     <div class="card-body body2" *ngIf="this.ViewBox1">
                         <div class="row">               
                                 <div class="a" style="position: absolute;left: 0%;">   
-                                    <button class="btn btn-primary"> agregar</button> &nbsp;
+                                    <button class="btn btn-success"> agregar</button> &nbsp;
                                 </div>
                                 <div class="a" style="position: absolute;left: 035%;">   
                                     <span class="material-icons">library_books</span>&nbsp;Historial
@@ -115,6 +121,8 @@
         </div>
         
     </div>
+    <barra-inferior></barra-inferior>
 </div>
 
 <nuevo-dashboard *ngIf="this.isMostrarDash>=0" (setIsMostrarDash)="setIsMostrarDash($event) " [idDeposito]="this.isMostrarDash"></nuevo-dashboard>
+

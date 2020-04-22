@@ -1,77 +1,57 @@
-<barra-superior [titulo]="this.titulo" > </barra-superior>
-<div *ngIf="!verUsuario">
-<div class="div1" @enterStateRight>
+<barra-superior [titulo]="this.titulo"  
+                [volver_atras]="this.BarraSuperiorService.volver" 
+                [exit]="false" 
+                (verUsuario)="changeVentana($event)"> 
+</barra-superior>
+<div class="box_nombre" *ngIf="verUsuario"> 
+      <!-- <div>  <span class="material-icons"> insert_emoticon </span></div> -->
+      <div> <p>Bienvenido &nbsp; {{this.form.get('usuario').value || 'error'}}</p>  </div>
+</div>    
+<div class="principal"*ngIf="verUsuario">
+<!-- <div class="div1" @enterStateRight>
     <p>Bienvenido   {{this.form.get('usuario').value || 'error'}}!</p>
     <div class="edit">   
         <span class="material-icons"(click)="configuraciones()" >settings</span>
-      </div> 
-</div>
-<div class="container" id="div2" @enterState>
-    <mat-grid-list cols="2" rowHeight="160px" >
-        <mat-grid-tile class="grid-test-1"> 
-        <mat-card style="width: 105%;">
-            <mat-card-header>
-                <mat-card-title>
-                    <label   class=" text-center"  > Depositos</label>
-                </mat-card-title>
-            </mat-card-header>
-           <mat-card-content>
-            <h4 class="text-center">
-                <ul>
-                    <li> Totales: {{this.cantidad_depositos}}</li>
-                    <li>Ultimo mes: {{this.ultimo_mes}}</li>
-                </ul>
-            </h4>  
-            </mat-card-content>
-        </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile class="grid-test-1"> 
-            <mat-card style="width: 105%;">
-                <label   class=" text-center" >Tasa</label>
-                <h4 class="text-center"> aca vaa </h4>  
-            </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile class="grid-test-1"> 
-            <mat-card style="width: 105%;">
-                <label   class=" text-center" >Pais</label>
-                <h4 class="text-center"> {{this.form.get('pais').value || 'error'}}</h4>  
-                </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile class="grid-test-1" > 
-            <mat-card style="width: 105%;">
-                <mat-card-header>
-                    <mat-card-title>
-                        <label   class="text-center" >Saldo </label>
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                   <mat-label>
-                    <h4 class="text-center"> {{this.form.get('saldo').value || 'error'}}
-                        <span matPrefix>$&nbsp;</span>
-                    </h4> 
-                   </mat-label> 
-                </mat-card-content>
-                </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
-<div class="container-fluid" id="div3" @enterStateBotton>
-    <div class="row">
-        <div class="col-md-4 col-xs-4 col-lg-4 col-sd-4">
-            <button 
-            class="btn btn-primary btn-block" 
-            routerLink="/MisTransacciones">Transacciones</button>
-        </div>
-        <div class="col-md-4 col-xs-4 col-lg-4 col-sd-4">
-            <button class="btn btn-primary  btn-block "
-                    routerLink="/PanelBeneficiarios">Mis beneficiarios</button>
-        </div>
-        <div class="col-md-4 col-xs-4 col-lg-4 col-sd-4">
-            <button class="btn btn-primary btn-block">Enviar</button>
-        </div>
+      </div> -->
+<div class="box"> 
+    <div class="info">
+        <span class="material-icons"> attach_money </span>
+       <p>&nbsp;Tu saldo &nbsp; {{this.form.get('saldo').value || 'error'}}</p>  
     </div>
-   
+</div> 
+<div class="box"> 
+    <div class="info">
+        <span class="material-icons"> insert_emoticon </span>
+       <p>&nbsp;Tasa actual:  &nbsp; {{this.form.get('tasa').value || 'error'}}</p>  
+    </div>
+</div> 
+<div class="box">
+    <div class="info">
+        <span class="material-icons"> library_books </span>
+        <p>&nbsp; Mis Depositos</p>  
+    </div>
 </div>
-</div>
-<detalle-usuario *ngIf="verUsuario" [esAdministrador]="false" 
-            [usuario]="this.usuario" (emitChange)="changeVentana($event)"></detalle-usuario>
+<div class="box" routerLink="/PanelBeneficiarios" (click)="this.BarraSuperiorService.ir_menu_beneficiacrios=true"> 
+    <div class="info">
+        <span class="material-icons"> supervised_user_circle </span>
+       <p>&nbsp; Mis Beneficiarios</p>  
+    </div>
+</div>    
+<div class="box"  routerLink="/MisTransacciones"> 
+    <div class="info">
+        <span class="material-icons"> send </span>
+       <p>&nbsp; Mis Transacciones</p>  
+    </div>
+</div>  
+<div class="box" routerLink="/transferencias"> 
+    <div class="info">
+        <span class="material-icons"> send </span>
+       <p>&nbsp; Nuevo Déposito</p>  
+    </div>
+</div>    
+</div>  
+
+<detalle-usuario *ngIf="!verUsuario" [esAdministrador]="false" 
+            [usuario]="this.usuario" (emitChange)="changeVentana($event)">
+</detalle-usuario>
+<barra-inferior *ngIf="verUsuario" (click)="salir()" ></barra-inferior>

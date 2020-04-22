@@ -1,0 +1,10 @@
+<barra-superior   [volver_atras]="false" 
+                  [titulo]="this.titulo"
+                  (verUsuario)="this.changeVentana($event)">
+</barra-superior>
+<detalle-usuario [usuario]="this.usuario" 
+                [esVerificar]="true"
+                *ngIf="ok"
+                (emitChange)="this.volver_transferencia($event)">
+        
+</detalle-usuario>

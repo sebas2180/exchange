@@ -4,10 +4,8 @@ import { TasasService } from './../../app/services/tasas/tasas.service';
 
 import { ManejoFechasService } from './../../../shared/services/manejoFechasService/manejo-fechas.service';
 import { TasaModule } from 'src/app/models/tasa/tasa.module';
-
 import { UsuarioService } from './../../app/services/usuarioService.service';
 import { DepositosComponent } from './../depositos/depositos.component';
-
 import { AuthserviceService } from 'src/app/services/authservice.service';
 import { DepositoService } from 'src/app/services/deposito/deposito.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -39,6 +37,7 @@ export class PanelAdministradorComponent implements OnInit {
   ViewBox4:boolean =true;
   viewPrincipal:boolean =true;
   isMostrarDash: number =-1;
+  titulo:string = "PANEL ADMINISTRADOR";
   beneficiarioDash: BeneficiarioModule;
   constructor(private TransaccionService: DepositoService,
     private ManejoFechasService: ManejoFechasService,
@@ -66,10 +65,25 @@ export class PanelAdministradorComponent implements OnInit {
     if(index==3) {     this.ViewBox3=true;    }
     if(index==4) {     this.ViewBox4=true;    }
   }
+  volver(){
+    if(this.isMostrarDash>-1){
+      this.isMostrarDash=-1;
+      if(this.viewPrincipal){
+        this.viewPrincipal=false;
+      }else{
+        this.viewPrincipal=true;
+      }
+      this.titulo="PANEL ADMINISTRADOR"
+    }else{
+      alert('editar datos de administrador');
+    }
+
+  }
   setIsMostrarDash(e){
+    this.titulo="NUEVO DASHBOARD"
+    this.viewPrincipal=false;
     this.isMostrarDash=e;
-    // this.DashboardService.isMostrarDash=e;
-    // this.router.navigate['/nuevoDashboard'];
+    
   }
   updateTasa(e){
     console.log(e);
@@ -119,4 +133,5 @@ export class PanelAdministradorComponent implements OnInit {
   )
 
   }
+
 }

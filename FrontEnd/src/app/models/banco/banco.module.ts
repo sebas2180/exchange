@@ -12,4 +12,5 @@ import { CommonModule } from '@angular/common';
 export class BancoModule {
   id?: number;
   nombre: string;
+  codigo:number;
  }
