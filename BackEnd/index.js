@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(fileUpload());
 
 ////passport
-const Sequelize =require('./passport/auth.js')(app,passport);
+//const Sequelize =require('./passport/auth.js')(app,passport);
 var crypto            = require('crypto');
 var LocalStrategy     = require('passport-local').Strategy;
 var sess              = require('express-session');
