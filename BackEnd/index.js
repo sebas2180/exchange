@@ -63,7 +63,7 @@ const bancoRoute = require('./src/routes/bancoRoutes')(app,passport);
 const tasaRoute = require('./src/routes/tasaRoutes')(app,passport);
 const beneficiarioRoute = require('./src/routes/beneficiarioRoutes')(app,passport);
 require('./database/sequelize');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2000;
 server.listen(PORT,()=>{//cambiar a 30000 en desarollo
     console.log('server conectado en el puerto: '+server.address().port)
 });
