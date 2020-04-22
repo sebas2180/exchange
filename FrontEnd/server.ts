@@ -38,8 +38,8 @@ export function app() {
 }
 
 function run() {
-  const port = process.env.PORT || 5200;
-
+  //const port = process.env.PORT || 5200;
+  const port =  5200;
   // Start up the Node server
   const server = app();
   server.listen(port, () => {
