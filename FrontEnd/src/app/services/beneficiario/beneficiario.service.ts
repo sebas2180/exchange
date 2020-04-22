@@ -28,12 +28,12 @@ export class BeneficiarioService {
 
   addBeneficiario(form: FormData){
     console.log(form);
-    return this.http.put(`http://localhost:3000/addBeneficiario/`,form);
+    return this.http.put(`${this.authService.ruta}addBeneficiario/`,form);
   }
   getBeneficiarios(id: number): Observable<BeneficiarioModule>{
     const params = new HttpParams()
       .set('id_usuario',id.toString());
-      return this.http.get<string>(`http://localhost:3000/getBeneficiarios/`,
+      return this.http.get<string>(`${this.authService.ruta}getBeneficiarios/`,
       { params: params, observe: 'response'})
           .pipe(
           map((data => new BeneficiarioModule().deserialize(data))

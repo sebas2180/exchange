@@ -25,15 +25,15 @@ export class UsuarioService implements CanActivate {
     return false;
   }
   login(usuario: UsuarioModule) {
-    return this.http.post(`http://localhost:3000/login`, usuario);
+    return this.http.post(`${this.authService.ruta}login`, usuario);
   }
   logOut() {
-    return this.http.get(`http://localhost:3000/logout`);
+    return this.http.get(`${this.authService.ruta}logout`);
   }
   getUsuario(id: number): Observable<UsuarioModule> {
     const params = new HttpParams()
       .set('id',id.toString());
-      return this.http.get<string>(`http://localhost:3000/getUsuario/`,
+      return this.http.get<string>(`${this.authService.ruta}getUsuario/`,
       {params: params, observe: 'response'})
           .pipe(
           map((data => new UsuarioModule().deserialize(data))
@@ -43,18 +43,18 @@ export class UsuarioService implements CanActivate {
 getUserForEmail(email: string) {
   const params = new HttpParams()
     .set('email',email.toString());
-    return this.http.get<string>(`http://localhost:3000/getUserForEmail/`,
+    return this.http.get<string>(`${this.authService.ruta}getUserForEmail/`,
     {params: params, observe: 'response'});
 }
 getUserForUser(usuario: string) {
   const params = new HttpParams()
     .set('usuario',usuario.toString());
-    return this.http.get<string>(`http://localhost:3000/getUserForUser/`,
+    return this.http.get<string>(`${this.authService.ruta}getUserForUser/`,
     {params: params, observe: 'response'});
 }
 getAllUsers(): Observable<UsuarioModule> {
 
-    return this.http.get<string>(`http://localhost:3000/getAllUsers/`)
+    return this.http.get<string>(`${this.authService.ruta}getAllUsers/`)
         .pipe(
         map((data => new UsuarioModule().deserialize(data))
       )
@@ -63,7 +63,7 @@ getAllUsers(): Observable<UsuarioModule> {
 usuarioVerificado(id)  {
   const params = new HttpParams()
   .set('id',id.toString());
-  return this.http.get<string>(`http://localhost:3000/usuarioVerificado/`,
+  return this.http.get<string>(`${this.authService.ruta}usuarioVerificado/`,
   {params: params, observe: 'response'});
 }
 
@@ -74,26 +74,26 @@ getRol(){
   
   const params = new HttpParams()
   .set('id_user',id);
-  return this.http.get(`http://localhost:3000/getRol/`,
+  return this.http.get(`${this.authService.ruta}getRol`,
   {params: params,observe: 'response'});
 }
 addUsuario(form: FormData){
-  return this.http.put<string>(`http://localhost:3000/signup/`,form);
+  return this.http.put<string>(`${this.authService.ruta}signup`,form);
 }
 updateUsuario(form: FormData){
-  return this.http.post<string>(`http://localhost:3000/updateUsuario/`,form);
+  return this.http.post<string>(`${this.authService.ruta}updateUsuario`,form);
 }
 disabledUsuario(usuario){
   const params = new HttpParams()
   .set('usuario',usuario);
-  return this.http.get<string>(`http://localhost:3000/disabledUsuario/`,
+  return this.http.get<string>(`${this.authService.ruta}disabledUsuario`,
   {params: params, observe: 'response'});
-}
+}d
 validarPassword(password,usuario){
   const params = new HttpParams()
   .set('password',password)
   .set('usuario',usuario);
-  return this.http.get<string>(`http://localhost:3000/validarPassword/`,
+  return this.http.get<string>(`${this.authService.ruta}validarPassword/`,
   {params: params, observe: 'response'});
 }
 isCliente(){

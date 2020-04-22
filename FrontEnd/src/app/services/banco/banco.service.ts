@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../../../crypto-info/frontend/src/services/authService/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -6,9 +7,9 @@ import { Injectable } from '@angular/core';
 })
 export class BancoService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private AuthService: AuthService) { }
 
   getBancos(){
-    return this.http.get<string>(`http://localhost:3000/getBancos/`);
+    return this.http.get<string>(`${this.AuthService.ruta}getBancos`);
 }
 }

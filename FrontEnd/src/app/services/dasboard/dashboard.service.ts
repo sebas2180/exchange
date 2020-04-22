@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../../../crypto-info/frontend/src/services/authService/auth.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -14,14 +15,14 @@ export class DashboardService {
      headers: new HttpHeaders({ Accept: 'application/json' })
 };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private AuthService : AuthService) { }
 
   uppload(data: FormData) {
  
-    return this.http.post(`http://localhost:3000/prueba`, data,this.HttpUploadOptions);
+    return this.http.post(`${this.AuthService.ruta}prueba`, data,this.HttpUploadOptions);
   }
   upploadInfo(data: FormData) {
-    return this.http.post<string> (`http://localhost:3000/upploadInfo`, data);
+    return this.http.post<string> (`${this.AuthService.ruta}upploadInfo`, data);
   }
   getDashboard(id_deposito) {
     console.log('get_dasboard');
@@ -31,7 +32,7 @@ export class DashboardService {
     let headers = new HttpHeaders({
       'Content-Type': 'ResponseContentType.Blob'
    });
-      return this.http.get<Blob>(`http://localhost:3000/getDashboard/`,
+      return this.http.get<Blob>(`${this.AuthService.ruta}getDashboard`,
       {params: params,headers:headers});
 
 }

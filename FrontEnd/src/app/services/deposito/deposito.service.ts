@@ -35,7 +35,7 @@ export class DepositoService  {
 getEstadisticasDelUsuario(id: number){
 const params = new HttpParams()
   .set('id_user',id.toString());
-    return this.http.get<string>(`http://localhost:3000/EstadisticasDelUsuario/`,
+    return this.http.get<string>(`${this.authService.ruta}EstadisticasDelUsuario`,
     {params: params,observe: 'response'});
   }
 
@@ -45,10 +45,10 @@ getDepositos(isOnlyVerif:boolean) {
   console.log(!isOnlyVerif);
   if(isOnlyVerif){
     console.log('allDepositsOnlyverif');
-    return this.http.get<DepositoModule[]>(`http://localhost:3000/allDepositsOnlyverif/`);
+    return this.http.get<DepositoModule[]>(`${this.authService.ruta}allDepositsOnlyverif`);
   }else{
     console.log('allDeposits');
-    return this.http.get<DepositoModule[]>(`http://localhost:3000/allDeposits/`);
+    return this.http.get<DepositoModule[]>(`${this.authService.ruta}allDeposits`);
   }
   }
 
@@ -58,7 +58,7 @@ getDepositos(isOnlyVerif:boolean) {
       console.log('service consola   id'+id);
       const params = new HttpParams()
       .set('id', id.toString());
-        return this.http.get<DepositoModule[]>(`http://localhost:3000/allDepositsForUser/`,{
+        return this.http.get<DepositoModule[]>(`${this.authService.ruta}allDepositsForUser/`,{
           params: params ,observe: 'response'}).pipe(
             map((data => new DepositoModule().deserialize(data))
             )
@@ -68,7 +68,7 @@ getDepositos(isOnlyVerif:boolean) {
       console.log('service consola');
       const params = new HttpParams()
       .set('id', id.toString());
-        return this.http.get<DepositoModule[]>(`http://localhost:3000/getDepositosForId/`,{
+        return this.http.get<DepositoModule[]>(`${this.authService.ruta}getDepositosForId/`,{
           params: params ,observe: 'response'}).pipe(
             map((data => new DepositoModule().deserialize(data))
             )
@@ -80,14 +80,14 @@ getDepositos(isOnlyVerif:boolean) {
     const params = new HttpParams()
     .set('id_destinatario', id_user.toString())
     .set('id_user', id_beneficiario.toString());
-      return this.http.get<DepositoModule[]>(`http://localhost:3000/allDepositsForDestinatario/`,{
+      return this.http.get<DepositoModule[]>(`${this.authService.ruta}allDepositsForDestinatario/`,{
         params: params ,observe: 'response'}).pipe(
           map((data => new DepositoModule().deserialize(data))
           )
         )
 }
   addDeposito(form: FormData){
-      return this.http.post(`http://localhost:3000/addDeposito/`,form);
+      return this.http.post(`${this.authService.ruta}addDeposito/`,form);
 
     }
 }

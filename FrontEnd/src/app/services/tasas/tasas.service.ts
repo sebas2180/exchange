@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../../../crypto-info/frontend/src/services/authService/auth.service';
 import { CanActivate, Router } from '@angular/router';
 import { TasaModule } from './../../models/tasa/tasa.module';
 
@@ -14,11 +15,11 @@ import { Injectable } from '@angular/core';
 export class TasasService {
   Tasa: TasaModule;
   Tasas: TasaModule[];
-  constructor(private http: HttpClient,private route : Router) {
+  constructor(private http: HttpClient,private route : Router,private AuthService :AuthService) {
    }
   getTasas() {
       console.log('allDepositsOnlyverif');
-      return this.http.get<TasaModule[]>(`http://localhost:3000/getTasas/`)
+      return this.http.get<TasaModule[]>(`${this.AuthService.ruta}getTasas`)
       .pipe(
         map((data => new TasaModule().deserialize(data))
         )
@@ -26,14 +27,14 @@ export class TasasService {
 
   }
   updateTasa(TasaMo){
-    return this.http.post(`http://localhost:3000/updateTasa/`,TasaMo);
+    return this.http.post(`${this.AuthService.ruta}updateTasa`,TasaMo);
 
   }
   getTasa(pais: string){
     console.log('pais tasa'+ pais);
     const params = new HttpParams()
     .set('pais',pais.toString());
-    return this.http.get<any>(`http://localhost:3000/getTasa`,
+    return this.http.get<any>(`${this.AuthService.ruta}getTasa`,
     {params:params,observe:'response'});
   }
   setTasa(res){
