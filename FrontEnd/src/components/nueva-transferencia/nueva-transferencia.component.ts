@@ -80,8 +80,9 @@ export class NuevaTransferenciaComponent implements OnInit {
         private router: Router,
         public BarraSuperiorService:BarraSuperiorService
               ) {
-                const id= this.data['id'];
-                this.UsuarioService.getUsuario(id).subscribe(
+                this.BarraSuperiorService.volver=false;
+                const data = parseInt( this.authService.getUserId() );
+                this.UsuarioService.getUsuario(data.toString()).subscribe(
                   res=>{
                     const aux  = res['body'];
                     const aux2= aux['usuario'];
@@ -89,7 +90,7 @@ export class NuevaTransferenciaComponent implements OnInit {
                     this.UsuarioService.usuario=this.usuario;
                     this.form.patchValue({ pais:this.UsuarioService.usuario.pais});
                     this.form.patchValue({ tasa_actual:this.UsuarioService.usuario.tasa});
-                    this.BeneficiarioService.getBeneficiarios(this.data['id']).subscribe(
+                    this.BeneficiarioService.getBeneficiarios(data).subscribe(
                       res=>{
                         this.beneficiariosAux = res['body'];
                         this.BeneficiarioService.beneficiarios= this.beneficiariosAux['beneficiario'];

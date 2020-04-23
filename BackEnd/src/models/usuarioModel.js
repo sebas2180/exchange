@@ -22,6 +22,7 @@ module.exports = {
         User.findOne({     where: {  id      : id_user             }    })
         .then(
             res=>{
+                console.log(id_user);
                 if(res){
                 //    console.log(res.dataValues);
                     const aux =res.dataValues;
@@ -29,7 +30,7 @@ module.exports = {
                         status:752,
                         rol:aux['rol']
                     }
-                
+                console.log(msj);
                     resolve(msj);
                    
                 }else{

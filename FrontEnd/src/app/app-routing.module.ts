@@ -15,6 +15,7 @@ import { PanelAdministradorComponent } from 'src/components/panel-administrador/
 import { NuevoUsuarioComponent } from 'src/components/nuevo-usuario/nuevo-usuario.component';
 import { ComprobarComponent } from 'src/components/comprobar/comprobar.component';
 import { NuevoDashboardComponent } from 'src/components/nuevo-dashboard/nuevo-dashboard.component';
+import { GuardService } from './services/guard/guard.service';
 
 const routes: Routes = [
   {
@@ -37,12 +38,15 @@ const routes: Routes = [
 {
   path: 'panel-usuario',
   component: UsuarioComponent,
+  canActivate:[GuardService]
 },{
   path: 'MisTransacciones',
   component: DepositosComponent,
+  canActivate:[GuardService]
 },{
   path: 'PanelBeneficiarios',
   component: PanelBeneficiariosComponent,
+  canActivate:[GuardService]
 },{
   path: 'prueba',
   component: PruebaComponent,
@@ -56,6 +60,7 @@ const routes: Routes = [
 {
   path: 'panelAdministrador',
   component: PanelAdministradorComponent,
+  canActivate:[GuardService]
 },{
   path: 'panelTasas',
   component: PanelTasasComponent

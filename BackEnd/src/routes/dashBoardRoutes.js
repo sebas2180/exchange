@@ -51,33 +51,7 @@ crear_nombre =(photo)=>{
   return nombre;
  }
 function dashBoardRoutes(app,passport) {
-    // app.post('/prueba',upload.single('photo'),function(req,res){
-
-    //     if(req.fileTypeValidationError) {
-    //         let resp = {
-    //           status: "fail",
-    //           statusMessage: req.fileTypeValidationError,
-    //           data: []
-    //         }
-    //         res.send(resp);
-    //         return false;
-    //       }
-    // dashBoardModel.prueba(req.body, req.file)
-    //    .then(resp =>{
-    //   //console.log(resp);
-    //     if(resp != undefined){
-    //     res.send(JSON.stringify(resp));
-    //     }
-    //     if(resp == undefined){
-    //         const response = {
-    //             status: 600,
-    //             msj: "No se ha encontrado usuario"
-    //         }
-    //         res.send(response);   
-    //     } 
-    //   })
-    // }); 
-
+ 
     app.post('/prueba', function(req, res) {
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
        var startup_image = req.files.photo;
@@ -107,7 +81,7 @@ function dashBoardRoutes(app,passport) {
      });
 
     /////////////////////////////////////////////////////////////////////////
-    app.post('/upploadInfo',isAuthenticated,(req,res,next)=>{
+    app.post('/upploadInfo',verifyToken.verificar,(req,res,next)=>{
      // console.log(res);
       dashBoardModel.upploadInfo(req.body).then(
         response=>{
@@ -121,7 +95,7 @@ function dashBoardRoutes(app,passport) {
       
     }); 
     //////////////////////////////////////////////
-    app.get('/getDashboard',isAuthenticated,(req,res,next)=>{
+    app.get('/getDashboard',verifyToken.verificar,(req,res,next)=>{
       console.log(req.query.id_deposito);
       dashBoardModel.getDashboard(req.query.id_deposito).then(
         resp=>{
@@ -133,9 +107,4 @@ function dashBoardRoutes(app,passport) {
 
 module.exports= dashBoardRoutes;
 
-function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated())
-  console.log('aut');
-    return next();
-
-}
+ 

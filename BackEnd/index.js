@@ -10,7 +10,9 @@ const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 const multer  = require('multer');
 const fs = require('fs');
-
+global.jwt = require('jsonwebtoken');
+global.config = require('../BackEnd/src/config/config');
+global.verifyToken = require('./src/routes/verifyToken');
 const dbConnection = require('./database/mysql');
 const conn  = dbConnection.dbConnection();
 
@@ -63,7 +65,7 @@ const bancoRoute = require('./src/routes/bancoRoutes')(app,passport);
 const tasaRoute = require('./src/routes/tasaRoutes')(app,passport);
 const beneficiarioRoute = require('./src/routes/beneficiarioRoutes')(app,passport);
 require('./database/sequelize');
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 2100;
 server.listen(PORT,()=>{//cambiar a 30000 en desarollo
     console.log('server conectado en el puerto: '+server.address().port)
 });

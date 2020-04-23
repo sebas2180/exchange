@@ -63,8 +63,6 @@ export class UsuarioComponent implements OnInit {
   form: FormGroup;
   verUsuario:boolean=false;
   newUsuario(usuario){
-    console.log('-----');
-    console.log(usuario);
     this.form =new FormGroup({
     id: new FormControl(usuario['id'],[Validators.required]),
     usuario: new FormControl(usuario['usuario'],[Validators.required]),
@@ -97,12 +95,9 @@ export class UsuarioComponent implements OnInit {
                     console.log('errrrrrrrr');
                   }
                 )
-              
-
-
     this.cantidad_depositos=0;
-    const data = JSON.parse(this.authService.getLocal());
-    this.service.getUsuario(data['id']).subscribe(
+    const userId = this.authService.getUserId();
+    this.service.getUsuario(userId).subscribe(
       res=>{
         const aux = res['body'];
         const aux1= aux['usuario'];
@@ -110,18 +105,7 @@ export class UsuarioComponent implements OnInit {
         console.log(aux['usuario']);
         this.newUsuario(aux['usuario']);
         this.configuraciones();
-                  //  ////
-                  //  this.route.queryParams.subscribe(
-                  //   params=>{
-                  //   console.log(params['verUsuario']);
-                  //   if(!params){
-                  //     this.verUsuario=params['verUsuario'];
-                  //     alert(this.verUsuario)
-                  //   }
-                  //   }
-                  // )
-                  // ///
-        this.depService.getEstadisticasDelUsuario(data['id']).subscribe(
+        this.depService.getEstadisticasDelUsuario(parseInt(userId)).subscribe(
           res => {
             const aux= (res['body']);
             const aux2 = aux['msj'];
@@ -132,8 +116,8 @@ export class UsuarioComponent implements OnInit {
             console.log(err);
           }
         )
-        this.service.canActivate();
-        this.service.isCliente();
+        //this.service.canActivate();
+       // this.service.isCliente();
       },
       err =>{
         console.log(err);
@@ -147,11 +131,6 @@ export class UsuarioComponent implements OnInit {
   }
 
   changeVentana(e){
-    // if(this.titulo=="PANEL USUARIO"){
-    //   this.titulo="MIS DATOS";
-    // }else{
-    //   this.titulo="PANEL USUARIO";
-    // }
     if(this.BarraSuperiorService.volver){
       this.BarraSuperiorService.volver=false;;
       this.titulo="MIS DATOS";

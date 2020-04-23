@@ -30,11 +30,12 @@ export class UsuarioService implements CanActivate {
   logOut() {
     return this.http.get(`${this.authService.ruta}logout`);
   }
-  getUsuario(id: number): Observable<UsuarioModule> {
+  getUsuario(id:string): Observable<UsuarioModule> {
+    console.log(id);
     const params = new HttpParams()
       .set('id',id.toString());
       return this.http.get<string>(`${this.authService.ruta}getUsuario/`,
-      {params: params, observe: 'response'})
+      {params: params , observe: 'response'})
           .pipe(
           map((data => new UsuarioModule().deserialize(data))
         )
@@ -69,11 +70,10 @@ usuarioVerificado(id)  {
 
 getRol(){
   this.canActivate();
-  const data = JSON.parse(this.authService.getLocal());
-  const id= data['id'];
-  
+  const data = JSON.parse(this.authService.getUserId());
+   
   const params = new HttpParams()
-  .set('id_user',id);
+  .set('id_user',data);
   return this.http.get(`${this.authService.ruta}getRol`,
   {params: params,observe: 'response'});
 }
@@ -105,7 +105,7 @@ isCliente(){
       if(rol_usuario == 'cliente'){
         return true;
       }else{
-        this.route.navigate(['/panelAdministrador']);
+       this.route.navigate(['/panelAdministrador']);
       }
     }
   );

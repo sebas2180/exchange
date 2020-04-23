@@ -2,7 +2,7 @@ const beneficiarioModel = require('../models/beneficiarioModel');
 
 function beneficiarioRoute(app,passport) {
 
-    app.get('/getBeneficiarios',isAuthenticated,(req,res) =>{
+    app.get('/getBeneficiarios',verifyToken.verificar,(req,res) =>{
         beneficiarioModel.getBeneficiarios(req.query.id_usuario)
         .then(
             resp=>{
@@ -37,7 +37,7 @@ function beneficiarioRoute(app,passport) {
         )
 
     });
-    app.put('/addBeneficiario',isAuthenticated,(req,res) =>{
+    app.put('/addBeneficiario',verifyToken.verificar,(req,res) =>{
         beneficiarioModel.addBeneficiario(req.body)
         .then(
             resp=>{
@@ -51,7 +51,7 @@ function beneficiarioRoute(app,passport) {
             }
         )
     });
-    app.delete('/deleteBeneficiario',isAuthenticated,(req,res,next)=>{
+    app.delete('/deleteBeneficiario',verifyToken.verificar,(req,res,next)=>{
         beneficiarioModel.deleteBeneficiario(req.query.id)
         .then(
             resp=>{
@@ -61,7 +61,7 @@ function beneficiarioRoute(app,passport) {
             }
         )
     });
-    app.get('/getBeneficiario',(req,res) =>{
+    app.get('/getBeneficiario',verifyToken.verificar,(req,res) =>{
         beneficiarioModel.getBeneficiario(req.query.id_beneficiario)
         .then(
             resp=>{
@@ -97,10 +97,4 @@ function beneficiarioRoute(app,passport) {
     });
 }
 module.exports  = beneficiarioRoute;
-
-function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated())
-    console.log('aut');
-      return next();
-
-}
+ 

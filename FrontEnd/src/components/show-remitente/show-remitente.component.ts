@@ -14,7 +14,7 @@ export class ShowRemitenteComponent implements OnInit {
   constructor(private UsuarioService: UsuarioService) { }
 
   ngOnInit(): void {
-    this.UsuarioService.getUsuario(this.deposito.id_user).subscribe(
+    this.UsuarioService.getUsuario(this.deposito.id_user.toString()).subscribe(
       res=>{
         const aux = res['body'];
         this.usuario= aux['usuario'];

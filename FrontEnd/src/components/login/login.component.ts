@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
   }
   entrar(){
    
-   // console.log('ok');
+    console.log('ok');
     this.service.login(this.usuario).subscribe(
       res => {
-       // console.log(res);
+        console.log(res);
         if(res['status'] == ( 702 ) ) {
           swal.fire({
             icon: 'error',
@@ -55,24 +55,21 @@ export class LoginComponent implements OnInit {
             text: 'Verifique los datos',
           })
         }else{
-          if(res['status'] ==703){
-            const aux = res['user'];
-           // console.log(aux.rol);
-            switch(aux.rol){
+          if(res['status'] === 703 ) {
+            const aux = res;
+           console.log(aux['rol']);
+            switch(aux['rol']){
               case "cliente":
-                        //this.barraService.setTitulo('PANEL USUARIO');
-                        this.authService.setUserInfo( res['user'] );
-                        //console.log('MENU CLIENTE');
-                           this.service.logeado = true;
-                           console.log('estado logeado:     '+this.service.logeado);
-                          this.route.navigate(['/panel-usuario']);
+                    this.authService.setUserInfo( aux['id'],aux['user'],aux['token'] );
+                    this.service.logeado = true;
+                    console.log('estado logeado:     '+this.service.logeado);
+                    this.route.navigate(['/panel-usuario']);
               break;
               case "administrador":
-                    
-                    //this.barraService.setTitulo('PANEL ADMINISTRADOR');
-                    this.authService.setUserInfo( res['user'] );
+                    this.authService.setUserInfo(  res['id'],res['user'],res['token']);
                     //console.log('MENU ADM');
                       this.service.logeado = true;
+                      //alert('volver');
                       this.route.navigate(['/panelAdministrador']);
               break;
             }

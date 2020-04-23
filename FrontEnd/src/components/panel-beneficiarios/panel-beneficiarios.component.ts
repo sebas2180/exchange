@@ -48,9 +48,9 @@ export class PanelBeneficiariosComponent implements OnInit {
   ngOnInit(): void 
   {
     this.BarraSuperiorService.volver=false;
-    const data = JSON.parse(this.authService.getLocal());
-    console.log(data['id']);
-    this.BeneficiariosAutho.getBeneficiarios(data['id']).subscribe(
+    const data = parseInt( this.authService.getUserId() );
+ 
+    this.BeneficiariosAutho.getBeneficiarios(data).subscribe(
       res=>{
        
         this.beneficiariosAux = res['body'];

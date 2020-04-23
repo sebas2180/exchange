@@ -1,11 +1,12 @@
 
 const usuarioModel = require('../../src/models/usuarioModel');
-//const mysql = require('../../database/mysql');
 var crypto            = require('crypto');
 const User = require('../../database/usuarios')();
-//const conn = mysql.dbConnection();
-    function usuarioRoute(app,passport){
-    app.get('/getRol',isAuthenticated,(req,res,next)=>{
+const mysql = require('../../database/mysql');
+const connection = mysql.dbConnection();
+ 
+  function usuarioRoute(app,passport){
+    app.get('/getRol',verifyToken.verificar,(req,res,next)=>{
         usuarioModel.getRol(req.query.id_user)
         .then(
           resp=>{
@@ -13,10 +14,13 @@ const User = require('../../database/usuarios')();
           }
         )
     });
-    app.get('/panelUser',isAuthenticated, (req, res, next) => {
+
+    app.get('/panelUser',verifyToken.verificar, (req, res, next) => {
         res.render('profile');
     });
-    app.get('/getUsuario',isAuthenticated, (req, res, next) => {
+
+
+    app.get('/getUsuario',verifyToken.verificar, (req, res, next) => {
      resp =usuarioModel.getUsuario(req.query.id)
      .then(
        resp=>{
@@ -42,16 +46,13 @@ const User = require('../../database/usuarios')();
        }
       }
      )
-
-      
     });
-    app.get('/getAllUsers',isAuthenticated, (req, res, next) => {
-      usuarioModel.getUsuarios()
-      .then(
-        resp=>{
 
+
+    app.get('/getAllUsers',verifyToken.verificar, (req, res, next) => {
+      usuarioModel.getUsuarios().then(
+        resp=>{
          if(!resp){
-           
            const sendInfo={
                status: 713,
                msj: 'Ops!.No se encontraron usuarios',
@@ -72,7 +73,7 @@ const User = require('../../database/usuarios')();
       )
      });
  
-     app.get('/getUserForEmail',isAuthenticated, (req, res, next) => {
+     app.get('/getUserForEmail',verifyToken.verificar, (req, res, next) => {
       resp =usuarioModel.getUserForEmail(req.query.email)
       .then(
         resp=>{
@@ -101,7 +102,7 @@ const User = require('../../database/usuarios')();
  
        
      });
-     app.get('/getUserForUser',isAuthenticated, (req, res, next) => {
+     app.get('/getUserForUser',verifyToken.verificar, (req, res, next) => {
       resp =usuarioModel.getUserForUser(req.query.usuario)
       .then(
         resp=>{
@@ -131,35 +132,56 @@ const User = require('../../database/usuarios')();
        
      });
     app.post('/login', function(req, res, next) {
-        passport.authenticate('local', function(err, user, info) {
-          if (err) { 
-            return next(err); 
-          }
-          console.log(user['id']);
-          if (!user){
-            console.log('no logeado');
-             { const devolver={
-             status:702,
-             success:'usuario no existente'
-          }
-          res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-              
-          return res.send(JSON.stringify(devolver)); }
-          }else{
-            req.logIn(user, function(err) {
-              if (err) { return next(err); }
-              console.log('logeado');
+      console.log(req.body);
+      usuario = {
+        usuario :req.body.usuario,
+        password: req.body.password
+      }
+      var linea = "SELECT * FROM usuarios WHERE usuario =\'"+usuario.usuario+'\'';
+      //console.log('linea:    '+linea);
+      connection.query(linea,    function(err, rows){ 
+        if(err) { console.log( err ); }
+          console.log(rows);
+        if(!rows[0]){ 
+          console.log('no logeadoo');
+          const devolver={
+              status:702,
+              success:'usuario no existente'
+          }    
+          return res.end(JSON.stringify(devolver));
+        }else{
+         // console.log('password  :  '+usuario.password);
+          var salt = '7fa73b47df808d36c5fe328546ddef8b9011b2c6';
+          salt = salt+''+usuario.password;
+          var encPassword = crypto.createHash('sha1').update(salt).digest('hex');
+          var dbPassword  = rows[0].password;
+         //console.log(dbPassword);
+          //console.log(encPassword);
+          if((dbPassword == encPassword)){
+            verifyToken.login(req.body.usuario,req.body.rol,(token)=>{
+             
               const devolver={
                 status:703,
                 success:'usuario logeado',
-                user: user
+                user: usuario.usuario,
+                id:  rows[0]['id'],
+                token: token,
+                rol: rows[0]['rol']
               }
-              res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-              return res.send((devolver));
-            });
-          }       
-        })(req, res, next);   
+              console.log(devolver)
+              return res.end(JSON.stringify(devolver));
+             })
+           }else{
+            //console.log('no logeado');
+            const devolver={
+                status:702,
+                success:'usuario no existente'
+            }    
+            return res.end(JSON.stringify(devolver));
+      }
+      }
     });
+  });
 
     app.put('/signup',function(req,res,next){
       console.log(req.body);   
@@ -198,17 +220,9 @@ const User = require('../../database/usuarios')();
           console.log(err);
         }
       )
-      // try{
-      //   passport.authenticate('signup',(err,user,info)=>{
-      //     if (err) { 
-      //       return next(err); 
-      //     }
-      //   });
-      // }catch(err){
-      //   console.log(err);
-      // }
+ 
     })
-    app.get('/logout',isAuthenticated, (req, res, next) => {
+    app.get('/logout',verifyToken.verificar, (req, res, next) => {
         console.log('desconexion');
         req.logout();
         req.session.destroy(function (err) {
@@ -216,13 +230,11 @@ const User = require('../../database/usuarios')();
             status: 999,
             url:'Desconexion correcta'
           }
-    
-          
             res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
            return res.end(JSON.stringify(sendInfo.url));
       });
       });
-    app.put('/addUsusario',isAuthenticated,(req,res) =>{
+    app.put('/addUsusario',verifyToken.verificar,(req,res) =>{
         usuarioModel.addUsuario(req.body)
         .then(
             resp=>{
@@ -237,7 +249,7 @@ const User = require('../../database/usuarios')();
         )
     });
 
-    app.get('/disabledUsuario',isAuthenticated,(req,res) =>{
+    app.get('/disabledUsuario',verifyToken.verificar,(req,res) =>{
       usuarioModel.disabledUsuario(req.query)
       .then(
           resp=>{
@@ -251,7 +263,7 @@ const User = require('../../database/usuarios')();
           }
       )
   });
-  app.get('/validarPassword',isAuthenticated,(req,res) =>{
+  app.get('/validarPassword',verifyToken.verificar,(req,res) =>{
     console.log(req.query);
     usuarioModel.validarPassword(req.query)
     .then(
@@ -266,7 +278,7 @@ const User = require('../../database/usuarios')();
         }
     )
 });
-app.get('/usuarioVerificado',isAuthenticated,(req,res) =>{
+app.get('/usuarioVerificado',verifyToken.verificar,(req,res) =>{
   console.log(req.query);
   usuarioModel.usuarioVerificado(req.query)
   .then(
@@ -281,7 +293,7 @@ app.get('/usuarioVerificado',isAuthenticated,(req,res) =>{
       }
   )
 });
-app.post('/updateUsuario',isAuthenticated,(req,res) =>{
+app.post('/updateUsuario',verifyToken.verificar,(req,res) =>{
 
   usuarioModel.updateUsuario(req.body)
   .then(
@@ -299,10 +311,3 @@ app.post('/updateUsuario',isAuthenticated,(req,res) =>{
 }
 
 module.exports = usuarioRoute;
-
-function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated())
-  console.log('aut');
-    return next();
-
-}

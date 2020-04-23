@@ -53,11 +53,11 @@ export class DepositosComponent implements OnInit,AfterViewInit {
       this.displayedColumns = ['usuario','fecha','monto_transaccion','actionAdm'];
     }
     this.TransaccionService.CanActivate();
-    const data = JSON.parse(this.authService.getLocal());
+    const data = parseInt( this.authService.getUserId() );
     if(!this.esCliente){
       console.log('---------------ES CLIENTE ------------');
       if(this.nroBeneficiario>0){
-        this.TransaccionService.getAllDepositosForBeneficiario(data['id'],this.nroBeneficiario).subscribe(
+        this.TransaccionService.getAllDepositosForBeneficiario(data ,this.nroBeneficiario).subscribe(
           res => {
             //console.log('---------------ES FOR BENEFICIARIO ------------');
                 this.deposito = res;
@@ -72,8 +72,8 @@ export class DepositosComponent implements OnInit,AfterViewInit {
         );
   
       }else{
-        console.log('id usuario:'+data['id']);
-        this.TransaccionService.getAllDepositosForUser(data['id']).subscribe(
+        console.log('id usuario:'+data );
+        this.TransaccionService.getAllDepositosForUser(data ).subscribe(
           res => {
                 this.deposito = res;
                 this.depositos = res['body'];
@@ -115,6 +115,7 @@ export class DepositosComponent implements OnInit,AfterViewInit {
      
     if(!this.isDepositoPorUsuario){
       this.BarraSuperiorService.volver=true;
+      //alert('volver');
       this.router.navigate(['/panel-usuario']);
     }else{
       this.volver_panelBeneficiario.emit(false);

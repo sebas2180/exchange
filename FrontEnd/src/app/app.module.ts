@@ -1,7 +1,8 @@
+import { TokenInterceptorService } from './services/token-interceptor/token-interceptor.service';
 
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { TasasService } from './services/tasas/tasas.service';
 import { DashboardService } from './services/dasboard/dashboard.service';
  import { DepositoService } from './services/deposito/deposito.service';
 import { BarraSuperiorService } from './services/barra-superior/barra-superior.service';
+import {  GuardService } from './services/guard/guard.service';
 
 import { ShowDashboardComponent } from './../components/show-dashboard/show-dashboard.component';
 import { ShowRemitenteComponent } from './../components/show-remitente/show-remitente.component';
@@ -134,7 +136,14 @@ import { ComprobarDatosComponent } from 'src/components/comprobar-datos/comproba
     TasasService,
     ManejoFechasService,
     TablaUsuariosService,
-    BarraSuperiorService 
+    BarraSuperiorService,
+    TokenInterceptorService,
+    GuardService  ,
+              {
+                provide: HTTP_INTERCEPTORS,
+                useClass: TokenInterceptorService,
+                multi: true
+              }
     ],
   bootstrap: [AppComponent]
 })

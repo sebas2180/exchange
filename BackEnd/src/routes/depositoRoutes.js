@@ -3,7 +3,7 @@ const depositoModel = require('../models/depositoModel');
 
 function depositosRoutes(app,passport) {
     
-    app.post('/addDeposito',isAuthenticated,(req,res)=>{
+    app.post('/addDeposito',verifyToken.verificar,(req,res)=>{
         depositoModel.addDeposito(req)
         .then(
             resp=>{
@@ -13,17 +13,8 @@ function depositosRoutes(app,passport) {
         );
         
     });
-    // app.post('/updateStateDeposit',(req,res)=>{
-    //     depositoModel.updateStateDeposit(req)
-    //     .then(
-    //         resp=>{
-                
-    //             res.send(resp);
-    //         }
-    //     );
-        
-    // });
-    app.get('/EstadisticasDelUsuario',isAuthenticated,(req,res)=>{
+ 
+    app.get('/EstadisticasDelUsuario',verifyToken.verificar,(req,res)=>{
         resp = depositoModel.getEstadisticasDelUsuario(req.query.id_user)
      .then(resp =>{
          console.log(resp);
@@ -45,7 +36,7 @@ function depositosRoutes(app,passport) {
       
     });
 
-    app.get('/allDepositsForUser',isAuthenticated,(req,res)=>{ 
+    app.get('/allDepositsForUser',verifyToken.verificar,(req,res)=>{ 
         console.log(req.query);
     depositoModel.allDepositsForUser(req.query.id)
      .then(resp =>{
@@ -63,7 +54,7 @@ function depositosRoutes(app,passport) {
      });
     });
 
-    app.get('/allDepositsForDestinatario',isAuthenticated,(req,res)=>{ 
+    app.get('/allDepositsForDestinatario',verifyToken.verificar,(req,res)=>{ 
         resp = depositoModel.getDepositosForDestinatario(req.query)
         .then(resp =>{  
            if(resp != undefined){
@@ -79,7 +70,7 @@ function depositosRoutes(app,passport) {
            }
            
        });
-       app.get('/getDepositosForId',isAuthenticated,(req,res)=>{ 
+       app.get('/getDepositosForId',verifyToken.verificar,(req,res)=>{ 
         resp = depositoModel.getDepositosForId(req.query)
         .then(resp =>{  
            if(resp != undefined){
@@ -95,7 +86,7 @@ function depositosRoutes(app,passport) {
            }
            
        });
-    app.get('/allDeposits',isAuthenticated,(req,res)=>{ 
+    app.get('/allDeposits',verifyToken.verificar,(req,res)=>{ 
         resp = depositoModel.getDepositos()
         .then(resp =>{
            if(resp != undefined){
@@ -111,7 +102,7 @@ function depositosRoutes(app,passport) {
            }
            
        });
-       app.get('/allDepositsOnlyverif',isAuthenticated,(req,res)=>{ 
+       app.get('/allDepositsOnlyverif',verifyToken.verificar,(req,res)=>{ 
         resp = depositoModel.getDepositosOnlyVerif()
         .then(resp =>{
            if(resp != undefined){
@@ -132,9 +123,4 @@ function depositosRoutes(app,passport) {
 
 module.exports= depositosRoutes;
 
-
-function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated())
-    console.log('aut');
-      return next();
-    }
+ 
