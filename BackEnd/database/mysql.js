@@ -20,7 +20,8 @@ var  db_config={
         password: 'vj4gdmbs9si2agwj',
         database: 'exchange',
         insecureAuth : true,
-        dateStrings:true
+        dateStrings:true,
+        "connectTimeout": 30000
 }
 module.exports = {
  
