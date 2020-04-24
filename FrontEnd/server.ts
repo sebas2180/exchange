@@ -42,7 +42,7 @@ function run() {
   const port =  5200;
   // Start up the Node server
   const server = app();
-  server.listen(port, () => {
+  server.listen(port,'161.35.134.242', () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
