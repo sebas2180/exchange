@@ -1,6 +1,6 @@
 {
     "/http://localhost:3000/*": {
-      "target": "http://localhost:3000/",
+      "target": "http://161.35.134.242:5200/",
       "secure": false,
       "changeOrigin": true
     }
