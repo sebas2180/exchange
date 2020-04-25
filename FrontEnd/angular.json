@@ -20,7 +20,7 @@
           "options": {
             "outputPath": "dist/FrontEnd/browser",
             "index": "src/index.html",
-            "main": "src/server.ts",
+            "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
