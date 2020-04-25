@@ -2,21 +2,23 @@ img {
     width: 80%;
     height: 50%;
     max-width: 600px;
-    max-height: 300px;
+    max-height: 40px;
 
 }
 .box{
     position: relative;
-    width: 100%;
     max-width: 20%;
 }
  .uploader-wrap{
     display:flex;
-    flex-direction: column;
-    align-items:stretch;
+    flex-direction: row;
+    align-items:center;
  }
  .buttons{
      position: relative;
-     left:55%;
+     //left:55%;
  }
-
+.buttons{
+    display: flex;
+    justify-content: center;
+}

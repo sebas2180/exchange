@@ -82,21 +82,8 @@
                         </ul>
                     </div>
 
-                    <div class="box1"  *ngIf="this.panelActual<4">
-                        <h1><i class="material-icons"  
-                            *ngIf="this.panelActual>1" (click)="this.beforePanel()"> 
-                            navigate_before </i>      
-                        </h1>
-                     </div>
                      <div class="box2"  *ngIf="this.panelActual<4" >
-                        
                              <h3>{{this.panelActual}}/4</h3>
-                             
-                     </div>
-                     <div class="box3"  *ngIf="this.panelActual<5">
-                            <i class="material-icons"  (click)="this.nextPanel()"
-                                 *ngIf="this.panelActual<=5"> 
-                             navigate_next </i>
                      </div>
                 </div>
                      
@@ -106,11 +93,19 @@
         </form>
     </div>
 
-<div class="botones">
-    <div class="boton"  (click)="this.volver()"*ngIf="this.panelActual!=5"  >
-         <h2 >VOLVER</h2>
+<div class="botones"  *ngIf="this.panelActual== 1 || this.panelActual==5"  >
+    <div class="boton"  (click)="this.nextPanel()" *ngIf="this.panelActual==1"   >
+         <h2 >SIGUIENTE</h2>
     </div>
     <div class="boton"  (click)="this.guardar()" *ngIf="this.panelActual==5" >
         <h2 >GUARDAR</h2>
    </div>
+</div>
+<div class="botones2" *ngIf="this.panelActual>1 && this.panelActual<5" >
+    <div class="boton2"  (click)="this.beforePanel()" *ngIf="this.panelActual>1"   >
+        <h2 >ANTERIOR</h2>
+   </div>
+   <div class="boton2"  (click)="this.nextPanel()" *ngIf="  this.panelActual<5"   >
+        <h2 >SIGUIENTE</h2>
+    </div>
 </div>

@@ -9,8 +9,8 @@
     </div>
     
     <div class="buttons">
-        <button type="button" class="btn btn-success" *ngIf=" !this.IsImage">Elegir imagen</button>
-        <button type="button" class="btn btn-danger" *ngIf="this.IsImage">Remover</button>
+      <div>  <button type="button" class="btn btn-success" *ngIf=" !this.IsImage">Elegir imagen</button></div>
+       <div> <button type="button" class="btn btn-danger" *ngIf="this.IsImage">cambiar imagen</button></div>
     </div>
 </div>
 <input type="file" accept="image/x-png,image/gif,image/jpeg"  class="form-control d-none" (change)="selectFile($event)"  #fileUpoader />

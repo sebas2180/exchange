@@ -1,6 +1,6 @@
- <div class="container-fluid">
+<form action="" [formGroup]="this.dashForm" (ngSubmit)="enviar(this.dashForm)" enctype="multipart/form-data">
+    <div class="container-fluid">
     <div class="principal">
-        <form action="" [formGroup]="this.dashForm" (ngSubmit)="enviar(this.dashForm)" enctype="multipart/form-data">
             <div class="div1">
             </div>
         <div class="card">
@@ -79,20 +79,26 @@
                                  </div>
                                  <div class="text-danger"  *ngIf="uploadError">{{uploadError}}</div>
                                  </div>
-                                 <div class="card-footer footer3">
-                                     <button class="btn btn-primary "  type="submit"   [disabled]="dashForm.invalid"> Enviar
-                                     </button>
-                                     <button class="btn btn-danger " (click)="volver()" >  Enviar
-                                     </button>
-                                 </div>
-    
-                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>   
                 </div>
             </div>
         </div>
-        </form>
     </div>
  </div>
+ <div class="botones">
+    <div class="boton" (click)="volver()"  >
+        <p>Volver</p>
+     </div>
+     <div class="boton"  type="submit"   disabled="dashForm.invalid">
+        <p>Enviar</p>
+     </div>
+    <!-- <button class="btn btn-primary boton"    [disabled]="dashForm.invalid" > Enviar
+    </button>
+    
+    <button class="btn btn-danger boton" (click)="volver()" >  Volver
+    </button> -->
+ </div>
+</form>
