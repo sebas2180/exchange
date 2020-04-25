@@ -19,9 +19,9 @@ var  db_config={
         user: 'doadmin',
         password: 'vj4gdmbs9si2agwj',
         database: 'exchange',
-        insecureAuth : true,
-        dateStrings:true,
-        "connectTimeout": 30000
+        //insecureAuth : true,
+        //dateStrings:true,
+        connectTimeout: 10000
 }
 module.exports = {
  

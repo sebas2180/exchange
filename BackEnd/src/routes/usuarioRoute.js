@@ -142,44 +142,46 @@ const connection = mysql.dbConnection();
       connection.query(linea,    function(err, rows){ 
         if(err) { console.log( err ); }
           console.log(rows);
-        if(!rows[0]){ 
-          console.log('no logeadoo');
-          const devolver={
-              status:702,
-              success:'usuario no existente'
-          }    
-          return res.end(JSON.stringify(devolver));
-        }else{
-         // console.log('password  :  '+usuario.password);
-          var salt = '7fa73b47df808d36c5fe328546ddef8b9011b2c6';
-          salt = salt+''+usuario.password;
-          var encPassword = crypto.createHash('sha1').update(salt).digest('hex');
-          var dbPassword  = rows[0].password;
-         //console.log(dbPassword);
-          //console.log(encPassword);
-          if((dbPassword == encPassword)){
-            verifyToken.login(req.body.usuario,req.body.rol,(token)=>{
-             
-              const devolver={
-                status:703,
-                success:'usuario logeado',
-                user: usuario.usuario,
-                id:  rows[0]['id'],
-                token: token,
-                rol: rows[0]['rol']
-              }
-              console.log(devolver)
-              return res.end(JSON.stringify(devolver));
-             })
-           }else{
-            //console.log('no logeado');
+        if(rows){
+          if(!rows[0]){ 
+            console.log('no logeadoo');
             const devolver={
                 status:702,
                 success:'usuario no existente'
             }    
             return res.end(JSON.stringify(devolver));
-      }
-      }
+          }else{
+           // console.log('password  :  '+usuario.password);
+            var salt = '7fa73b47df808d36c5fe328546ddef8b9011b2c6';
+            salt = salt+''+usuario.password;
+            var encPassword = crypto.createHash('sha1').update(salt).digest('hex');
+            var dbPassword  = rows[0].password;
+           //console.log(dbPassword);
+            //console.log(encPassword);
+            if((dbPassword == encPassword)){
+              verifyToken.login(req.body.usuario,req.body.rol,(token)=>{
+               
+                const devolver={
+                  status:703,
+                  success:'usuario logeado',
+                  user: usuario.usuario,
+                  id:  rows[0]['id'],
+                  token: token,
+                  rol: rows[0]['rol']
+                }
+                console.log(devolver)
+                return res.end(JSON.stringify(devolver));
+               })
+             }else{
+              //console.log('no logeado');
+              const devolver={
+                  status:702,
+                  success:'usuario no existente'
+              }    
+              return res.end(JSON.stringify(devolver));
+        }
+        }
+        }
     });
   });
 

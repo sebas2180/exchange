@@ -13,6 +13,7 @@ const Sequelize = require('sequelize')
   sequelize = new Sequelize('exchange', 'doadmin', 'vj4gdmbs9si2agwj', {
     dialect: 'mysql',
     port : 25060,
+    connectTimeout: 10000,
     host: 'db-mysql-nyc1-18623-do-user-6877514-0.a.db.ondigitalocean.com',
     logging: false,
     define: {
