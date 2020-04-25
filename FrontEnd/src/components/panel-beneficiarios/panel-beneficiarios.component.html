@@ -5,7 +5,7 @@
                 (verUsuario)=this.volver($event)>
 </barra-superior>
 
-<div class="container-fluid"  *ngIf="!this.isVisible" @enterState>
+<!-- <div class="container-fluid"  *ngIf="!this.isVisible" @enterState>
   <mat-grid-list cols="2" rowHeight="90px">
     <mat-grid-tile [colspan]="1" [rowspan]="1" >
        <button class="btn btn-success btn-block" routerLink="/nuevo-beneficiario">Nuevo beneficiario</button>
@@ -16,7 +16,17 @@
    </mat-grid-tile>
 
   </mat-grid-list>
+</div> -->
+<div class="botones">
+  <div class="boton" routerLink="/nuevo-beneficiario">
+    <p>Nuevo beneficiario</p>
+  </div>
+  <div class="boton" routerLink="/transferencias">
+   <p> Nueva transferencia</p>
+  </div>
 </div>
+
+
 <div class="list"  @enterState *ngIf="!this.isVisible" >
   <app-beneficiario *ngFor='let beneficiario of this.BeneficiariosAutho.beneficiarios' 
                       [beneficiario]= "beneficiario" 
